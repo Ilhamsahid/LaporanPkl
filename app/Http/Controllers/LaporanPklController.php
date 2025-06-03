@@ -12,7 +12,7 @@ class LaporanPklController extends Controller
      */
     public function index()
     {
-        //
+        return view('pkl.laporan.index');
     }
 
     /**

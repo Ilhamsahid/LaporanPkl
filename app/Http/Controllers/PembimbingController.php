@@ -4,15 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Pembimbing;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PembimbingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function login(Request $request){
+        $credentials = $request->validate([
+            'nama' => 'required',
+            'password' => 'required'
+        ]);
+
+        if(!Auth::guard('pembimbing')->attempt($credentials)){
+            return back()->withErrors([
+                'login_error' => 'Username Dan Password Tidak Sesuai'
+            ]);
+        }
+
+        return redirect()->route('dashboard');
+    }
+
+    public function hapussession(){
+        session()->flush();
+    }
+
     public function index()
     {
-        //
+        return view('pembimbing.index');
     }
 
     /**
@@ -62,4 +80,5 @@ class PembimbingController extends Controller
     {
         //
     }
+
 }

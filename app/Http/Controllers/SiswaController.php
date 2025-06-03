@@ -12,7 +12,7 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        //
+        return view('siswa.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -28,7 +28,7 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

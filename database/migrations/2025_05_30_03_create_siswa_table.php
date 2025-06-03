@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('telepon')->nullable();
             $table->foreignId('pembimbing_id')->nullable()->constrained('pembimbing')->nullOnDelete();
             $table->foreignId('tempat_pkl_id')->nullable()->constrained('tempat_pkl')->nullOnDelete();
+            $table->foreignId('kelas_id')->nullable()->constrained('kelas')->nullOnDelete();
             $table->timestamps();
         });
     }

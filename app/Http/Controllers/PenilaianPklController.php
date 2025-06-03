@@ -12,7 +12,7 @@ class PenilaianPklController extends Controller
      */
     public function index()
     {
-        //
+        return view('penilaian.index');
     }
 
     /**

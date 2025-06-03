@@ -12,7 +12,7 @@ class TempatPklController extends Controller
      */
     public function index()
     {
-        //
+        return view('pkl.tempat.index');
     }
 
     /**
