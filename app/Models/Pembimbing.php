@@ -21,11 +21,11 @@ class Pembimbing extends Authenticatable
     protected $hidden = [
         'password',
     ];
-
     public function siswa()
     {
         return $this->hasMany(Siswa::class);
     }
+
 
     public function penilaian()
     {

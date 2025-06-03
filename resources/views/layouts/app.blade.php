@@ -20,8 +20,20 @@
     </script>
 </head>
 
-<body >
+<body>
+
+    <!-- Notification Container -->
+    <div id="notification-container" class="notification-container">
+
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
     @yield('content')
+    @stack('modal')
 </body>
 
 </html>

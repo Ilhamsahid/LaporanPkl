@@ -19,6 +19,7 @@ class Siswa extends Authenticatable
         'telepon',
         'pembimbing_id',
         'tempat_pkl_id',
+        'kelas_id'
     ];
 
     protected $hidden = [
@@ -48,5 +49,9 @@ class Siswa extends Authenticatable
     public function penilaian()
     {
         return $this->hasMany(PenilaianPkl::class);
+    }
+
+    public function kelas(){
+        return $this->belongsTo(Kelas::class);
     }
 }

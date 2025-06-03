@@ -4,7 +4,8 @@ const root = document.documentElement;
 // Load saved theme
 const savedTheme = localStorage.getItem("theme") || "dark";
 root.setAttribute("data-theme", savedTheme);
-document.cookie = "theme=" + savedTheme + "; path=/; max-age=" + 60 * 60 * 24 * 30;
+document.cookie =
+    "theme=" + savedTheme + "; path=/; max-age=" + 60 * 60 * 24 * 30;
 
 // Toggle theme
 themeToggle.addEventListener("click", () => {
@@ -13,7 +14,8 @@ themeToggle.addEventListener("click", () => {
 
     root.setAttribute("data-theme", newTheme);
     localStorage.setItem("theme", newTheme);
-    document.cookie = "theme=" + newTheme + "; path=/; max-age=" + 60 * 60 * 24 * 30;
+    document.cookie =
+        "theme=" + newTheme + "; path=/; max-age=" + 60 * 60 * 24 * 30;
 });
 
 // Sidebar Management
@@ -300,28 +302,114 @@ const styleSheet = document.createElement("style");
 styleSheet.textContent = printStyles;
 document.head.appendChild(styleSheet);
 
+
+function showNotification(type, title, message) {
+    const container = document.getElementById("notification-container");
+    const notification = document.createElement("div");
+    notification.className = `notification ${type}`;
+
+    const iconMap = {
+        success: "fas fa-check-circle",
+        error: "fas fa-exclamation-circle",
+        warning: "fas fa-exclamation-triangle",
+        info: "fas fa-info-circle",
+    };
+
+    notification.innerHTML = `
+                <i class="notification-icon ${iconMap[type]}"></i>
+                <div class="notification-content">
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="notification-close" onclick="removeNotification(this)">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+
+    container.appendChild(notification);
+
+    // Show notification
+    setTimeout(() => {
+        notification.classList.add("show");
+    }, 300);
+
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        removeNotification(notification.querySelector(".notification-close"));
+    }, 3000);
+}
+
+function removeNotification(button) {
+    const notification = button.closest(".notification");
+    notification.classList.remove("show");
+
+    setTimeout(() => {
+        notification.remove();
+    }, 300);
+}
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        const form = modal.querySelector('form');
+        const form = modal.querySelector("form");
         if (form) {
             form.reset();
         }
 
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
     }
 }
 
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-        
-        const form = modal.querySelector('form');
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+
+        const form = modal.querySelector("form");
         if (form) {
             form.reset();
         }
     }
+}
+
+function openDeleteModal(type, id, name) {
+    currentDeleteData = { type, id, name };
+
+    const message = document.getElementById("delete-message");
+    message.textContent = `Apakah Anda yakin ingin menghapus "${name}"? Data yang dihapus tidak dapat dikembalikan.`;
+
+    openModal("delete-modal");
+}
+
+function confirmDelete() {
+    if (!currentDeleteData) return;
+
+    showLoading();
+
+    // Simulate API call
+    setTimeout(() => {
+        hideLoading();
+        closeModal("delete-modal");
+        showNotification(
+            "success",
+            "Berhasil",
+            `Data ${currentDeleteData.name} berhasil dihapus`
+        );
+
+        // Refresh table data here
+        // refreshTableData(currentDeleteData.type);
+
+        currentDeleteData = null;
+    }, 1000);
+}
+
+function showLoading() {
+    const overlay = document.getElementById("loading-overlay");
+    overlay.classList.add("active");
+}
+
+function hideLoading() {
+    const overlay = document.getElementById("loading-overlay");
+    overlay.classList.remove("active");
 }

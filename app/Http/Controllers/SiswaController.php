@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Siswa;
+use App\Models\Pembimbing;
+use App\Models\TempatPkl;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SiswaController extends Controller
 {
@@ -12,7 +16,13 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        return view('siswa.index');
+        $siswas = Siswa::with('kelas', 'pembimbing', 'tempatPkl')->orderBy('id', 'desc')->paginate(5);
+
+        $kelas = Kelas::all();
+        $pembimbing = Pembimbing::all();
+        $tempat_pkl = TempatPkl::all();
+
+        return view('siswa.index', compact('kelas', 'pembimbing', 'tempat_pkl', 'siswas'));
     }
 
     /**
@@ -28,7 +38,11 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request['password'] = bcrypt($request['password']);
+
+        Siswa::create($request->all());
+
+        return redirect()->back()->with('success', 'Data siswa berhasil ditambah!');
     }
 
     /**
@@ -52,7 +66,9 @@ class SiswaController extends Controller
      */
     public function update(Request $request, Siswa $siswa)
     {
-        //
+        $siswa->update($request->all());
+
+        return redirect()->back()->with('success', 'Data siswa berhasil diupdate!');
     }
 
     /**
@@ -60,6 +76,8 @@ class SiswaController extends Controller
      */
     public function destroy(Siswa $siswa)
     {
-        //
+        $siswa->delete();
+
+        return redirect()->back()->with('success', 'Data siswa berhasil dihapus!');
     }
 }
