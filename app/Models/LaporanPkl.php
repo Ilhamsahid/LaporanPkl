@@ -13,6 +13,7 @@ class LaporanPkl extends Model
         'judul',
         'isi_laporan',
         'jenis_laporan',
+        'tanggal'
     ];
 
     public function siswa()

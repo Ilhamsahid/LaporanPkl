@@ -52,45 +52,49 @@
                         <!-- Mobile Cards View -->
                         @forelse ($pembimbings as $pembimbing)
                             <div class="mobile-card">
-                            <div class="mobile-card-header">
-                                <div class="mobile-card-title">{{ $pembimbing->nama }}</div>
-                                <div
-                                    style="width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, var(--primary-500), var(--primary-600)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem;">
-                                    IS</div>
+                                <div class="mobile-card-header">
+                                    <div class="mobile-card-title">{{ $pembimbing->nama }}</div>
+                                    <div
+                                        style="width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, var(--primary-500), var(--primary-600)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem;">
+                                        IS</div>
+                                </div>
+                                <div class="mobile-card-body">
+                                    <div class="mobile-card-item">
+                                        <div class="mobile-card-label">NIP:</div>
+                                        <div class="mobile-card-value">{{ $pembimbing->nip }}</div>
+                                    </div>
+                                    <div class="mobile-card-item">
+                                        <div class="mobile-card-label">Email:</div>
+                                        <div class="mobile-card-value">{{ $pembimbing->email }}</div>
+                                    </div>
+                                    <div class="mobile-card-item">
+                                        <div class="mobile-card-label">Telepon:</div>
+                                        <div class="mobile-card-value">{{ $pembimbing->telepon }}</div>
+                                    </div>
+                                    <div class="mobile-card-item">
+                                        <div class="mobile-card-label">Jumlah Siswa:</div>
+                                        <div class="mobile-card-value">12 siswa</div>
+                                    </div>
+                                </div>
+                                <div class="mobile-card-actions">
+                                    <button class="action-btn action-btn-view" title="Lihat Detail">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn action-btn-edit" title="Edit"
+                                        onclick="openModal('pembimbing-modal{{ $pembimbing->id }}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn action-btn-delete" title="Hapus"
+                                        onclick="openDeleteModal('pembimbing', {{ $pembimbing->id }}, '{{ addslashes($pembimbing->nama) }}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="mobile-card-body">
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">NIP:</div>
-                                    <div class="mobile-card-value">{{ $pembimbing->nip }}</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Email:</div>
-                                    <div class="mobile-card-value">{{ $pembimbing->email }}</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Telepon:</div>
-                                    <div class="mobile-card-value">{{ $pembimbing->telepon }}</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Jumlah Siswa:</div>
-                                    <div class="mobile-card-value">12 siswa</div>
-                                </div>
-                            </div>
-                            <div class="mobile-card-actions">
-                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn action-btn-edit" title="Edit" onclick="openModal('pembimbing-modal{{ $pembimbing->id }}')">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn action-btn-delete" title="Hapus"
-                                onclick="openDeleteModal('pembimbing', {{ $pembimbing->id }}, '{{ addslashes($pembimbing->nama) }}')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
                         @empty
-                            
+                            <div class="d-md-none"
+                                style="text-align:center; font-style: italic; color: var(--text-secondary);">
+                                Tidak ditemukan
+                            </div>
                         @endforelse
 
                         <!-- Desktop Table View -->
@@ -158,8 +162,19 @@
                                             ])
                                         @endpush
                                     @empty
+                                        <tr class="d-md-block">
+                                            <td colspan="6"
+                                                style="text-align:center; font-style: italic; color: var(--text-secondary);">
+                                                Tidak ditemukan
+                                            </td>
+                                        </tr>
                                     @endforelse
-
+                                    <tr class="no-results-message" style="display:none;">
+                                        <td colspan="6"
+                                            style="text-align:center; font-style: italic; color: var(--text-secondary);">
+                                            Tidak ditemukan
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

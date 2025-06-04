@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnDelete();
             $table->string('judul');
             $table->text('isi_laporan');
+            $table->date('tanggal');
             $table->enum('jenis_laporan', ['mingguan', 'akhir']);
             $table->timestamps();
         });

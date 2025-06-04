@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
 use App\Models\LaporanPkl;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,12 @@ class LaporanPklController extends Controller
      */
     public function index()
     {
-        return view('pkl.laporan.index');
+        $laporans = LaporanPkl::with('siswa')->orderBy('id', 'desc')->paginate(5);
+
+        $siswas = Siswa::all();
+        $jeniss = ['mingguan', 'akhiran'];
+
+        return view('pkl.laporan.index', compact('laporans', 'siswas', 'jeniss'));
     }
 
     /**
@@ -28,7 +34,9 @@ class LaporanPklController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        LaporanPkl::create($request->all());
+
+        return redirect()->back()->with('success', 'Laporan berhasil di tambah');
     }
 
     /**
@@ -50,16 +58,20 @@ class LaporanPklController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, LaporanPkl $laporanPkl)
+    public function update(Request $request, LaporanPkl $laporan)
     {
-        //
+        $laporan->update($request->all());
+
+        return redirect()->back()->with('success', 'Laporan berhasil di edit');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LaporanPkl $laporanPkl)
+    public function destroy(LaporanPkl $laporan)
     {
-        //
+        $laporan->delete();
+
+        return redirect()->back()->with('success', 'Laporan berhasil di hapus');
     }
 }

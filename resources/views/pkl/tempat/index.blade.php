@@ -51,9 +51,10 @@
                         </div>
 
                         <!-- Mobile Cards View -->
-                        <div class="mobile-card">
+                        @forelse ($tempatPkls as $tempatPkl)
+                            <div class="mobile-card">
                             <div class="mobile-card-header">
-                                <div class="mobile-card-title">CV. Digital Solutions</div>
+                                <div class="mobile-card-title">{{ $tempatPkl->nama_tempat }}</div>
                                 <div class="company-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
                                     <i class="fas fa-laptop-code"></i>
                                 </div>
@@ -61,15 +62,15 @@
                             <div class="mobile-card-body">
                                 <div class="mobile-card-item">
                                     <div class="mobile-card-label">Alamat:</div>
-                                    <div class="mobile-card-value">Jl. Brawijaya No. 45, Probolinggo</div>
+                                    <div class="mobile-card-value">{{ $tempatPkl->alamat }}</div>
                                 </div>
                                 <div class="mobile-card-item">
                                     <div class="mobile-card-label">Telepon:</div>
-                                    <div class="mobile-card-value">(0335) 425678</div>
+                                    <div class="mobile-card-value">{{ $tempatPkl->telepon }}</div>
                                 </div>
                                 <div class="mobile-card-item">
                                     <div class="mobile-card-label">Email:</div>
-                                    <div class="mobile-card-value">contact@digitalsolutions.co.id</div>
+                                    <div class="mobile-card-value">{{ $tempatPkl->email }}</div>
                                 </div>
                                 <div class="mobile-card-item">
                                     <div class="mobile-card-label">Siswa PKL:</div>
@@ -80,14 +81,20 @@
                                 <button class="action-btn action-btn-view" title="Lihat Detail">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="action-btn action-btn-edit" title="Edit">
+                                <button class="action-btn action-btn-edit" title="Edit" onclick="openModal('tempat-pkl-modal{{ $tempatPkl->id }}')">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="action-btn action-btn-delete" title="Hapus">
+                                <button class="action-btn action-btn-delete" title="Hapus" onclick="openDeleteModal('tempat-', {{ $tempatPkl->id }}, '{{ addslashes($tempatPkl->nama_tempat) }}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
                         </div>
+                        @empty
+                            <div class="d-md-none"
+                                style="text-align:center; font-style: italic; color: var(--text-secondary);">
+                                Tidak ditemukan
+                            </div>
+                        @endforelse
 
                         <!-- Desktop Table View -->
                         <div class="table-container hidden-mobile">
@@ -135,7 +142,7 @@
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <button class="action-btn action-btn-delete" title="Hapus"
-                                                    onclick="openDeleteModal('pembimbing', {{ $tempatPkl->id }}, '{{ addslashes($tempatPkl->nama_tempat) }}')">
+                                                    onclick="openDeleteModal('tempat-', {{ $tempatPkl->id }}, '{{ addslashes($tempatPkl->nama_tempat) }}')">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -154,7 +161,19 @@
                                             ])
                                         @endpush
                                     @empty
+                                        <tr class="d-md-block">
+                                            <td colspan="6"
+                                                style="text-align:center; font-style: italic; color: var(--text-secondary);">
+                                                Tidak ditemukan
+                                            </td>
+                                        </tr>
                                     @endforelse
+                                    <tr class="no-results-message" style="display:none;">
+                                        <td colspan="6"
+                                            style="text-align:center; font-style: italic; color: var(--text-secondary);">
+                                            Tidak ditemukan
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

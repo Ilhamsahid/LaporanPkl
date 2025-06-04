@@ -43,7 +43,7 @@
                                     <input type="text" class="form-input" placeholder="Cari laporan..."
                                         style="width: 250px;">
                                 </div>
-                                <button class="btn btn-primary" onclick="openModal('laporan-pkl')">
+                                <button class="btn btn-primary" onclick="openModal('laporan-pkl-modal')">
                                     <i class="fas fa-plus"></i>
                                     <span>Tambah Laporan</span>
                                 </button>
@@ -51,41 +51,41 @@
                         </div>
 
                         <!-- Mobile Cards View -->
-                        <div class="mobile-card">
-                            <div class="mobile-card-header">
-                                <div class="mobile-card-title">Laporan PKL Minggu 3</div>
-                                <span class="badge badge-primary">mingguan</span>
+                        @forelse ($laporans as $laporan)
+                            <div class="mobile-card">
+                                <div class="mobile-card-header">
+                                    <div class="mobile-card-title">{{ $laporan->judul }}</div>
+                                    <span class="badge badge-primary">{{ $laporan->jenis_laporan }}</span>
+                                </div>
+                                <div class="mobile-card-body">
+                                    <div class="mobile-card-item">
+                                        <div class="mobile-card-label">Siswa:</div>
+                                        <div class="mobile-card-value">{{ $laporan->siswa->nama }}</div>
+                                    </div>
+                                    <div class="mobile-card-item">
+                                        <div class="mobile-card-label">Tanggal:</div>
+                                        <div class="mobile-card-value">1{{ $laporan->tanggal }}</div>
+                                    </div>
+                                    <div class="mobile-card-item">
+                                        <div class="mobile-card-label">Pembimbing:</div>
+                                        <div class="mobile-card-value">{{ $laporan->siswa->pembimbing->nama }}</div>
+                                    </div>
+                                </div>
+                                <div class="mobile-card-actions">
+                                    <button class="action-btn action-btn-view" title="Lihat Detail">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn action-btn-edit" title="Edit"
+                                        onclick="openModal('laporan-pkl-modal{{ $laporan->id }}')">
+                                        <i class="fas fa-edit"></i>
+                                        <button class="action-btn action-btn-delete" title="Hapus"
+                                            onclick="openDeleteModal('laporan', {{ $laporan->id }}, '{{ addslashes($laporan->judul) }}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                </div>
                             </div>
-                            <div class="mobile-card-body">
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Siswa:</div>
-                                    <div class="mobile-card-value">Ahmad Rizki Pratama</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Tanggal:</div>
-                                    <div class="mobile-card-value">15 Nov 2024</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Status:</div>
-                                    <div class="mobile-card-value"><span class="badge badge-success">Disetujui</span></div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Pembimbing:</div>
-                                    <div class="mobile-card-value">Dr. Indira Sari, M.Pd</div>
-                                </div>
-                            </div>
-                            <div class="mobile-card-actions">
-                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn action-btn-edit" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn action-btn-delete" title="Hapus">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
+                        @empty
+                        @endforelse
 
                         <!-- Desktop Table View -->
                         <div class="table-container hidden-mobile">
@@ -96,47 +96,101 @@
                                         <th>Siswa</th>
                                         <th>Tanggal</th>
                                         <th>Jenis</th>
-                                        <th>Status</th>
                                         <th>Pembimbing</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td data-label="Judul Laporan">
-                                            <div>
-                                                <div style="font-weight: 600; color: var(--text-primary);">Laporan PKL
-                                                    Minggu 3</div>
-                                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Kegiatan
-                                                    pengembangan
-                                                    aplikasi web</div>
-                                            </div>
-                                        </td>
-                                        <td data-label="Siswa">Ahmad Rizki Pratama</td>
-                                        <td data-label="Tanggal">15 Nov 2024</td>
-                                        <td data-label="Jenis">
-                                            <span class="badge badge-primary">Mingguan</span>
-                                        </td>
-                                        <td data-label="Status">
-                                            <span class="badge badge-success">Disetujui</span>
-                                        </td>
-                                        <td data-label="Pembimbing">Dr. Indira Sari, M.Pd</td>
-                                        <td data-label="Aksi">
-                                            <div class="action-buttons">
-                                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-edit" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-delete" title="Hapus">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
+                                    @forelse ($laporans as $laporan)
+                                        <tr>
+                                            <td data-label="Judul Laporan">
+                                                <div>
+                                                    <div style="font-weight: 600; color: var(--text-primary);">
+                                                        {{ $laporan->judul }}</div>
+                                                    <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                                        {{ $laporan->isi_laporan }}</div>
+                                                </div>
+                                            </td>
+                                            <td data-label="Siswa">{{ $laporan->siswa->nama }}</td>
+                                            <td data-label="Tanggal">{{ $laporan->tanggal }}</td>
+                                            <td data-label="Jenis">
+                                                <span class="badge badge-primary">{{ $laporan->jenis_laporan }}</span>
+                                            </td>
+                                            <td data-label="Pembimbing">{{ $laporan->siswa->pembimbing->nama }}</td>
+                                            <td data-label="Aksi">
+                                                <div class="action-buttons">
+                                                    <button class="action-btn action-btn-view" title="Lihat Detail">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="action-btn action-btn-edit" title="Edit"
+                                                        onclick="openModal('laporan-pkl-modal{{ $laporan->id }}')">
+                                                        <i class="fas fa-edit"></i>
+                                                        <button class="action-btn action-btn-delete" title="Hapus"
+                                                            onclick="openDeleteModal('laporan', {{ $laporan->id }}, '{{ addslashes($laporan->judul) }}')">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        @push('modal')
+                                            @include('components.modal.laporan', [
+                                                'id' => $laporan->id,
+                                                'laporan' => $laporan,
+                                                'mode' => 'Edit',
+                                                'route' => route('laporan.update', $laporan->id),
+                                            ])
+
+                                            @include('components.modal.delete', [
+                                                'route' => route('laporan.destroy', $laporan->id),
+                                            ])
+                                        @endpush
+
+                                    @empty
+                                        <tr class="d-md-block">
+                                            <td colspan="6"
+                                                style="text-align:center; font-style: italic; color: var(--text-secondary);">
+                                                Tidak ditemukan
+                                            </td>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                    <tr class="no-results-message" style="display:none;">
+                                        <td colspan="6"
+                                            style="text-align:center; font-style: italic; color: var(--text-secondary);">
+                                            Tidak ditemukan
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="pagination-container">
+                            <div class="pagination-info">
+                                Menampilkan {{ $laporans->firstItem() }}-{{ $laporans->lastItem() }} dari
+                                {{ $laporans->total() }}
+                                data
+                            </div>
+                            <div class="pagination">
+                                {{-- Tombol Previous --}}
+                                <button class="pagination-btn" {{ $laporans->onFirstPage() ? 'disabled' : '' }}
+                                    onclick="window.location='{{ $laporans->previousPageUrl() }}'">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+
+                                {{-- Nomor Halaman --}}
+                                @for ($i = 1; $i <= $laporans->lastPage(); $i++)
+                                    <button class="pagination-btn {{ $laporans->currentPage() == $i ? 'active' : '' }}"
+                                        onclick="window.location='{{ $laporans->url($i) }}'">
+                                        {{ $i }}
+                                    </button>
+                                @endfor
+
+                                {{-- Tombol Next --}}
+                                <button class="pagination-btn" {{ !$laporans->hasMorePages() ? 'disabled' : '' }}
+                                    onclick="window.location='{{ $laporans->nextPageUrl() }}'">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,7 +199,10 @@
         </main>
     </div>
 
-    @include()
-
+    @include('components.modal.laporan', [
+        'laporan' => '',
+        'mode' => 'Tambah',
+        'route' => route('laporan.store') ?? '',
+    ])
     <script src="{{ asset('assets/js/script.js') }}"></script>
 @endsection
