@@ -1675,3 +1675,25 @@ body {
 .history-table tr:hover {
     background: var(--bg-secondary);
 }
+
+/* Sembunyikan elemen di mode desktop */
+.d-md-none {
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .d-md-none {
+        display: none !important;
+    }
+}
+
+/* Sembunyikan elemen di mode mobile */
+.d-md-block {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .d-md-block {
+        display: block !important;
+    }
+}

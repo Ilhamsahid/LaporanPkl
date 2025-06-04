@@ -91,22 +91,10 @@
                                 </div>
                             </div>
 
-                            @push('modal')
-                                @include('components.modal.siswa', [
-                                    'id' => $siswa->id,
-                                    'siswa' => $siswa,
-                                    'mode' => 'Edit',
-                                    'route' => route('siswa.update', $siswa->id) ?? '',
-                                ])
-
-                                @include('components.modal.delete', [
-                                    'route' => route('siswa.destroy', $siswa->id) ?? '',
-                                ])
-                            @endpush
-
                         @empty
-                            <div style="max-width: 300px; margin: 0 auto;">
-                                <p class="text-muted fst-italic">Belum ada data siswa PKL</p>
+                            <div class="d-md-none"
+                                style="text-align:center; font-style: italic; color: var(--text-secondary);">
+                                Tidak ditemukan
                             </div>
                         @endforelse
 
@@ -167,15 +155,18 @@
                                                 'mode' => 'Edit',
                                                 'route' => route('siswa.update', $siswa->id),
                                             ])
-                                            @include('components.modal.delete', ['siswa' => $siswa])
+                                            @include('components.modal.delete', [
+                                                'route' => route('siswa.destroy', $siswa->id),
+                                            ])
                                         @endpush
 
-
-
                                     @empty
-                                        <div style="max-width: 300px; margin: 0 auto;">
-                                            <p class="text-muted fst-italic">Belum ada data siswa PKL</p>
-                                        </div>
+                                        <tr class="d-md-block">
+                                            <td colspan="6"
+                                                style="text-align:center; font-style: italic; color: var(--text-secondary);">
+                                                Tidak ditemukan
+                                            </td>
+                                        </tr>
                                     @endforelse
                                     <tr class="no-results-message" style="display:none;">
                                         <td colspan="6"

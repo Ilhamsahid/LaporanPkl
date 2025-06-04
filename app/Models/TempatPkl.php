@@ -12,6 +12,8 @@ class TempatPkl extends Model
         'nama_tempat',
         'alamat',
         'telepon',
+        'email',
+        'bidang'
     ];
 
     public function siswa()

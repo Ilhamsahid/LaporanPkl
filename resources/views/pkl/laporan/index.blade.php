@@ -43,7 +43,7 @@
                                     <input type="text" class="form-input" placeholder="Cari laporan..."
                                         style="width: 250px;">
                                 </div>
-                                <button class="btn btn-primary">
+                                <button class="btn btn-primary" onclick="openModal('laporan-pkl')">
                                     <i class="fas fa-plus"></i>
                                     <span>Tambah Laporan</span>
                                 </button>
@@ -72,42 +72,6 @@
                                 <div class="mobile-card-item">
                                     <div class="mobile-card-label">Pembimbing:</div>
                                     <div class="mobile-card-value">Dr. Indira Sari, M.Pd</div>
-                                </div>
-                            </div>
-                            <div class="mobile-card-actions">
-                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn action-btn-edit" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn action-btn-delete" title="Hapus">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="mobile-card">
-                            <div class="mobile-card-header">
-                                <div class="mobile-card-title">Laporan PKL Minggu 2</div>
-                                <span class="badge badge-primary">mingguan</span>
-                            </div>
-                            <div class="mobile-card-body">
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Siswa:</div>
-                                    <div class="mobile-card-value">Siti Nurhaliza</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Tanggal:</div>
-                                    <div class="mobile-card-value">08 Nov 2024</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Status:</div>
-                                    <div class="mobile-card-value"><span class="badge badge-warning">Pending</span></div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Pembimbing:</div>
-                                    <div class="mobile-card-value">Prof. Bambang Wijaya, M.T</div>
                                 </div>
                             </div>
                             <div class="mobile-card-actions">
@@ -171,72 +135,6 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td data-label="Judul Laporan">
-                                            <div>
-                                                <div style="font-weight: 600; color: var(--text-primary);">Laporan PKL
-                                                    Minggu 2</div>
-                                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Analisis
-                                                    sistem informasi
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td data-label="Siswa">Siti Nurhaliza</td>
-                                        <td data-label="Tanggal">08 Nov 2024</td>
-                                        <td data-label="Jenis">
-                                            <span class="badge badge-primary">Mingguan</span>
-                                        </td>
-                                        <td data-label="Status">
-                                            <span class="badge badge-warning">Pending</span>
-                                        </td>
-                                        <td data-label="Pembimbing">Prof. Bambang Wijaya, M.T</td>
-                                        <td data-label="Aksi">
-                                            <div class="action-buttons">
-                                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-edit" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-delete" title="Hapus">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-label="Judul Laporan">
-                                            <div>
-                                                <div style="font-weight: 600; color: var(--text-primary);">Laporan PKL
-                                                    Akhir</div>
-                                                <div style="font-size: 0.75rem; color: var(--text-secondary);">Evaluasi
-                                                    keseluruhan
-                                                    kegiatan PKL</div>
-                                            </div>
-                                        </td>
-                                        <td data-label="Siswa">Budi Santoso</td>
-                                        <td data-label="Tanggal">01 Nov 2024</td>
-                                        <td data-label="Jenis">
-                                            <span class="badge badge-warning">Akhir</span>
-                                        </td>
-                                        <td data-label="Status">
-                                            <span class="badge badge-success">Disetujui</span>
-                                        </td>
-                                        <td data-label="Pembimbing">Dr. Indira Sari, M.Pd</td>
-                                        <td data-label="Aksi">
-                                            <div class="action-buttons">
-                                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-edit" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-delete" title="Hapus">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -246,6 +144,8 @@
             </div>
         </main>
     </div>
+
+    @include()
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
 @endsection

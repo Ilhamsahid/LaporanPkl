@@ -43,7 +43,7 @@
                                     <input type="text" class="form-input" placeholder="Cari tempat PKL..."
                                         style="width: 250px;">
                                 </div>
-                                <button class="btn btn-primary">
+                                <button class="btn btn-primary" onclick="openModal('tempat-pkl-modal')">
                                     <i class="fas fa-plus"></i>
                                     <span>Tambah Tempat PKL</span>
                                 </button>
@@ -103,45 +103,90 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td data-label="Nama Perusahaan">
-                                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                                <div class="company-icon"
-                                                    style="background: linear-gradient(135deg, var(--primary-500), var(--primary-600));">
-                                                    <i class="fas fa-building"></i>
-                                                </div>
-                                                <div>
-                                                    <div style="font-weight: 600; color: var(--text-primary);">PT.
-                                                        Teknologi Maju</div>
-                                                    <div style="font-size: 0.75rem; color: var(--text-secondary);">Software
-                                                        Development
+                                    @forelse ($tempatPkls as $tempatPkl)
+                                        <tr>
+                                            <td data-label="Nama Perusahaan">
+                                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                                    <div class="company-icon"
+                                                        style="background: linear-gradient(135deg, var(--primary-500), var(--primary-600));">
+                                                        <i class="fas fa-building"></i>
+                                                    </div>
+                                                    <div>
+                                                        <div style="font-weight: 600; color: var(--text-primary);">
+                                                            {{ $tempatPkl->nama_tempat }}</div>
+                                                        <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                                            {{ $tempatPkl->bidang  }}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td data-label="Alamat">Jl. Raya Surabaya No. 123, Probolinggo</td>
-                                        <td data-label="Telepon">(0335) 421234</td>
-                                        <td data-label="Email">info@teknologimaju.com</td>
-                                        <td data-label="Siswa PKL">
-                                            <span class="badge badge-primary">8 siswa</span>
-                                        </td>
-                                        <td data-label="Aksi">
-                                            <div class="action-buttons">
-                                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-edit" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-delete" title="Hapus">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td data-label="Alamat">{{ $tempatPkl->alamat }}</td>
+                                            <td data-label="Telepon">{{ $tempatPkl->telepon }}</td>
+                                            <td data-label="Email">{{ $tempatPkl->email }}</td>
+                                            <td data-label="Siswa PKL">
+                                                <span class="badge badge-primary">8 siswa</span>
+                                            </td>
+                                            <td data-label="Aksi">
+                                                <div class="action-buttons">
+                                                    <button class="action-btn action-btn-view" title="Lihat Detail">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="action-btn action-btn-edit" title="Edit" onclick="openModal('tempat-pkl-modal{{ $tempatPkl->id }}')">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="action-btn action-btn-delete" title="Hapus"
+                                                    onclick="openDeleteModal('pembimbing', {{ $tempatPkl->id }}, '{{ addslashes($tempatPkl->nama_tempat) }}')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @push('modal')
+                                            @include('components.modal.tempat-pkl', [
+                                                'id' => $tempatPkl->id,
+                                                'tempatPkl' => $tempatPkl,
+                                                'mode' => 'Edit',
+                                                'route' => route('pkl.update', $tempatPkl->id) ?? ''
+                                            ])
+
+                                            @include('components.modal.delete', [
+                                                'route' => route('pkl.destroy', $tempatPkl->id) ?? '',
+                                            ])
+                                        @endpush
+                                    @empty
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
+                        <div class="pagination-container">
+                            <div class="pagination-info">
+                                Menampilkan {{ $tempatPkls->firstItem() }}-{{ $tempatPkls->lastItem() }} dari
+                                {{ $tempatPkls->total() }}
+                                data
+                            </div>
+                            <div class="pagination">
+                                {{-- Tombol Previous --}}
+                                <button class="pagination-btn" {{ $tempatPkls->onFirstPage() ? 'disabled' : '' }}
+                                    onclick="window.location='{{ $tempatPkls->previousPageUrl() }}'">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+
+                                {{-- Nomor Halaman --}}
+                                @for ($i = 1; $i <= $tempatPkls->lastPage(); $i++)
+                                    <button class="pagination-btn {{ $tempatPkls->currentPage() == $i ? 'active' : '' }}"
+                                        onclick="window.location='{{ $tempatPkls->url($i) }}'">
+                                        {{ $i }}
+                                    </button>
+                                @endfor
+
+                                {{-- Tombol Next --}}
+                                <button class="pagination-btn" {{ !$tempatPkls->hasMorePages() ? 'disabled' : '' }}
+                                    onclick="window.location='{{ $tempatPkls->nextPageUrl() }}'">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -150,5 +195,18 @@
         </main>
     </div>
 
+    @include('components.modal.tempat-pkl', [
+        'tempatPkl' => '',
+        'mode' => 'Tambah',
+        'route' => route('pkl.store') ?? ''
+    ])
+
+    @if (session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showNotification('success', 'Berhasil', '{{ session('success') }}');
+            });
+        </script>
+    @endif
     <script src="{{ asset('assets/js/script.js') }}"></script>
 @endsection

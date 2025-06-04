@@ -30,7 +30,9 @@ class TempatPklController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        TempatPkl::create($request->all());
+
+        return redirect()->back()->with('success', 'Data tempat pkl berhasil ditambah!');
     }
 
     /**
@@ -52,16 +54,20 @@ class TempatPklController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TempatPkl $tempatPkl)
+    public function update(Request $request, TempatPkl $pkl)
     {
-        //
+        $pkl->update($request->all());
+
+        return redirect()->back()->with('success', 'Data tempat pkl berhasil diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TempatPkl $tempatPkl)
+    public function destroy(TempatPkl $pkl)
     {
-        //
+        $pkl->delete();
+
+        return redirect()->back()->with('success', 'Data tempat pkl berhasil dihapus');
     }
 }

@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('tempat_pkl', function (Blueprint $table) {
             $table->id();
             $table->string('nama_tempat');
+            $table->string('bidang');
             $table->string('alamat');
+            $table->string('email');
             $table->string('telepon')->nullable();
             $table->timestamps();
         });
