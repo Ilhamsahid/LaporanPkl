@@ -42,7 +42,7 @@
                                     <input type="text" class="form-input" placeholder="Cari pembimbing..."
                                         style="width: 250px;">
                                 </div>
-                                <button class="btn btn-primary">
+                                <button class="btn btn-primary" onclick="openModal('pembimbing-modal')">
                                     <i class="fas fa-plus"></i>
                                     <span>Tambah Pembimbing</span>
                                 </button>
@@ -50,9 +50,10 @@
                         </div>
 
                         <!-- Mobile Cards View -->
-                        <div class="mobile-card">
+                        @forelse ($pembimbings as $pembimbing)
+                            <div class="mobile-card">
                             <div class="mobile-card-header">
-                                <div class="mobile-card-title">Dr. Indira Sari, M.Pd</div>
+                                <div class="mobile-card-title">{{ $pembimbing->nama }}</div>
                                 <div
                                     style="width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, var(--primary-500), var(--primary-600)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem;">
                                     IS</div>
@@ -60,15 +61,15 @@
                             <div class="mobile-card-body">
                                 <div class="mobile-card-item">
                                     <div class="mobile-card-label">NIP:</div>
-                                    <div class="mobile-card-value">196801051993032001</div>
+                                    <div class="mobile-card-value">{{ $pembimbing->nip }}</div>
                                 </div>
                                 <div class="mobile-card-item">
                                     <div class="mobile-card-label">Email:</div>
-                                    <div class="mobile-card-value">indira.sari@smkn1probolinggo.sch.id</div>
+                                    <div class="mobile-card-value">{{ $pembimbing->email }}</div>
                                 </div>
                                 <div class="mobile-card-item">
                                     <div class="mobile-card-label">Telepon:</div>
-                                    <div class="mobile-card-value">081234567800</div>
+                                    <div class="mobile-card-value">{{ $pembimbing->telepon }}</div>
                                 </div>
                                 <div class="mobile-card-item">
                                     <div class="mobile-card-label">Jumlah Siswa:</div>
@@ -79,52 +80,18 @@
                                 <button class="action-btn action-btn-view" title="Lihat Detail">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="action-btn action-btn-edit" title="Edit">
+                                <button class="action-btn action-btn-edit" title="Edit" onclick="openModal('pembimbing-modal{{ $pembimbing->id }}')">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="action-btn action-btn-delete" title="Hapus">
+                                <button class="action-btn action-btn-delete" title="Hapus"
+                                onclick="openDeleteModal('pembimbing', {{ $pembimbing->id }}, '{{ addslashes($pembimbing->nama) }}')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
                         </div>
-
-                        <div class="mobile-card">
-                            <div class="mobile-card-header">
-                                <div class="mobile-card-title">Prof. Bambang Wijaya, M.T</div>
-                                <div
-                                    style="width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem;">
-                                    BW</div>
-                            </div>
-                            <div class="mobile-card-body">
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">NIP:</div>
-                                    <div class="mobile-card-value">196505121990031002</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Email:</div>
-                                    <div class="mobile-card-value">bambang.wijaya@smkn1probolinggo.sch.id</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Telepon:</div>
-                                    <div class="mobile-card-value">081234567801</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Jumlah Siswa:</div>
-                                    <div class="mobile-card-value">8 siswa</div>
-                                </div>
-                            </div>
-                            <div class="mobile-card-actions">
-                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn action-btn-edit" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn action-btn-delete" title="Hapus">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
+                        @empty
+                            
+                        @endforelse
 
                         <!-- Desktop Table View -->
                         <div class="table-container hidden-mobile">
@@ -140,111 +107,91 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td data-label="Nama">
-                                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                                <div
-                                                    style="width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, var(--primary-500), var(--primary-600)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem;">
-                                                    IS</div>
-                                                <div>
-                                                    <div style="font-weight: 600; color: var(--text-primary);">Dr. Indira
-                                                        Sari, M.Pd</div>
-                                                    <div style="font-size: 0.75rem; color: var(--text-secondary);">Guru
-                                                        Produktif RPL</div>
+                                    @forelse ($pembimbings as $pembimbing)
+                                        <tr>
+                                            <td data-label="Nama">
+                                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                                    <div
+                                                        style="width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem;">
+                                                        AS</div>
+                                                    <div>
+                                                        <div style="font-weight: 600; color: var(--text-primary);">
+                                                            {{ $pembimbing->nama }}</div>
+                                                        <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                                            Rekayasa Perangkat Lunak</div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td data-label="NIP">196801051993032001</td>
-                                        <td data-label="Email">indira.sari@smkn1probolinggo.sch.id</td>
-                                        <td data-label="Telepon">081234567800</td>
-                                        <td data-label="Jumlah Siswa">
-                                            <span class="badge badge-primary">12 siswa</span>
-                                        </td>
-                                        <td data-label="Aksi">
-                                            <div class="action-buttons">
-                                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-edit" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-delete" title="Hapus">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-label="Nama">
-                                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                                <div
-                                                    style="width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem;">
-                                                    BW</div>
-                                                <div>
-                                                    <div style="font-weight: 600; color: var(--text-primary);">Prof.
-                                                        Bambang Wijaya, M.T</div>
-                                                    <div style="font-size: 0.75rem; color: var(--text-secondary);">Guru
-                                                        Produktif TKJ</div>
+                                            </td>
+                                            <td data-label="NIP">{{ $pembimbing->nip }}</td>
+                                            <td data-label="Email">{{ $pembimbing->email }}</td>
+                                            <td data-label="Telepon">{{ $pembimbing->telepon }}</td>
+                                            <td data-label="Jumlah Siswa">
+                                                <span class="badge badge-warning">6 siswa</span>
+                                            </td>
+                                            <td data-label="Aksi">
+                                                <div class="action-buttons">
+                                                    <button class="action-btn action-btn-view" title="Lihat Detail">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="action-btn action-btn-edit" title="Edit"
+                                                        onclick="openModal('pembimbing-modal{{ $pembimbing->id }}')">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="action-btn action-btn-delete" title="Hapus"
+                                                        onclick="openDeleteModal('pembimbing', {{ $pembimbing->id }}, '{{ addslashes($pembimbing->nama) }}')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td data-label="NIP">196505121990031002</td>
-                                        <td data-label="Email">bambang.wijaya@smkn1probolinggo.sch.id</td>
-                                        <td data-label="Telepon">081234567801</td>
-                                        <td data-label="Jumlah Siswa">
-                                            <span class="badge badge-success">8 siswa</span>
-                                        </td>
-                                        <td data-label="Aksi">
-                                            <div class="action-buttons">
-                                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-edit" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-delete" title="Hapus">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-label="Nama">
-                                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                                <div
-                                                    style="width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem;">
-                                                    AS</div>
-                                                <div>
-                                                    <div style="font-weight: 600; color: var(--text-primary);">Drs. Agus
-                                                        Salim, M.Kom</div>
-                                                    <div style="font-size: 0.75rem; color: var(--text-secondary);">Guru
-                                                        Produktif MM</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td data-label="NIP">197203151998021001</td>
-                                        <td data-label="Email">agus.salim@smkn1probolinggo.sch.id</td>
-                                        <td data-label="Telepon">081234567802</td>
-                                        <td data-label="Jumlah Siswa">
-                                            <span class="badge badge-warning">6 siswa</span>
-                                        </td>
-                                        <td data-label="Aksi">
-                                            <div class="action-buttons">
-                                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-edit" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-delete" title="Hapus">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+
+                                        @push('modal')
+                                            @include('components.modal.pembimbing', [
+                                                'pembimbing' => $pembimbing,
+                                                'id' => $pembimbing->id,
+                                                'mode' => 'Edit',
+                                                'route' => route('pembimbing.update', $pembimbing->id) ?? '',
+                                            ])
+
+                                            @include('components.modal.delete', [
+                                                'route' => route('pembimbing.destroy', $pembimbing->id) ?? '',
+                                            ])
+                                        @endpush
+                                    @empty
+                                    @endforelse
+
                                 </tbody>
                             </table>
                         </div>
+                        <div class="pagination-container">
+                            <div class="pagination-info">
+                                Menampilkan {{ $pembimbings->firstItem() }}-{{ $pembimbings->lastItem() }} dari
+                                {{ $pembimbings->total() }}
+                                data
+                            </div>
+                            <div class="pagination">
+                                {{-- Tombol Previous --}}
+                                <button class="pagination-btn" {{ $pembimbings->onFirstPage() ? 'disabled' : '' }}
+                                    onclick="window.location='{{ $pembimbings->previousPageUrl() }}'">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+
+                                {{-- Nomor Halaman --}}
+                                @for ($i = 1; $i <= $pembimbings->lastPage(); $i++)
+                                    <button class="pagination-btn {{ $pembimbings->currentPage() == $i ? 'active' : '' }}"
+                                        onclick="window.location='{{ $pembimbings->url($i) }}'">
+                                        {{ $i }}
+                                    </button>
+                                @endfor
+
+                                {{-- Tombol Next --}}
+                                <button class="pagination-btn" {{ !$pembimbings->hasMorePages() ? 'disabled' : '' }}
+                                    onclick="window.location='{{ $pembimbings->nextPageUrl() }}'">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -252,5 +199,18 @@
         </main>
     </div>
 
+    @include('components.modal.pembimbing', [
+        'pembimbing' => '',
+        'mode' => 'Tambah',
+        'route' => route('pembimbing.store') ?? '',
+    ])
+
+    @if (session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showNotification('success', 'Berhasil', '{{ session('success') }}');
+            });
+        </script>
+    @endif
     <script src="{{ asset('assets/js/script.js') }}"></script>
 @endsection

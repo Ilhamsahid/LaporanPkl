@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
 
         Pembimbing::create([
             'nama' => 'Ilham',
+            'nip' => 196787764,
             'password' => Hash::make('password'),
         ]);
     }

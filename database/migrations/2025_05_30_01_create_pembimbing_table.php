@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pembimbing', function (Blueprint $table) {
             $table->id();
+            $table->integer('nip')->unique();
             $table->string('nama');
             $table->string('email')->unique()->nullable();
             $table->string('password');

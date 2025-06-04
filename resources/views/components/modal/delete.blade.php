@@ -20,7 +20,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" onclick="closeModal('delete-modal')">Batal</button>
-            <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST">
+            <form action="{{ $route ?? '' }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">

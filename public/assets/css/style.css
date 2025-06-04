@@ -1295,6 +1295,10 @@ body {
     background: var(--bg-secondary);
     border-radius: 0.75rem;
     border: 1px solid var(--border-primary);
+    -webkit-border-radius: 0.75rem;
+    -moz-border-radius: 0.75rem;
+    -ms-border-radius: 0.75rem;
+    -o-border-radius: 0.75rem;
 }
 
 .filter-group {

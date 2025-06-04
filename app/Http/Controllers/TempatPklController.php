@@ -12,7 +12,9 @@ class TempatPklController extends Controller
      */
     public function index()
     {
-        return view('pkl.tempat.index');
+        $tempatPkls = TempatPkl::orderBy('id', 'desc')->paginate(5);
+
+        return view('pkl.tempat.index', compact('tempatPkls'));
     }
 
     /**

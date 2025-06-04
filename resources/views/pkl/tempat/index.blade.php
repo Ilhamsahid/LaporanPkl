@@ -53,45 +53,6 @@
                         <!-- Mobile Cards View -->
                         <div class="mobile-card">
                             <div class="mobile-card-header">
-                                <div class="mobile-card-title">PT. Teknologi Maju</div>
-                                <div class="company-icon"
-                                    style="background: linear-gradient(135deg, var(--primary-500), var(--primary-600));">
-                                    <i class="fas fa-building"></i>
-                                </div>
-                            </div>
-                            <div class="mobile-card-body">
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Alamat:</div>
-                                    <div class="mobile-card-value">Jl. Raya Surabaya No. 123, Probolinggo</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Telepon:</div>
-                                    <div class="mobile-card-value">(0335) 421234</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Email:</div>
-                                    <div class="mobile-card-value">info@teknologimaju.com</div>
-                                </div>
-                                <div class="mobile-card-item">
-                                    <div class="mobile-card-label">Siswa PKL:</div>
-                                    <div class="mobile-card-value">8 siswa</div>
-                                </div>
-                            </div>
-                            <div class="mobile-card-actions">
-                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-btn action-btn-edit" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-btn action-btn-delete" title="Hapus">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="mobile-card">
-                            <div class="mobile-card-header">
                                 <div class="mobile-card-title">CV. Digital Solutions</div>
                                 <div class="company-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
                                     <i class="fas fa-laptop-code"></i>
@@ -163,79 +124,6 @@
                                         <td data-label="Email">info@teknologimaju.com</td>
                                         <td data-label="Siswa PKL">
                                             <span class="badge badge-primary">8 siswa</span>
-                                        </td>
-                                        <td data-label="Aksi">
-                                            <div class="action-buttons">
-                                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-edit" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-delete" title="Hapus">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-label="Nama Perusahaan">
-                                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                                <div class="company-icon"
-                                                    style="background: linear-gradient(135deg, #10b981, #059669);">
-                                                    <i class="fas fa-laptop-code"></i>
-                                                </div>
-                                                <div>
-                                                    <div style="font-weight: 600; color: var(--text-primary);">CV. Digital
-                                                        Solutions
-                                                    </div>
-                                                    <div style="font-size: 0.75rem; color: var(--text-secondary);">Web
-                                                        Development
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td data-label="Alamat">Jl. Brawijaya No. 45, Probolinggo</td>
-                                        <td data-label="Telepon">(0335) 425678</td>
-                                        <td data-label="Email">contact@digitalsolutions.co.id</td>
-                                        <td data-label="Siswa PKL">
-                                            <span class="badge badge-success">5 siswa</span>
-                                        </td>
-                                        <td data-label="Aksi">
-                                            <div class="action-buttons">
-                                                <button class="action-btn action-btn-view" title="Lihat Detail">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-edit" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="action-btn action-btn-delete" title="Hapus">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td data-label="Nama Perusahaan">
-                                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                                <div class="company-icon"
-                                                    style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                                                    <i class="fas fa-camera"></i>
-                                                </div>
-                                                <div>
-                                                    <div style="font-weight: 600; color: var(--text-primary);">PT. Media
-                                                        Kreatif</div>
-                                                    <div style="font-size: 0.75rem; color: var(--text-secondary);">
-                                                        Multimedia & Design
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td data-label="Alamat">Jl. Soekarno Hatta No. 78, Probolinggo</td>
-                                        <td data-label="Telepon">(0335) 429876</td>
-                                        <td data-label="Email">hello@mediakreatif.id</td>
-                                        <td data-label="Siswa PKL">
-                                            <span class="badge badge-warning">3 siswa</span>
                                         </td>
                                         <td data-label="Aksi">
                                             <div class="action-buttons">

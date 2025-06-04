@@ -16,6 +16,7 @@ class Pembimbing extends Authenticatable
         'email',
         'password',
         'telepon',
+        'nip'
     ];
 
     protected $hidden = [

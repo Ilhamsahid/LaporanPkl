@@ -30,7 +30,9 @@ class PembimbingController extends Controller
 
     public function index()
     {
-        return view('pembimbing.index');
+        $pembimbings = Pembimbing::orderBy('id', 'desc')->paginate(5);
+
+        return view('pembimbing.index', compact('pembimbings'));
     }
 
     /**
@@ -46,7 +48,11 @@ class PembimbingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request['password'] = bcrypt($request['password']);
+
+        Pembimbing::create($request->all());
+
+        return redirect()->back()->with('success', 'Data pembimbing berhasil ditambah!');
     }
 
     /**
@@ -70,7 +76,9 @@ class PembimbingController extends Controller
      */
     public function update(Request $request, Pembimbing $pembimbing)
     {
-        //
+        $pembimbing->update($request->all());
+
+        return redirect()->back()->with('success', 'Data pembimbing berhasil diupdate!');
     }
 
     /**
@@ -78,7 +86,9 @@ class PembimbingController extends Controller
      */
     public function destroy(Pembimbing $pembimbing)
     {
-        //
+        $pembimbing->delete();
+
+        return redirect()->back()->with('success', 'Data siswa berhasil dihapus!');
     }
 
 }

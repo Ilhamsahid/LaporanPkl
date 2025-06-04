@@ -20,7 +20,7 @@
                         <label class="form-label required">Nama Lengkap</label>
                         <input type="text" class="form-control" name="nama" value="{{ $siswa->nama ?? '' }}"
                             placeholder="Nama Lengkap" required>
-                        @if(!isset($id))
+                        @if (!isset($id))
                             <input type="hidden" name="password">
                         @endif
                         <div class="form-error" id="nama-error"></div>

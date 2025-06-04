@@ -56,19 +56,29 @@ searchInputs.forEach((input) => {
     input.addEventListener("input", (e) => {
         const searchTerm = e.target.value.toLowerCase();
         const currentPage = document.querySelector(".page-section.active");
-        const tableRows = currentPage.querySelectorAll(".table tbody tr");
+        const tableRows = currentPage.querySelectorAll(".table tbody tr:not(.no-results-message)");
         const mobileCards = currentPage.querySelectorAll(".mobile-card");
 
-        // Filter table rows
+        let hasVisibleRow = false;
+        let hasVisibleCard = false;
+
         tableRows.forEach((row) => {
             const text = row.textContent.toLowerCase();
-            row.style.display = text.includes(searchTerm) ? "" : "none";
+            const match = text.includes(searchTerm);
+            row.style.display = match ? "" : "none";
+            if (match) hasVisibleRow = true;
         });
 
-        // Filter mobile cards
         mobileCards.forEach((card) => {
             const text = card.textContent.toLowerCase();
-            card.style.display = text.includes(searchTerm) ? "" : "none";
+            const match = text.includes(searchTerm);
+            card.style.display = match ? "" : "none";
+            if (match) hasVisibleCard = true;
+        });
+
+        const noResultsMessages = currentPage.querySelectorAll(".no-results-message");
+        noResultsMessages.forEach((msg) => {
+            msg.style.display = !hasVisibleRow && !hasVisibleCard && searchTerm !== "" ? "block" : "none";
         });
     });
 });
@@ -301,7 +311,6 @@ const printStyles = `
 const styleSheet = document.createElement("style");
 styleSheet.textContent = printStyles;
 document.head.appendChild(styleSheet);
-
 
 function showNotification(type, title, message) {
     const container = document.getElementById("notification-container");
