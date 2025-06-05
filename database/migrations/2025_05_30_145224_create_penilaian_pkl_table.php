@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnDelete();
             $table->foreignId('pembimbing_id')->constrained('pembimbing')->cascadeOnDelete();
-            $table->integer('nilai')->nullable();
-            $table->text('komentar')->nullable();
+            $table->integer('nilai_etika')->nullable();
+            $table->integer('nilai_kedisplinan')->nullable();
+            $table->integer('nilai_keterampilan')->nullable();
+            $table->integer('nilai_wawasan')->nullable();
             $table->timestamps();
         });
     }

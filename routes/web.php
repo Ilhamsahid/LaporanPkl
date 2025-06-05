@@ -26,6 +26,17 @@ Route::middleware('auth:pembimbing')->group(function(){
     Route::resource('/laporan', LaporanPklController::class)->except(['show']);
     Route::resource('/penilaian', PenilaianPklController::class)->except(['show']);
     Route::resource('/absensi', AbsensiPklController::class)->except(['show']);
+    // routes/web.php atau routes/api.php
+    Route::get('/kelas/{id}/siswa', function ($id) {
+        $siswa = App\Models\Siswa::where('kelas_id', $id)->get();
+        return response()->json($siswa);
+    });
+
+    Route::post('/clear-modal-errors', function () {
+        session()->forget('errors');
+        session()->forget('_old_input');
+        return response()->json(['status' => 'ok']);
+    })->name('modal.clear-errors');
 });
 
 Route::middleware('guest:pembimbing')->group(function(){

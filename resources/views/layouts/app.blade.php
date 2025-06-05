@@ -34,6 +34,24 @@
 
     @yield('content')
     @stack('modal')
-</body>
+    @if ($errors->any() && session('modal') && str_contains(session('modal'), 'penilaian-modal'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modalId = "{{ session('modal') }}";
+                openModal(modalId);
+            });
+        </script>
+    @endif
+    @if (session('modal-add'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modalId = "{{ session('modal-add') }}";
+                openModal(modalId);
+            });
+        </script>
+    @endif
+
+        @stack('script')
+        </body>
 
 </html>

@@ -8,12 +8,7 @@ class PenilaianPkl extends Model
 {
      protected $table = 'penilaian_pkl';
 
-    protected $fillable = [
-        'siswa_id',
-        'pembimbing_id',
-        'nilai',
-        'komentar',
-    ];
+    protected $guarded = [];
 
     public function siswa()
     {

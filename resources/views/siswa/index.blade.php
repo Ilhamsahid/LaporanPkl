@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="mobile-card-item">
                                         <div class="mobile-card-label">Tempat PKL:</div>
-                                        <div class="mobile-card-value">{{ $siswa->tempatPkl->nama_tempat }}</div>
+                                        <div class="mobile-card-value">{{ optional($siswa->tempatPkl)->nama_tempat ?? 'Null'  }}</div>
                                     </div>
                                 </div>
                                 <div class="mobile-card-actions">
@@ -130,7 +130,7 @@
                                             <td data-label="Email">{{ $siswa->email }}</td>
                                             <td data-label="Telepon">{{ $siswa->telepon }}</td>
                                             <td data-label="Pembimbing">{{ $siswa->pembimbing->nama }}</td>
-                                            <td data-label="Tempat PKL">{{ $siswa->tempatPkl->nama_tempat }}</td>
+                                            <td data-label="Tempat PKL">{{ optional($siswa->tempatPkl)->nama_tempat ?? 'Null'  }}</td>
                                             <td data-label="Aksi">
                                                 <div class="action-buttons">
                                                     <button class="action-btn action-btn-view" title="Lihat Detail">

@@ -56,7 +56,9 @@ searchInputs.forEach((input) => {
     input.addEventListener("input", (e) => {
         const searchTerm = e.target.value.toLowerCase();
         const currentPage = document.querySelector(".page-section.active");
-        const tableRows = currentPage.querySelectorAll(".table tbody tr:not(.no-results-message)");
+        const tableRows = currentPage.querySelectorAll(
+            ".table tbody tr:not(.no-results-message)"
+        );
         const mobileCards = currentPage.querySelectorAll(".mobile-card");
 
         let hasVisibleRow = false;
@@ -76,9 +78,14 @@ searchInputs.forEach((input) => {
             if (match) hasVisibleCard = true;
         });
 
-        const noResultsMessages = currentPage.querySelectorAll(".no-results-message");
+        const noResultsMessages = currentPage.querySelectorAll(
+            ".no-results-message"
+        );
         noResultsMessages.forEach((msg) => {
-            msg.style.display = !hasVisibleRow && !hasVisibleCard && searchTerm !== "" ? "block" : "none";
+            msg.style.display =
+                !hasVisibleRow && !hasVisibleCard && searchTerm !== ""
+                    ? "block"
+                    : "none";
         });
     });
 });
@@ -356,12 +363,25 @@ function removeNotification(button) {
         notification.remove();
     }, 300);
 }
-function openModal(modalId) {
+function openModal(modalId, id = null, mode = null) {
     const modal = document.getElementById(modalId);
     if (modal) {
         const form = modal.querySelector("form");
-        if (form) {
+        if (form && (!id || mode !== "Edit")) {
             form.reset();
+        }
+
+        // Kalau bukan dari session (bukan reload akibat validasi), bersihkan error
+        if (id && mode) {
+            const errorElements = modal.querySelectorAll(
+                ".form-error, .invalid-feedback"
+            );
+            errorElements.forEach((el) => el.remove());
+
+            const invalidInputs = modal.querySelectorAll(".is-invalid");
+            invalidInputs.forEach((input) =>
+                input.classList.remove("is-invalid")
+            );
         }
 
         modal.classList.add("active");
@@ -375,13 +395,23 @@ function closeModal(modalId) {
         modal.classList.remove("active");
         document.body.style.overflow = "";
 
+        // Reset form
         const form = modal.querySelector("form");
         if (form) {
             form.reset();
         }
+
+        // Hapus semua pesan error
+        const errorElements = modal.querySelectorAll(
+            ".form-error, .invalid-feedback, .is-invalid"
+        );
+        errorElements.forEach((el) => el.remove());
+
+        // Hapus class is-invalid dari input
+        const invalidInputs = modal.querySelectorAll(".is-invalid");
+        invalidInputs.forEach((input) => input.classList.remove("is-invalid"));
     }
 }
-
 function openDeleteModal(type, id, name) {
     currentDeleteData = { type, id, name };
 
