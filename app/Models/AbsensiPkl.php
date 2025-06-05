@@ -13,6 +13,8 @@ class AbsensiPkl extends Model
         'tanggal',
         'status',
         'keterangan',
+        'jam_masuk',
+        'jam_keluar'
     ];
 
     public function siswa()

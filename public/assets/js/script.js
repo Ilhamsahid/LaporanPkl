@@ -254,6 +254,36 @@ formInputs.forEach((input) => {
     });
 });
 
+function showPage(pageId) {
+    // Update navigation
+    navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("data-page") === pageId) {
+            link.classList.add("active");
+        }
+    });
+
+    // Update page content
+    pageSections.forEach((section) => {
+        section.classList.remove("active");
+        if (section.id === pageId) {
+            section.classList.add("active");
+        }
+    });
+
+    // Update header
+    const data = pageData[pageId];
+    if (data) {
+        pageTitle.textContent = data.title;
+        pageSubtitle.textContent = data.subtitle;
+    }
+
+    // Close sidebar on mobile after navigation
+    if (window.innerWidth < 1024) {
+        closeSidebar();
+    }
+}
+
 // Initialize page
 document.addEventListener("DOMContentLoaded", () => {
     // Trigger initial animations
