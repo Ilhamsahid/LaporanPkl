@@ -12,7 +12,7 @@ class PenilaianPklController extends Controller
     /**
      * Display a listing of the resource.
      */
-   public function index(Request $request)
+    public function index(Request $request)
     {
         $penilaians = PenilaianPkl::with('siswa.kelas')->orderBy('id', 'desc')->paginate(5);
 
@@ -37,12 +37,12 @@ class PenilaianPklController extends Controller
 
         return view('admin.penilaian.index', compact('penilaians', 'kelas', 'siswas', 'rataRata', 'color'));
     }
- 
+
     public function getSiswaByKelas($kelas_id)
-{
-    $siswas = Siswa::where('kelas_id', $kelas_id)->get();
-    return response()->json($siswas);
-}
+    {
+        $siswas = Siswa::where('kelas_id', $kelas_id)->get();
+        return response()->json($siswas);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -96,25 +96,25 @@ class PenilaianPklController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, PenilaianPkl $penilaian)
-{
-    try {
-        $validated = $request->validate([
-            'nilai_etika' => 'required|integer|max:100',
-            'nilai_kedisplinan' => 'required|integer|max:100',
-            'nilai_keterampilan' => 'required|integer|max:100',
-            'nilai_wawasan' => 'required|integer|max:100',
-        ]);
+    {
+        try {
+            $validated = $request->validate([
+                'nilai_etika' => 'required|integer|max:100',
+                'nilai_kedisplinan' => 'required|integer|max:100',
+                'nilai_keterampilan' => 'required|integer|max:100',
+                'nilai_wawasan' => 'required|integer|max:100',
+            ]);
 
-        $penilaian->update($validated);
+            $penilaian->update($validated);
 
-        return redirect()->back()->with('success', 'Data penilaian berhasil diupdate!');
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        return redirect()->back()
-            ->withErrors($e->validator)
-            ->with('mode', 'Edit')
-            ->with('modal', 'penilaian-modal' . $penilaian->id); // 👈 penanda modal
+            return redirect()->back()->with('success', 'Data penilaian berhasil diupdate!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->with('mode', 'Edit')
+                ->with('modal', 'penilaian-modal' . $penilaian->id); // 👈 penanda modal
+        }
     }
-}
     /**
      * Remove the specified resource from storage.
      */
