@@ -442,14 +442,6 @@ function closeModal(modalId) {
         invalidInputs.forEach((input) => input.classList.remove("is-invalid"));
     }
 }
-function openDeleteModal(type, id, name) {
-    currentDeleteData = { type, id, name };
-
-    const message = document.getElementById("delete-message");
-    message.textContent = `Apakah Anda yakin ingin menghapus "${name}"? Data yang dihapus tidak dapat dikembalikan.`;
-
-    openModal("delete-modal");
-}
 
 function confirmDelete() {
     if (!currentDeleteData) return;

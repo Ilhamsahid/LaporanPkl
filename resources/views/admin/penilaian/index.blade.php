@@ -94,7 +94,7 @@
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="action-btn action-btn-delete" title="Hapus"
-                                        onclick="openDeleteModal('', {{ $penilaian->id }}, '{{ addslashes($penilaian->siswa->nama) }}')">
+                                        onclick="openModal('delete-modal{{ $penilaian->id }}')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -159,7 +159,7 @@
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <button class="action-btn action-btn-delete" title="Hapus"
-                                                        onclick="openDeleteModal('', {{ $penilaian->id }}, '{{ addslashes($penilaian->siswa->nama) }}')">
+                                                        onclick="openModal('delete-modal{{ $penilaian->id }}')">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -175,6 +175,8 @@
                                             ])
 
                                             @include('components.modals.delete', [
+                                                'id' => $penilaian->id,
+                                                'nama' => $penilaian->siswa->nama,
                                                 'route' => route('admin.penilaian.destroy', $penilaian->id),
                                             ])
                                         @endpush

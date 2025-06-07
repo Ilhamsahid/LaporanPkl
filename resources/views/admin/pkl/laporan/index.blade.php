@@ -79,7 +79,7 @@
                                         onclick="openModal('laporan-pkl-modal{{ $laporan->id }}')">
                                         <i class="fas fa-edit"></i>
                                         <button class="action-btn action-btn-delete" title="Hapus"
-                                            onclick="openDeleteModal('laporan', {{ $laporan->id }}, '{{ addslashes($laporan->judul) }}')">
+                                        onclick="openModal('delete-modal{{ $laporan->id }}')">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                 </div>
@@ -126,7 +126,7 @@
                                                         onclick="openModal('laporan-pkl-modal{{ $laporan->id }}')">
                                                         <i class="fas fa-edit"></i>
                                                         <button class="action-btn action-btn-delete" title="Hapus"
-                                                            onclick="openDeleteModal('laporan', {{ $laporan->id }}, '{{ addslashes($laporan->judul) }}')">
+                                                        onclick="openModal('delete-modal{{ $laporan->id }}')">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                 </div>
@@ -142,6 +142,8 @@
                                             ])
 
                                             @include('components.modals.delete', [
+                                                'id' => $laporan->id,
+                                                'nama' => $laporan->judul,
                                                 'route' => route('admin.laporan.destroy', $laporan->id),
                                             ])
                                         @endpush

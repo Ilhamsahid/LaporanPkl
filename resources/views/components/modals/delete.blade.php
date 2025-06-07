@@ -1,8 +1,8 @@
-<div id="delete-modal" class="modal">
+<div id="delete-modal{{ $id }}" class="modal">
     <div class="modal-content" style="max-width: 400px;">
         <div class="modal-header">
             <h3 class="modal-title">Konfirmasi Hapus</h3>
-            <button class="modal-close" onclick="closeModal('delete-modal')">
+            <button class="modal-close" onclick="closeModal('delete-modal{{ $id }}')">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -14,12 +14,12 @@
                 </div>
                 <p style="margin-bottom: 0.5rem; font-weight: 600; color: var(--text-primary);">Apakah Anda yakin?</p>
                 <p style="margin: 0; color: var(--text-secondary); font-size: 0.875rem;" id="delete-message">
-                    Data yang dihapus tidak dapat dikembalikan.
+                    Apakah Anda yakin ingin menghapus "{{ $nama }}" Data yang dihapus tidak dapat dikembalikan.
                 </p>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" onclick="closeModal('delete-modal')">Batal</button>
+            <button type="button" class="btn btn-secondary" onclick="closeModal('delete-modal{{ $id }}')">Batal</button>
             <form action="{{ $route ?? ''}}" method="POST">
                 @csrf
                 @method('DELETE')
