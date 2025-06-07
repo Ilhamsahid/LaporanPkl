@@ -17,32 +17,32 @@
             <h3 class="nav-section-title">Menu Utama</h3>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
                             <i class="fas fa-home nav-icon"></i>
                             <span>Dashboard</span>
                         </div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('siswa.index') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('siswa') ? 'active' : '' }}">
+                    <a href="{{ route('admin.siswa.index') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is('admin/siswa') ? 'active' : '' }}">
                             <i class="fas fa-users nav-icon"></i>
                             <span>Data Siswa</span>
                         </div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('pembimbing.index') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('pembimbing') ? 'active' : '' }}">
+                    <a href="{{ route('admin.pembimbing.index') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is('admin/pembimbing') ? 'active' : '' }}">
                             <i class="fas fa-user-check nav-icon"></i>
                             <span>Data Pembimbing</span>
                         </div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('pkl.index') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('pkl') ? 'active' : '' }}">
+                    <a href="{{ route('admin.pkl.index') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is('admin/pkl') ? 'active' : '' }}">
                             <i class="fas fa-map-marker-alt nav-icon"></i>
                             <span>Tempat PKL</span>
                         </div>
@@ -55,24 +55,24 @@
             <h3 class="nav-section-title">Laporan & Penilaian</h3>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="{{ route('laporan.index') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('laporan') ? 'active' : '' }}">
+                    <a href="{{ route('admin.laporan.index') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is('admin/laporan') ? 'active' : '' }}">
                             <i class="fas fa-file-alt nav-icon"></i>
                             <span>Laporan PKL</span>
                         </div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('penilaian.index') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('penilaian') ? 'active' : '' }}">
+                    <a href="{{ route('admin.penilaian.index') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is('admin/penilaian') ? 'active' : '' }}">
                             <i class="fas fa-chart-bar nav-icon"></i>
                             <span>Penilaian</span>
                         </div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('absensi.index') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('absensi') ? 'active' : '' }}">
+                    <a href="{{ route('admin.absensi.index') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is('admin/absensi') ? 'active' : '' }}">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             <span>Absensi</span>
                         </div>

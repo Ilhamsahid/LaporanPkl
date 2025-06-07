@@ -17,12 +17,23 @@ class SiswaController extends Controller
     public function index()
     {
         $siswas = Siswa::with('kelas', 'pembimbing', 'tempatPkl')->orderBy('id', 'desc')->paginate(5);
-
         $kelas = Kelas::all();
         $pembimbing = Pembimbing::all();
         $tempat_pkl = TempatPkl::all();
 
-        return view('siswa.index', compact('kelas', 'pembimbing', 'tempat_pkl', 'siswas'));
+        $arrKelas = [
+            'XII RPL 1',
+            'XII RPL 2'
+        ];
+
+        if($kelas->count() < 1){
+            foreach($arrKelas as $kelas){
+                $kelas = Kelas::create(['nama' => $kelas]);
+            }
+            $kelas = Kelas::all();
+        }
+
+        return view('admin.siswa.index', compact('kelas', 'pembimbing', 'tempat_pkl', 'siswas'));
     }
 
     /**

@@ -149,15 +149,15 @@
                                             </td>
                                         </tr>
                                         @push('modal')
-                                            @include('components.modal.tempat-pkl', [
+                                            @include('components.modals.tempat-modal', [
                                                 'id' => $tempatPkl->id,
                                                 'tempatPkl' => $tempatPkl,
                                                 'mode' => 'Edit',
-                                                'route' => route('pkl.update', $tempatPkl->id) ?? ''
+                                                'route' => route('admin.pkl.update', $tempatPkl->id) ?? ''
                                             ])
 
-                                            @include('components.modal.delete', [
-                                                'route' => route('pkl.destroy', $tempatPkl->id) ?? '',
+                                            @include('components.modals.delete', [
+                                                'route' => route('admin.pkl.destroy', $tempatPkl->id) ?? '',
                                             ])
                                         @endpush
                                     @empty
@@ -214,10 +214,10 @@
         </main>
     </div>
 
-    @include('components.modal.tempat-pkl', [
+    @include('components.modals.tempat-modal', [
         'tempatPkl' => '',
         'mode' => 'Tambah',
-        'route' => route('pkl.store') ?? ''
+        'route' => route('admin.pkl.store') ?? ''
     ])
 
     @if (session('success'))

@@ -14,7 +14,7 @@ class TempatPklController extends Controller
     {
         $tempatPkls = TempatPkl::orderBy('id', 'desc')->paginate(5);
 
-        return view('pkl.tempat.index', compact('tempatPkls'));
+        return view('admin.pkl.tempat.index', compact('tempatPkls'));
     }
 
     /**

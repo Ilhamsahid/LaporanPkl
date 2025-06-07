@@ -18,7 +18,7 @@ class LaporanPklController extends Controller
         $siswas = Siswa::all();
         $jeniss = ['mingguan', 'akhiran'];
 
-        return view('pkl.laporan.index', compact('laporans', 'siswas', 'jeniss'));
+        return view('admin.pkl.laporan.index', compact('laporans', 'siswas', 'jeniss'));
     }
 
     /**

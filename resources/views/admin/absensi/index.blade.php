@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Penilaian | SistemPKL')
+@section('title', 'Absensi | Laporan PKL')
 
 @section('content')
     <!-- Mobile Overlay -->
@@ -43,7 +43,7 @@
                                     <input type="text" class="form-input" placeholder="Cari penilaian..."
                                         style="width: 250px;">
                                 </div>
-                                <button class="btn btn-primary" onclick="openModal('penilaian-modal')">
+                                <button class="btn btn-primary" onclick="openModal('absensi-modal')">
                                     <i class="fas fa-plus"></i>
                                     <span>Input Nilai</span>
                                 </button>
@@ -51,37 +51,34 @@
                         </div>
 
                         <!-- Mobile Cards View -->
-                        @forelse ($penilaians as $penilaian)
+                        @forelse ($absensis as $absensi)
                             <div class="mobile-card">
                                 <div class="mobile-card-header">
-                                    <div class="mobile-card-title">{{ $penilaian->siswa->nama }}</div>
-                                    <span class="badge badge-success">A</span>
+                                    <div class="mobile-card-title">{{ $absensi->siswa->nama }}</div>
+                                    @if ($absensi->status == 'hadir')
+                                        <span class="badge badge-success">{{ $absensi->status }}</span>
+                                    @else
+                                        <span class="badge badge-warning">{{ $absensi->status }}</span>
+                                    @endif
                                 </div>
                                 <div class="mobile-card-body">
                                     <div class="mobile-card-item">
-                                        <div class="mobile-card-label">Nilai Akhir:</div>
-                                        <div class="mobile-card-value">{{ $rataRata[$penilaian->id] }}</div>
+                                        <div class="mobile-card-label">Tanggal:</div>
+                                        <div class="mobile-card-value">{{ $absensi->tanggal }}</div>
                                     </div>
                                     <div class="mobile-card-item">
-                                        <div class="mobile-card-label">Etika:</div>
-                                        <div class="mobile-card-value">{{ $penilaian->nilai_etika }}</div>
+                                        <div class="mobile-card-label">Jam Masuk:</div>
+                                        <div class="mobile-card-value">
+                                            {{ \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i') ?? '-' }}</div>
                                     </div>
                                     <div class="mobile-card-item">
-                                        <div class="mobile-card-label">Kedisplinan:</div>
-                                        <div class="mobile-card-value">{{ $penilaian->nilai_kedisplinan }}</div>
+                                        <div class="mobile-card-label">Jam Keluar:</div>
+                                        <div class="mobile-card-value">
+                                            {{ \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i') ?? '-' }}</div>
                                     </div>
                                     <div class="mobile-card-item">
-                                        <div class="mobile-card-label">Keterampilan:</div>
-                                        <div class="mobile-card-value">{{ $penilaian->nilai_keterampilan }}</div>
-                                    </div>
-                                    <div class="mobile-card-item">
-                                        <div class="mobile-card-label">Wawasan:</div>
-                                        <div class="mobile-card-value">{{ $penilaian->nilai_wawasan }}</div>
-                                    </div>
-
-                                    <div class="mobile-card-item">
-                                        <div class="mobile-card-label">Pembimbing:</div>
-                                        <div class="mobile-card-value">{{ $penilaian->siswa->pembimbing->nama }}</div>
+                                        <div class="mobile-card-label">Tempat PKL:</div>
+                                        <div class="mobile-card-value">{{ optional(optional($absensi->siswa)->tempatPkl)->nama_tempat ?? '' }}</div>
                                     </div>
                                 </div>
                                 <div class="mobile-card-actions">
@@ -89,11 +86,11 @@
                                         <i class="fas fa-eye"></i>
                                     </button>
                                     <button class="action-btn action-btn-edit" title="Edit"
-                                        onclick="openModal('penilaian-modal{{ $penilaian->id }}', {{ $penilaian->id }})">
+                                        onclick="openModal('absensi-modal{{ $absensi->id }}', {{ $absensi->id }}, 'Edit')">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="action-btn action-btn-delete" title="Hapus"
-                                        onclick="openDeleteModal('', {{ $penilaian->id }}, '{{ addslashes($penilaian->siswa->nama) }}')">
+                                        onclick="openDeleteModal('', {{ $absensi->id }}, '{{ addslashes($absensi->siswa->nama) }}')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -105,24 +102,23 @@
                             </div>
                         @endforelse
 
-
                         <!-- Desktop Table View -->
                         <div class="table-container hidden-mobile">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Nama Siswa</th>
-                                        <th>Etika</th>
-                                        <th>Kedisiplinan</th>
-                                        <th>Keterampilan</th>
-                                        <th>Wawasan</th>
-                                        <th>Nilai Akhir</th>
-                                        <th>Pembimbing</th>
+                                        <th>Tanggal</th>
+                                        <th>Jam Masuk</th>
+                                        <th>Jam Keluar</th>
+                                        <th>Status</th>
+                                        <th>Keterangan</th>
+                                        <th>Tempat pkl</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($penilaians as $penilaian)
+                                    @forelse ($absensis as $absensi)
                                         <tr>
                                             <td data-label="Nama Siswa">
                                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
@@ -131,33 +127,43 @@
                                                         BS</div>
                                                     <div>
                                                         <div style="font-weight: 600; color: var(--text-primary);">
-                                                            {{ $penilaian->siswa->nama }}
+                                                            {{ $absensi->siswa->nama }}
                                                         </div>
                                                         <div style="font-size: 0.75rem; color: var(--text-secondary);">
-                                                            {{ $penilaian->siswa->kelas->nama }}</div>
+                                                            {{ $absensi->siswa->kelas->nama }}</div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td data-label="Etika">{{ $penilaian->nilai_etika }}</td>
-                                            <td data-label="Keterampilan">{{ $penilaian->nilai_kedisplinan }}</td>
-                                            <td data-label="Komunikasi">{{ $penilaian->nilai_keterampilan }}</td>
-                                            <td data-label="wawasan">{{ $penilaian->nilai_wawasan }}</td>
-                                            <td data-label="Nilai Akhir">
-                                                <span
-                                                    style="font-weight: 700; color: var(--{{ $color[$penilaian->id] }}-500);">{{ $rataRata[$penilaian->id] }}</span>
+                                            <td data-label="Etika">{{ $absensi->tanggal }}</td>
+                                            <td data-label="Keterampilan">
+                                                {{ \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i') ?? '-' }}</td>
+                                            <td data-label="Komunikasi">
+                                                {{ \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i') ?? '-' }}
                                             </td>
-                                            <td data-label="Pembimbing">{{ $penilaian->siswa->pembimbing->nama }}</td>
+                                            @if ($absensi->status == 'hadir')
+                                                <td>
+                                                    <span class="badge badge-success">{{ $absensi->status }}</span>
+                                                </td>
+                                            @else
+                                                <td>
+                                                    <span class="badge badge-warning">{{ $absensi->status }}</span>
+                                                </td>
+                                            @endif
+                                            <td data-label="Nilai Akhir">
+                                                {{ $absensi->keterangan ?? '-' }}
+                                            </td>
+                                            <td data-label="Pembimbing">{{ optional(optional($absensi->siswa)->tempatPkl)->nama_tempat ?? '-' }}</td>
                                             <td data-label="Aksi">
                                                 <div class="action-buttons">
                                                     <button class="action-btn action-btn-view" title="Lihat Detail">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                     <button class="action-btn action-btn-edit" title="Edit"
-                                                        onclick="openModal('penilaian-modal{{ $penilaian->id }}', {{ $penilaian->id }}, 'Edit')">
+                                                        onclick="openModal('absensi-modal{{ $absensi->id }}', {{ $absensi->id }}, 'Edit')">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <button class="action-btn action-btn-delete" title="Hapus"
-                                                        onclick="openDeleteModal('', {{ $penilaian->id }}, '{{ addslashes($penilaian->siswa->nama) }}')">
+                                                        onclick="openDeleteModal('', {{ $absensi->id }}, '{{ addslashes($absensi->siswa->nama) }}')">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -165,15 +171,15 @@
                                         </tr>
 
                                         @push('modal')
-                                            @include('components.modal.penilaian', [
-                                                'id' => $penilaian->id,
-                                                'penilaian' => $penilaian,
+                                            @include('components.modals.absensi-modal', [
+                                                'id' => $absensi->id,
+                                                'absensi' => $absensi,
                                                 'mode' => 'Edit',
-                                                'route' => route('penilaian.update', $penilaian->id),
+                                                'route' => route('admin.absensi.update', $absensi->id),
                                             ])
 
-                                            @include('components.modal.delete', [
-                                                'route' => route('penilaian.destroy', $penilaian->id),
+                                            @include('components.modals.delete', [
+                                                'route' => route('admin.absensi.destroy', $absensi->id),
                                             ])
                                         @endpush
 
@@ -197,28 +203,28 @@
                         </div>
                         <div class="pagination-container">
                             <div class="pagination-info">
-                                Menampilkan {{ $penilaians->firstItem() }}-{{ $penilaians->lastItem() }} dari
-                                {{ $penilaians->total() }}
+                                Menampilkan {{ $absensis->firstItem() }}-{{ $absensis->lastItem() }} dari
+                                {{ $absensis->total() }}
                                 data
                             </div>
                             <div class="pagination">
                                 {{-- Tombol Previous --}}
-                                <button class="pagination-btn" {{ $penilaians->onFirstPage() ? 'disabled' : '' }}
-                                    onclick="window.location='{{ $penilaians->previousPageUrl() }}'">
+                                <button class="pagination-btn" {{ $absensis->onFirstPage() ? 'disabled' : '' }}
+                                    onclick="window.location='{{ $absensis->previousPageUrl() }}'">
                                     <i class="fas fa-chevron-left"></i>
                                 </button>
 
                                 {{-- Nomor Halaman --}}
-                                @for ($i = 1; $i <= $penilaians->lastPage(); $i++)
-                                    <button class="pagination-btn {{ $penilaians->currentPage() == $i ? 'active' : '' }}"
-                                        onclick="window.location='{{ $penilaians->url($i) }}'">
+                                @for ($i = 1; $i <= $absensis->lastPage(); $i++)
+                                    <button class="pagination-btn {{ $absensis->currentPage() == $i ? 'active' : '' }}"
+                                        onclick="window.location='{{ $absensis->url($i) }}'">
                                         {{ $i }}
                                     </button>
                                 @endfor
 
                                 {{-- Tombol Next --}}
-                                <button class="pagination-btn" {{ !$penilaians->hasMorePages() ? 'disabled' : '' }}
-                                    onclick="window.location='{{ $penilaians->nextPageUrl() }}'">
+                                <button class="pagination-btn" {{ !$absensis->hasMorePages() ? 'disabled' : '' }}
+                                    onclick="window.location='{{ $absensis->nextPageUrl() }}'">
                                     <i class="fas fa-chevron-right"></i>
                                 </button>
                             </div>
@@ -231,11 +237,10 @@
             </div>
         </main>
     </div>
-
-    @include('components.modal.penilaian', [
-        'penilaian' => '',
+    @include('components.modals.absensi-modal', [
+        'absensi' => '',
         'mode' => 'Tambah',
-        'route' => route('penilaian.store'),
+        'route' => route('admin.absensi.store'),
     ])
 
     <script>
@@ -272,4 +277,5 @@
         </script>
     @endif
     <script src="{{ asset('assets/js/script.js') }}"></script>
+
 @endsection

@@ -23,7 +23,7 @@ class AbsensiPklController extends Controller
             'Alpha',
         ];
 
-        return view('absensi.index', compact('absensis', 'kelas', 'status'));
+        return view('admin.absensi.index', compact('absensis', 'kelas', 'status'));
     }
 
     /**

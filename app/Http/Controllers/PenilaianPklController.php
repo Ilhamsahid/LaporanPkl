@@ -35,7 +35,7 @@ class PenilaianPklController extends Controller
 
         $color = $rataRata->map(fn($nilai) => $nilai < 85 ? 'warning' : 'success')->toArray();
 
-        return view('penilaian.index', compact('penilaians', 'kelas', 'siswas', 'rataRata', 'color'));
+        return view('admin.penilaian.index', compact('penilaians', 'kelas', 'siswas', 'rataRata', 'color'));
     }
  
     public function getSiswaByKelas($kelas_id)

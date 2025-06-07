@@ -21,7 +21,7 @@ class PembimbingController extends Controller
             ]);
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('');
     }
 
     public function hapussession(){
@@ -32,7 +32,7 @@ class PembimbingController extends Controller
     {
         $pembimbings = Pembimbing::orderBy('id', 'desc')->paginate(5);
 
-        return view('pembimbing.index', compact('pembimbings'));
+        return view('admin.pembimbing.index', compact('pembimbings'));
     }
 
     /**

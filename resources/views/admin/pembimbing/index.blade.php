@@ -121,8 +121,6 @@
                                                     <div>
                                                         <div style="font-weight: 600; color: var(--text-primary);">
                                                             {{ $pembimbing->nama }}</div>
-                                                        <div style="font-size: 0.75rem; color: var(--text-secondary);">
-                                                            Rekayasa Perangkat Lunak</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -150,15 +148,15 @@
                                         </tr>
 
                                         @push('modal')
-                                            @include('components.modal.pembimbing', [
+                                            @include('components.modals.pembimbing-modal', [
                                                 'pembimbing' => $pembimbing,
                                                 'id' => $pembimbing->id,
                                                 'mode' => 'Edit',
-                                                'route' => route('pembimbing.update', $pembimbing->id) ?? '',
+                                                'route' => route('admin.pembimbing.update', $pembimbing->id) ?? '',
                                             ])
 
-                                            @include('components.modal.delete', [
-                                                'route' => route('pembimbing.destroy', $pembimbing->id) ?? '',
+                                            @include('components.modals.delete', [
+                                                'route' => route('admin.pembimbing.destroy', $pembimbing->id) ?? '',
                                             ])
                                         @endpush
                                     @empty
@@ -214,10 +212,10 @@
         </main>
     </div>
 
-    @include('components.modal.pembimbing', [
+    @include('components.modals.pembimbing-modal', [
         'pembimbing' => '',
         'mode' => 'Tambah',
-        'route' => route('pembimbing.store') ?? '',
+        'route' => route('admin.pembimbing.store') ?? '',
     ])
 
     @if (session('success'))

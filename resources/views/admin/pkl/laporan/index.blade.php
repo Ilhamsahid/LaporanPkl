@@ -134,15 +134,15 @@
                                         </tr>
 
                                         @push('modal')
-                                            @include('components.modal.laporan', [
+                                            @include('components.modals.laporan-modal', [
                                                 'id' => $laporan->id,
                                                 'laporan' => $laporan,
                                                 'mode' => 'Edit',
-                                                'route' => route('laporan.update', $laporan->id),
+                                                'route' => route('admin.laporan.update', $laporan->id),
                                             ])
 
-                                            @include('components.modal.delete', [
-                                                'route' => route('laporan.destroy', $laporan->id),
+                                            @include('components.modals.delete', [
+                                                'route' => route('admin.laporan.destroy', $laporan->id),
                                             ])
                                         @endpush
 
@@ -199,10 +199,18 @@
         </main>
     </div>
 
-    @include('components.modal.laporan', [
+    @include('components.modals.laporan-modal', [
         'laporan' => '',
         'mode' => 'Tambah',
-        'route' => route('laporan.store') ?? '',
+        'route' => route('admin.laporan.store') ?? '',
     ])
+
+    @if (session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                showNotification('success', 'Berhasil', '{{ session('success') }}');
+            });
+        </script>
+    @endif
     <script src="{{ asset('assets/js/script.js') }}"></script>
 @endsection

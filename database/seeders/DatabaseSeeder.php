@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pembimbing;
 use App\Models\User;
+use App\Models\Admin;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Pembimbing;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,9 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Pembimbing::create([
+        Admin::create([
             'nama' => 'Ilham',
-            'nip' => 196787764,
             'password' => Hash::make('password'),
         ]);
     }
