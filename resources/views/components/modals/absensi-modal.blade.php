@@ -33,7 +33,8 @@
                 @if ($mode == 'Edit')
                     <div class="form-group">
                         <label for="siswa-select" class="form-label required">Siswa</label>
-                        <input type="text" class="form-control" value="{{ $absensi->siswa->nama }}" readonly>
+                        <input type="hidden" name="siswa_id" value="{{ $absensi->siswa->id }}">
+                        <input type="text" class="form-control"  value="{{ $absensi->siswa->nama }}" readonly>
                     </div>
                 @else
                     <div class="form-group">
@@ -49,18 +50,36 @@
                     <input type="date" class="form-control" name="tanggal"
                         value="{{ $absensi->tanggal ?? \Carbon\Carbon::now()->toDateString() }}"
                         placeholder="Tanggal Laporan" required>
-                    <div class="form-error" id="nama-error"></div>
+                    @error('tanggal')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label required">Jam Absensi</label>
-                    <input type="time" class="form-control" name="jam_masuk"
-                        value="{{ $absensi->jam_masuk ?? \Carbon\Carbon::now()->format('H:i') }}"
-                        placeholder="Jam Absensi" required>
-                    <div class="form-error" id="jam-error"></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label required">Absen Masuk</label>
+                        <input type="time" class="form-control" name="jam_masuk"
+                            value="{{ optional($absensi)->jam_masuk ? \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i') : now()->format('H:i') }}"
+                            placeholder="Jam Absensi" required>
+                        @error('jam_masuk')
+                            @if (session('mode') == $mode)
+                                <div class="form-error" id="nama-error">{{ $message }}</div>
+                            @endif
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Absen Keluar</label>
+                        <input type="time" class="form-control" name="jam_keluar"
+                            value="{{ optional($absensi)->jam_keluar ? \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i') : now()->format('H:i') }}"
+                            placeholder="Jam Absensi" required>
+                        @error('jam_keluar')
+                            @if (session('mode') == $mode)
+                                <div class="form-error" id="nama-error">{{ $message }}</div>
+                            @endif
+                        @enderror
+                    </div>
                 </div>
-
-                <input type="hidden" name="jam_keluar" value="17:00">
 
                 <div class="form-group">
                     <label for="status-select" class="form-label required">Status</label>
@@ -73,11 +92,21 @@
                             </option>
                         @endforeach
                     </select>
+                    @error('status')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Keterangan</label>
-                    <textarea class="form-control" name="keterangan" rows="3" placeholder="Keterangan">{{ $absensi->keterangan ?? '' }}</textarea>
+                    <textarea class="form-control" name="keterangan" rows="3" placeholder="Masukkan Keterangan(opsional)">{{ $absensi->keterangan ?? '' }}</textarea>
+                    @error('keterangan')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="modal-footer">

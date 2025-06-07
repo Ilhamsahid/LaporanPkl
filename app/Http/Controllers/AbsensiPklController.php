@@ -21,6 +21,7 @@ class AbsensiPklController extends Controller
             'Sakit',
             'Izin',
             'Alpha',
+            'Terlambat',
         ];
 
         return view('admin.absensi.index', compact('absensis', 'kelas', 'status'));
@@ -39,9 +40,31 @@ class AbsensiPklController extends Controller
      */
     public function store(Request $request)
     {
-        AbsensiPkl::create($request->all());
+        try{
+            $validated = $request->validate([
+                'siswa_id' => 'required',
+                'tanggal' => 'required|date|before_or_equal:today',
+                'jam_masuk' => ['required', 'date_format:H:i'],
+                'jam_keluar' => ['required', 'date_format:H:i', 'after:jam_masuk'],
+                'status' => 'required',
+                'keterangan' => 'nullable',
+            ]);
 
-        return redirect()->back()->with('success', 'Siswa berhasil diabsen');
+            if(strtotime($validated['jam_masuk']) > strtotime('08:20') && strtotime($validated['jam_masuk']) < strtotime('17:00')){
+                $validated['status'] = 'terlambat';
+            }else{
+                $validated['status'] = 'hadir';
+            }
+
+            AbsensiPkl::create($validated);
+
+            return redirect()->back()->with('success', 'Siswa berhasil diabsen');
+        }catch(\Illuminate\Validation\ValidationException $e){
+            return redirect()->back()
+            ->withErrors($e->validator)
+            ->with('mode', 'Tambah')
+            ->with('modal-add', 'absensi-modal');
+        }
     }
 
     /**
@@ -65,9 +88,33 @@ class AbsensiPklController extends Controller
      */
     public function update(Request $request, AbsensiPkl $absensi)
     {
-        $absensi->update($request->all());
+        try{
+            $validated = $request->validate([
+                'siswa_id' => 'required',
+                'tanggal' => 'required|date|before_or_equal:today',
+                'jam_masuk' => ['required', 'date_format:H:i'],
+                'jam_keluar' => ['required', 'date_format:H:i', 'after:jam_masuk'],
+                'status' => 'required',
+                'keterangan' => 'nullable',
+            ],[
+                'jam_keluar' => 'absen keluar tidak boleh melewati absen masuk'
+            ]);
 
-        return redirect()->back()->with('success', 'Absen siswa berhasil diperbarui');
+            if(strtotime($validated['jam_masuk']) > strtotime('08:20') && strtotime($validated['jam_masuk']) < strtotime('17:00')){
+                $validated['status'] = 'terlambat';
+            }else{
+                $validated['status'] = 'hadir';
+            }
+
+            $absensi->update($validated);
+
+            return redirect()->back()->with('success', 'Absen siswa berhasil diperbarui');
+        }catch(\Illuminate\Validation\ValidationException $e){
+            return redirect()->back()
+            ->withErrors($e->validator)
+            ->with('mode', 'Edit')
+            ->with('modal-edit', 'absensi-modal' . $absensi->id);
+        }
     }
 
     /**
