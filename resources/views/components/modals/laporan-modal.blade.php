@@ -20,14 +20,22 @@
                     <label class="form-label required">Judul Laporan</label>
                     <input type="text" class="form-control" name="judul" value="{{ $laporan->judul ?? '' }}"
                         placeholder="Judul Laporan" required>
-                    <div class="form-error" id="nama-error"></div>
+                    @error('judul')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label class="form-label required">Ringkasan Laporan</label>
                     <input type="text" class="form-control" name="isi_laporan" value="{{ $laporan->isi_laporan ?? '' }}"
                         placeholder="Isi Laporan" required>
-                    <div class="form-error" id="nama-error"></div>
+                    @error('isi_laporan')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -42,14 +50,22 @@
                                 {{ $siswa->nama }}</option>
                         @endforeach
                     </select>
-                    <div class="form-error" id="nama-error"></div>
+                    @error('siswa_id')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label class="form-label required">Tanggal Laporan</label>
                     <input type="date" class="form-control" name="tanggal" value="{{ $laporan->tanggal ?? \Carbon\Carbon::now()->toDateString() }}"
                         placeholder="Tanggal Laporan" required>
-                    <div class="form-error" id="nama-error"></div>
+                    @error('tanggal')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -64,7 +80,11 @@
                                 {{ $jenis }}</option>
                         @endforeach
                     </select>
-                    <div class="form-error" id="nama-error"></div>
+                    @error('jenis_laporan')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
         </div>
         <div class="modal-footer">
