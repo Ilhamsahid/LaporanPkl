@@ -15,6 +15,9 @@
                 @if (isset($id))
                     @method('PUT')
                 @endif
+
+                <input type="hidden" name="mode" value="{{ $mode }}">
+
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label required">Nama Lengkap</label>
@@ -23,13 +26,21 @@
                         @if (!isset($id))
                             <input type="hidden" name="password">
                         @endif
-                        <div class="form-error" id="nama-error"></div>
+                        @error('nama')
+                            @if (session('mode') == $mode)
+                                <div class="form-error" id="nama-error">{{ $message }}</div>
+                            @endif
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label class="form-label required">Telepon</label>
                         <input type="tel" class="form-control" name="telepon" value="{{ $siswa->telepon ?? '' }}"
                             placeholder="Nomor Telepon" required>
-                        <div class="form-error" id="telepon-error"></div>
+                        @error('telepon')
+                            @if (session('mode') == $mode)
+                                <div class="form-error" id="nama-error">{{ $message }}</div>
+                            @endif
+                        @enderror
                     </div>
                 </div>
 
@@ -37,7 +48,11 @@
                     <label class="form-label required">Email</label>
                     <input type="email" class="form-control" name="email" value="{{ $siswa->email ?? '' }}"
                         placeholder="Email" required>
-                    <div class="form-error" id="email-error"></div>
+                    @error('email')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-row">
@@ -53,7 +68,11 @@
                                     {{ $kel->nama }}</option>
                             @endforeach
                         </select>
-                        <div class="form-error" id="kelas-error"></div>
+                        @error('kelas_id')
+                            @if (session('mode') == $mode)
+                                <div class="form-error" id="nama-error">{{ $message }}</div>
+                            @endif
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label class="form-label required">Pembimbing</label>
@@ -69,26 +88,43 @@
                                 </option>
                             @endforeach
                         </select>
-                        <div class="form-error" id="pembimbing_id-error"></div>
+                        @error('pembimbing_id')
+                            @if (session('mode') == $mode)
+                                <div class="form-error" id="nama-error">{{ $message }}</div>
+                            @endif
+                        @enderror
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label required">Tempat PKL</label>
                     <select class="form-control" name="tempat_pkl_id" required>
-                        <option value="" selected hidden>
-                            {{ $siswa->tempatPkl->nama_tempat ?? 'Pilih Tempat PKL' }}</option>
+                        <option value="" hidden
+                            {{ old('tempat_pkl_id', $siswa->tempat_pkl_id ?? '') == '' ? 'selected' : '' }}>
+                            {{ $siswa->tempatPkl->nama_tempat ?? 'Pilih Tempat Pkl' }}
+                        </option>
                         @foreach ($tempat_pkl as $tpkl)
-                            <option value="{{ $tpkl->id }}" @selected($siswa->pembimbing->nama ?? '')>{{ $tpkl->nama_tempat }}
+                            <option value="{{ $tpkl->id }}"
+                                {{ old('tempat_pkl_id', $siswa->tempat_pkl_id ?? '') == $tpkl->id ? 'selected' : '' }}>
+                                {{ $tpkl->nama_tempat }}
                             </option>
                         @endforeach
                     </select>
-                    <div class="form-error" id="tempat_pkl_id-error"></div>
+                    @error('tempat_pkl_id')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Alamat</label>
                     <textarea class="form-control" name="alamat" rows="3" placeholder="Alamat lengkap">{{ $siswa->alamat ?? '' }}</textarea>
+                    @error('alamat')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
         </div>
         <div class="modal-footer">

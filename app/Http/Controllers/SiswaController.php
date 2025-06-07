@@ -49,11 +49,37 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $request['password'] = bcrypt($request['password']);
+        try{
+            $validated = $request->validate([
+                'nama' => 'required|string',
+                'email' => 'required|email|unique:siswa,email',
+                'password' => 'nullable',
+                'alamat' => 'required',
+                'telepon' => [
+                    'required',
+                    'string',
+                    'regex:/^(?:\+62|62|08)[0-9]{7,12}$/',
+                ],
+                'pembimbing_id' => 'required',
+                'tempat_pkl_id' => 'required',
+                'kelas_id' => 'required',
+            ],
+            [
+                'telepon' => 'No telepon tidak valid',
+                'email' => 'Email sudah dipakai',
+            ]);
 
-        Siswa::create($request->all());
+            $validated['password'] = bcrypt($validated['password']);
 
-        return redirect()->back()->with('success', 'Data siswa berhasil ditambah!');
+            Siswa::create($validated);
+
+            return redirect()->back()->with('success', 'Data siswa berhasil ditambah!');
+        }catch(\Illuminate\Validation\ValidationException $e){
+            return redirect()->back()
+            ->withErrors($e->validator)
+            ->with('mode', 'Tambah')
+            ->with('modal-add', 'siswa-modal');
+        }
     }
 
     /**
@@ -77,9 +103,35 @@ class SiswaController extends Controller
      */
     public function update(Request $request, Siswa $siswa)
     {
-        $siswa->update($request->all());
+        try{
+            $validated = $request->validate([
+                'nama' => 'required|string',
+                'email' => 'required|email|unique:siswa,email,' . $siswa->id,
+                'password' => 'nullable',
+                'alamat' => 'required',
+                'telepon' => [
+                    'required',
+                    'string',
+                    'regex:/^(?:\+62|62|08)[0-9]{7,12}$/',
+                ],
+                'pembimbing_id' => 'required',
+                'tempat_pkl_id' => 'required',
+                'kelas_id' => 'required',
+            ],
+            [
+                'telepon' => 'no telepon tidak valid',
+                'email' => 'Email sudah dipakai',
+            ]);
 
-        return redirect()->back()->with('success', 'Data siswa berhasil diupdate!');
+            $siswa->update($validated);
+
+            return redirect()->back()->with('success', 'Data siswa berhasil diupdate!');
+        }catch(\Illuminate\Validation\ValidationException $e){
+            return redirect()->back()
+            ->withErrors($e->validator)
+            ->with('mode', 'Edit')
+            ->with('modal-edit', 'siswa-modal' . $siswa->id);
+        }
     }
 
     /**
