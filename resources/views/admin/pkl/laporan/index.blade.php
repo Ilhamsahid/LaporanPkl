@@ -68,7 +68,8 @@
                                     </div>
                                     <div class="mobile-card-item">
                                         <div class="mobile-card-label">Pembimbing:</div>
-                                        <div class="mobile-card-value">{{ $laporan->siswa->pembimbing->nama }}</div>
+                                        <div class="mobile-card-value">
+                                            {{ optional($laporan->siswa->pembimbing)->nama ?? '-' }}</div>
                                     </div>
                                 </div>
                                 <div class="mobile-card-actions">
@@ -116,7 +117,8 @@
                                             <td data-label="Jenis">
                                                 <span class="badge badge-primary">{{ $laporan->jenis_laporan }}</span>
                                             </td>
-                                            <td data-label="Pembimbing">{{ $laporan->siswa->pembimbing->nama }}</td>
+                                            <td data-label="Pembimbing">
+                                                {{ optional($laporan->siswa->pembimbing)->nama ?? '-' }}</td>
                                             <td data-label="Aksi">
                                                 <div class="action-buttons">
                                                     <button class="action-btn action-btn-view" title="Lihat Detail">

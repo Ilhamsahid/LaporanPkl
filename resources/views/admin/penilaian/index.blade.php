@@ -82,7 +82,7 @@
 
                                     <div class="mobile-card-item">
                                         <div class="mobile-card-label">Pembimbing:</div>
-                                        <div class="mobile-card-value">{{ $penilaian->siswa->pembimbing->nama }}</div>
+                                        <div class="mobile-card-value">{{ optional($penilaian->siswa->pembimbing)->nama ?? '-' }}</div>
                                     </div>
                                 </div>
                                 <div class="mobile-card-actions">
@@ -148,7 +148,7 @@
                                                 <span
                                                     style="font-weight: 700; color: var(--{{ $color[$penilaian->id] }}-500);">{{ $rataRata[$penilaian->id] }}</span>
                                             </td>
-                                            <td data-label="Pembimbing">{{ $penilaian->siswa->pembimbing->nama }}</td>
+                                            <td data-label="Pembimbing">{{ optional($penilaian->siswa->pembimbing)->nama ?? '-' }}</td>
                                             <td data-label="Aksi">
                                                 <div class="action-buttons">
                                                     <button class="action-btn action-btn-view" title="Lihat Detail">

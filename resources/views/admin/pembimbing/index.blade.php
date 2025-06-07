@@ -62,7 +62,7 @@
                                 <div class="mobile-card-body">
                                     <div class="mobile-card-item">
                                         <div class="mobile-card-label">NIP:</div>
-                                        <div class="mobile-card-value">{{ $pembimbing->nip }}</div>
+                                        <div class="mobile-card-value">{{ optional($pembimbing)->nip ?? '-'}}</div>
                                     </div>
                                     <div class="mobile-card-item">
                                         <div class="mobile-card-label">Email:</div>
@@ -126,7 +126,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td data-label="NIP">{{ $pembimbing->nip }}</td>
+                                            <td data-label="NIP">{{ optional($pembimbing)->nip ?? '-'}}</td>
                                             <td data-label="Email">{{ $pembimbing->email }}</td>
                                             <td data-label="Telepon">{{ $pembimbing->telepon }}</td>
                                             <td data-label="Jumlah Siswa">

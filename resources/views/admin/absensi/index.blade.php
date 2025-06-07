@@ -78,7 +78,8 @@
                                     </div>
                                     <div class="mobile-card-item">
                                         <div class="mobile-card-label">Tempat PKL:</div>
-                                        <div class="mobile-card-value">{{ optional(optional($absensi->siswa)->tempatPkl)->nama_tempat ?? '' }}</div>
+                                        <div class="mobile-card-value">
+                                            {{ optional(optional($absensi->siswa)->tempatPkl)->nama_tempat ?? '' }}</div>
                                     </div>
                                 </div>
                                 <div class="mobile-card-actions">
@@ -150,7 +151,10 @@
                                                 </td>
                                             @endif
                                             <td data-label="Nilai Akhir">
-                                                {{ $absensi->keterangan ?? '-' }}
+                                                {{ optional($absensi)->keterangan ?? '-' }}
+                                            </td>
+                                            <td data-label="Pembimbing">
+                                                {{ optional(optional($absensi->siswa)->tempatPkl)->nama_tempat ?? '-' }}
                                             </td>
                                             <td data-label="Pembimbing">{{ optional(optional($absensi->siswa)->tempatPkl)->nama_tempat ?? '-' }}</td>
                                             <td data-label="Aksi">
