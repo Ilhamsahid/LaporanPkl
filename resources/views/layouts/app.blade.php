@@ -32,26 +32,13 @@
         <div class="loading-spinner"></div>
     </div>
 
-    @yield('content')
-    @stack('modal')
-    @if ($errors->any() && session('modal') && str_contains(session('modal'), 'penilaian-modal'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const modalId = "{{ session('modal') }}";
-                openModal(modalId);
-            });
-        </script>
-    @endif
-    @if (session('modal-add'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const modalId = "{{ session('modal-add') }}";
-                openModal(modalId);
-            });
-        </script>
-    @endif
 
-        @stack('script')
-        </body>
+    @yield('content')
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+
+    @stack('modal')
+
+    @stack('script')
+</body>
 
 </html>

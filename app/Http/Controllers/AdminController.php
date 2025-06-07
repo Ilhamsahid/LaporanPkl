@@ -13,13 +13,22 @@ class AdminController extends Controller
             'password' => 'required'
         ]);
 
-
         if(!Auth::guard('admin')->attempt($credentials)){
             return back()->withErrors([
                 'login_error' => 'Username Dan Password Tidak Sesuai'
             ]);
         }
 
-        return redirect()->route('admin.dashboard');
+        if(Auth::guard('admin')->check()){
+            return redirect()->route('admin.dashboard');
+        }
+    }
+
+    public function logout(){
+        if(Auth::guard('admin')->check()){
+            Auth::guard('admin')->logout();
+        }
+
+        return redirect()->route('login');
     }
 }

@@ -1,10 +1,11 @@
 @php
-    function getInitials($name){
+    function getInitials($name)
+    {
         $parts = explode(' ', $name);
 
-        if(count($parts) >= 2){
+        if (count($parts) >= 2) {
             return strtoupper(substr($parts[0], 0, 1) . substr($parts[1], 0, 1));
-        }else{
+        } else {
             return strtoupper(substr($parts[0], 0, 2));
         }
     }
@@ -38,9 +39,14 @@
                 <i class="fas fa-cog"></i>
                 <span>Pengaturan</span>
             </div>
-            <div class="dropdown-item logout" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
+            <div class="dropdown-item logout">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <i class="fas fa-sign-out-alt"></i>
+                    <button type="submit">
+                        <span>Logout</span>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
