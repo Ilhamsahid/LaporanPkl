@@ -77,12 +77,13 @@
                                         <i class="fas fa-eye"></i>
                                     </button>
                                     <button class="action-btn action-btn-edit" title="Edit"
-                                        onclick="openModal('laporan-pkl-modal{{ $laporan->id }}')">
+                                        onclick="openModal('laporan-pkl-modal{{ $laporan->id }}', {{ $laporan->id }}, 'Edit')">
                                         <i class="fas fa-edit"></i>
-                                        <button class="action-btn action-btn-delete" title="Hapus"
+                                    </button>
+                                    <button class="action-btn action-btn-delete" title="Hapus"
                                         onclick="openModal('delete-modal{{ $laporan->id }}')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
                             </div>
                         @empty
@@ -125,12 +126,13 @@
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                     <button class="action-btn action-btn-edit" title="Edit"
-                                                        onclick="openModal('laporan-pkl-modal{{ $laporan->id }}')">
+                                                        onclick="openModal('laporan-pkl-modal{{ $laporan->id }}', {{ $laporan->id }}, 'Edit')">
                                                         <i class="fas fa-edit"></i>
-                                                        <button class="action-btn action-btn-delete" title="Hapus"
+                                                    </button>
+                                                    <button class="action-btn action-btn-delete" title="Hapus"
                                                         onclick="openModal('delete-modal{{ $laporan->id }}')">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -209,12 +211,32 @@
         'route' => route('admin.laporan.store') ?? '',
     ])
 
-    @if (session('success'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                showNotification('success', 'Berhasil', '{{ session('success') }}');
-            });
-        </script>
-    @endif
-    <script src="{{ asset('assets/js/script.js') }}"></script>
+    @push('script')
+        @if (session('modal-add'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const modalId = "{{ session('modal-add') }}";
+                    openModal(modalId);
+                });
+            </script>
+        @endif
+
+        @if (session('modal-edit'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const modalId = "{{ session('modal-edit') }}";
+                    openModal(modalId);
+                });
+            </script>
+        @endif
+
+        @if (session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showNotification('success', 'Berhasil', '{{ session('success') }}');
+                });
+            </script>
+        @endif
+    @endpush
+
 @endsection

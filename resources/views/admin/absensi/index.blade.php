@@ -110,8 +110,8 @@
                                     <tr>
                                         <th>Nama Siswa</th>
                                         <th>Tanggal</th>
-                                        <th>Jam Masuk</th>
-                                        <th>Jam Keluar</th>
+                                        <th>Absen Masuk</th>
+                                        <th>Absen Keluar</th>
                                         <th>Status</th>
                                         <th>Keterangan</th>
                                         <th>Tempat pkl</th>
@@ -125,7 +125,7 @@
                                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
                                                     <div
                                                         style="width: 2.5rem; height: 2.5rem; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.875rem;">
-                                                        BS</div>
+                                                        {{ getInitials($absensi->siswa->nama) }}</div>
                                                     <div>
                                                         <div style="font-weight: 600; color: var(--text-primary);">
                                                             {{ $absensi->siswa->nama }}
@@ -156,7 +156,6 @@
                                             <td data-label="Pembimbing">
                                                 {{ optional(optional($absensi->siswa)->tempatPkl)->nama_tempat ?? '-' }}
                                             </td>
-                                            <td data-label="Pembimbing">{{ optional(optional($absensi->siswa)->tempatPkl)->nama_tempat ?? '-' }}</td>
                                             <td data-label="Aksi">
                                                 <div class="action-buttons">
                                                     <button class="action-btn action-btn-view" title="Lihat Detail">
@@ -249,39 +248,58 @@
         'route' => route('admin.absensi.store'),
     ])
 
-    <script>
-        document.getElementById('kelas-select').addEventListener('change', function() {
-            const kelasId = this.value;
-            const siswaSelect = document.getElementById('siswa-select');
+    @push('script')
 
-            // Reset pilihan siswa dulu
-            siswaSelect.innerHTML = '<option value="" hidden>Pilih Siswa</option>';
-
-            if (!kelasId) return;
-
-            fetch(`/kelas/${kelasId}/siswa`)
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(siswa => {
-                        const option = document.createElement('option');
-                        option.value = siswa.id;
-                        option.textContent = siswa.nama; // Asumsi atribut nama ada
-                        siswaSelect.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching siswa:', error);
-                });
-        });
-    </script>
-
-    @if (session('success'))
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                showNotification('success', 'Berhasil', '{{ session('success') }}');
+            document.getElementById('kelas-select').addEventListener('change', function() {
+                const kelasId = this.value;
+                const siswaSelect = document.getElementById('siswa-select');
+
+                // Reset pilihan siswa dulu
+                siswaSelect.innerHTML = '<option value="" hidden>Pilih Siswa</option>';
+
+                if (!kelasId) return;
+
+                fetch(`/kelas/${kelasId}/siswa`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(siswa => {
+                            const option = document.createElement('option');
+                            option.value = siswa.id;
+                            option.textContent = siswa.nama; // Asumsi atribut nama ada
+                            siswaSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching siswa:', error);
+                    });
             });
         </script>
-    @endif
-    <script src="{{ asset('assets/js/script.js') }}"></script>
 
+        @if (session('modal-add'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const modalId = "{{ session('modal-add') }}";
+                    openModal(modalId);
+                });
+            </script>
+        @endif
+
+        @if (session('modal-edit'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function(){
+                    const modalId = "{{ session('modal-edit') }}";
+                    openModal(modalId);
+                });
+            </script>
+        @endif
+
+        @if (session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showNotification('success', 'Berhasil', '{{ session('success') }}');
+                });
+            </script>
+        @endif
+    @endpush
 @endsection

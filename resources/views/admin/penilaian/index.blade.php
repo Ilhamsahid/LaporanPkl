@@ -15,7 +15,7 @@
             <!-- Header -->
             <header class="header">
                 <div class="header-left">
-                
+
                     <button id="sidebar-toggle" class="sidebar-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -242,38 +242,58 @@
         'route' => route('admin.penilaian.store'),
     ])
 
-    <script>
-        document.getElementById('kelas-select').addEventListener('change', function() {
-            const kelasId = this.value;
-            const siswaSelect = document.getElementById('siswa-select');
-
-            // Reset pilihan siswa dulu
-            siswaSelect.innerHTML = '<option value="" hidden>Pilih Siswa</option>';
-
-            if (!kelasId) return;
-
-            fetch(`/admin/kelas/${kelasId}/siswa`)
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(siswa => {
-                        const option = document.createElement('option');
-                        option.value = siswa.id;
-                        option.textContent = siswa.nama; // Asumsi atribut nama ada
-                        siswaSelect.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching siswa:', error);
-                });
-        });
-    </script>
-
-    @if (session('success'))
+    @push('script')
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                showNotification('success', 'Berhasil', '{{ session('success') }}');
+            document.getElementById('kelas-select').addEventListener('change', function() {
+                const kelasId = this.value;
+                const siswaSelect = document.getElementById('siswa-select');
+
+                // Reset pilihan siswa dulu
+                siswaSelect.innerHTML = '<option value="" hidden>Pilih Siswa</option>';
+
+                if (!kelasId) return;
+
+                fetch(`/kelas/${kelasId}/siswa`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(siswa => {
+                            const option = document.createElement('option');
+                            option.value = siswa.id;
+                            option.textContent = siswa.nama; // Asumsi atribut nama ada
+                            siswaSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching siswa:', error);
+                    });
             });
         </script>
-    @endif
-    <script src="{{ asset('assets/js/script.js') }}"></script>
+
+        @if (session('modal-add'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const modalId = "{{ session('modal-add') }}";
+                    openModal(modalId);
+                });
+            </script>
+        @endif
+
+        @if (session('modal-edit'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const modalId = "{{ session('modal-edit') }}";
+                    openModal(modalId);
+                });
+            </script>
+        @endif
+
+        @if (session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showNotification('success', 'Berhasil', '{{ session('success') }}');
+                });
+            </script>
+        @endif
+    @endpush
+
 @endsection

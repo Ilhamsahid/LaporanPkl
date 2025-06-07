@@ -131,14 +131,14 @@
                                             <td data-label="Telepon">{{ $tempatPkl->telepon }}</td>
                                             <td data-label="Email">{{ $tempatPkl->email }}</td>
                                             <td data-label="Siswa PKL">
-                                                <span class="badge badge-primary">8 siswa</span>
+                                                <span class="badge badge-primary">{{ count($tempatPkl->siswa) }} siswa</span>
                                             </td>
                                             <td data-label="Aksi">
                                                 <div class="action-buttons">
                                                     <button class="action-btn action-btn-view" title="Lihat Detail">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
-                                                    <button class="action-btn action-btn-edit" title="Edit" onclick="openModal('tempat-pkl-modal{{ $tempatPkl->id }}')">
+                                                    <button class="action-btn action-btn-edit" title="Edit" onclick="openModal('tempat-pkl-modal{{ $tempatPkl->id }}', {{ $tempatPkl->id }}, 'Edit')">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <button class="action-btn action-btn-delete" title="Hapus"
@@ -222,12 +222,31 @@
         'route' => route('admin.pkl.store') ?? ''
     ])
 
-    @if (session('success'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                showNotification('success', 'Berhasil', '{{ session('success') }}');
-            });
-        </script>
-    @endif
-    <script src="{{ asset('assets/js/script.js') }}"></script>
+    @push('script')
+        @if (session('modal-add'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function(){
+                    const modalId = "{{ session('modal-add') }}";
+                    openModal(modalId);
+                });
+            </script>
+        @endif
+
+        @if (session('modal-edit'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function(){
+                    const modalId = "{{ session('modal-edit') }}";
+                    openModal(modalId);
+                });
+            </script>
+        @endif
+
+        @if (session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showNotification('success', 'Berhasil', '{{ session('success') }}');
+                });
+            </script>
+        @endif
+    @endpush
 @endsection

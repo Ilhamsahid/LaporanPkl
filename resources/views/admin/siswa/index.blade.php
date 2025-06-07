@@ -83,7 +83,7 @@
                                         <i class="fas fa-eye"></i>
                                     </button>
                                     <button class="action-btn action-btn-edit" title="Edit"
-                                        onclick="openModal('siswa-modal{{ $siswa->id }}')">
+                                        onclick="openModal('siswa-modal{{ $siswa->id }}', {{ $siswa->id }}, 'Edit')">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="action-btn action-btn-delete" title="Hapus"
@@ -98,7 +98,7 @@
                                 style="text-align:center; font-style: italic; color: var(--text-secondary);">
                                 Tidak ditemukan
                             </div>
-                    @endforelse
+                        @endforelse
 
                         <!-- Desktop Table View -->
                         <div class="table-container hidden-mobile">
@@ -141,7 +141,7 @@
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                     <button class="action-btn action-btn-edit" title="Edit"
-                                                        onclick="openModal('siswa-modal{{ $siswa->id }}')">
+                                                        onclick="openModal('siswa-modal{{ $siswa->id }}', {{ $siswa->id }}, 'Edit')">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <button class="action-btn action-btn-delete" title="Hapus"
@@ -224,13 +224,31 @@
         'route' => route('admin.siswa.store') ?? '',
     ])
 
+    @push('script')
+        @if(session('modal-add'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function(){
+                    const modalId = "{{ session('modal-add') }}";
+                    openModal(modalId);
+                });
+            </script>
+        @endif
 
-    @if (session('success'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                showNotification('success', 'Berhasil', '{{ session('success') }}');
-            });
-        </script>
-    @endif
-    <script src="{{ asset('assets/js/script.js') }}"></script>
+        @if (session('modal-edit'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function(){
+                    const modalId = "{{ session('modal-edit') }}";
+                    openModal(modalId);
+                });
+            </script>
+        @endif
+
+        @if (session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showNotification('success', 'Berhasil', '{{ session('success') }}');
+                });
+            </script>
+        @endif
+    @endpush
 @endsection

@@ -82,7 +82,7 @@
                                         <i class="fas fa-eye"></i>
                                     </button>
                                     <button class="action-btn action-btn-edit" title="Edit"
-                                        onclick="openModal('pembimbing-modal{{ $pembimbing->id }}')">
+                                        onclick="openModal('pembimbing-modal{{ $pembimbing->id }}', {{ $pembimbing->id }}, 'Edit')">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="action-btn action-btn-delete" title="Hapus"
@@ -130,7 +130,8 @@
                                             <td data-label="Email">{{ $pembimbing->email }}</td>
                                             <td data-label="Telepon">{{ $pembimbing->telepon }}</td>
                                             <td data-label="Jumlah Siswa">
-                                                <span class="badge badge-warning">6 siswa</span>
+                                                <span class="badge badge-warning">{{ count($pembimbing->siswa) }}
+                                                    siswa</span>
                                             </td>
                                             <td data-label="Aksi">
                                                 <div class="action-buttons">
@@ -138,7 +139,7 @@
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                     <button class="action-btn action-btn-edit" title="Edit"
-                                                        onclick="openModal('pembimbing-modal{{ $pembimbing->id }}')">
+                                                        onclick="openModal('pembimbing-modal{{ $pembimbing->id }}', {{ $pembimbing->id }}, 'Edit')">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <button class="action-btn action-btn-delete" title="Hapus"
@@ -222,14 +223,31 @@
         'route' => route('admin.pembimbing.store') ?? '',
     ])
 
-    @if (session('success'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                showNotification('success', 'Berhasil', '{{ session('success') }}');
-            });
-        </script>
-    @endif
+    @push('script')
+        @if (session('modal-tambah'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    modalId = "{{ session('modal-tambah') }}";
+                    openModal(modalId)
+                });
+            </script>
+        @endif
 
+        @if (session('modal-edit'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    modalId = "{{ session('modal-edit') }}";
+                    openModal(modalId)
+                });
+            </script>
+        @endif
 
-    <script src="{{ asset('assets/js/script.js') }}"></script>
+        @if (session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showNotification('success', 'Berhasil', '{{ session('success') }}');
+                });
+            </script>
+        @endif
+    @endpush
 @endsection
