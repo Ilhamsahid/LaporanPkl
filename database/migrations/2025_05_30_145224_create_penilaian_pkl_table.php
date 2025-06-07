@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('penilaian_pkl', function (Blueprint $table) {
             $table->id();
             $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnDelete();
-            $table->foreignId('pembimbing_id')->constrained('pembimbing')->cascadeOnDelete();
             $table->integer('nilai_etika')->nullable();
             $table->integer('nilai_kedisplinan')->nullable();
             $table->integer('nilai_keterampilan')->nullable();
