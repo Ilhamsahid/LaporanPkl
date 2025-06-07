@@ -30,9 +30,28 @@ class TempatPklController extends Controller
      */
     public function store(Request $request)
     {
-        TempatPkl::create($request->all());
+        try{
+            $validated = $request->validate([
+                'nama_tempat' => 'required|string',
+                'bidang' => 'required|string',
+                'email' => 'required|email|unique:tempat_pkl,email',
+                'telepon' => [
+                    'required',
+                    'string',
+                    'regex:/^(?:\+62|62|08)[0-9]{7,12}$/',
+                ],
+                'alamat' => 'required',
+            ]);
 
-        return redirect()->back()->with('success', 'Data tempat pkl berhasil ditambah!');
+            TempatPkl::create($validated);
+
+            return redirect()->back()->with('success', 'Data tempat pkl berhasil ditambah!');
+        }catch(\Illuminate\Validation\ValidationException $e){
+            return redirect()->back()
+            ->withErrors($e->validator)
+            ->with('mode', 'Tambah')
+            ->with('modal-add', 'tempat-pkl-modal');
+        }
     }
 
     /**
@@ -56,9 +75,28 @@ class TempatPklController extends Controller
      */
     public function update(Request $request, TempatPkl $pkl)
     {
-        $pkl->update($request->all());
+        try{
+            $validated = $request->validate([
+                'nama_tempat' => 'required|string',
+                'bidang' => 'required|string',
+                'email' => 'required|email|unique:tempat_pkl,email,' . $pkl->id,
+                'telepon' => [
+                    'required',
+                    'string',
+                    'regex:/^(?:\+62|62|08)[0-9]{7,12}$/',
+                ],
+                'alamat' => 'required',
+            ]);
 
-        return redirect()->back()->with('success', 'Data tempat pkl berhasil diperbarui');
+            $pkl->update($validated);
+
+            return redirect()->back()->with('success', 'Data tempat pkl berhasil diperbarui');
+        }catch(\Illuminate\Validation\ValidationException $e){
+            return redirect()->back()
+            ->withErrors($e->validator)
+            ->with('mode', 'Edit')
+            ->with('modal-edit', 'tempat-pkl-modal' . $pkl->id);
+        }
     }
 
     /**

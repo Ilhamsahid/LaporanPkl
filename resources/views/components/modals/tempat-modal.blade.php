@@ -20,7 +20,11 @@
                     <label class="form-label required">Nama Perusahaan</label>
                     <input type="text" class="form-control" name="nama_tempat"
                         value="{{ $tempatPkl->nama_tempat ?? '' }}" placeholder="Nama Lengkap" required>
-                    <div class="form-error" id="nama-error"></div>
+                    @error('nama_tempat')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -30,26 +34,43 @@
                     @if (!isset($id))
                         <input type="hidden" name="password">
                     @endif
-                    <div class="form-error" id="nama-error"></div>
+                    @error('bidang')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label class="form-label required">Email</label>
                     <input type="email" class="form-control" name="email" value="{{ $tempatPkl->email ?? '' }}"
                         placeholder="Email" required>
-                    <div class="form-error" id="email-error"></div>
+                    @error('email')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label class="form-label required">Telepon</label>
                     <input type="tel" class="form-control" name="telepon" value="{{ $tempatPkl->telepon ?? '' }}"
                         placeholder="Nomor Telepon" required>
-                    <div class="form-error" id="telepon-error"></div>
+                    @error('telepon')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Alamat</label>
                     <textarea class="form-control" name="alamat" rows="3" placeholder="Alamat lengkap">{{ $tempatPkl->alamat ?? '' }}</textarea>
+                    @error('alamat')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
                 </div>
         </div>
         <div class="modal-footer">
