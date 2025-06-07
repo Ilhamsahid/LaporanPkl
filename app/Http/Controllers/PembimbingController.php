@@ -48,11 +48,38 @@ class PembimbingController extends Controller
      */
     public function store(Request $request)
     {
-        $request['password'] = bcrypt($request['password']);
+        try{
+            $validated = $request->validate([
+                'nama' => 'required',
+                'password' => 'nullable',
+                'email' => 'required|email',
+                'telepon' => [
+                    'required',
+                    'string',
+                    'regex:/^(?:\+62|62|08)[0-9]{7,12}$/',
+                ],
+                'nip' => [
+                    'nullable',
+                    'string',
+                    'unique:pembimbing,nip',
+                    'regex:/^[0-9]{18}$/',
+                ],
+            ],[
+                'telepon' => 'no telepon tidak valid',
+                'nip' => 'nip tidak valid, nip harus 18 angka',
+            ]);
 
-        Pembimbing::create($request->all());
+            $validated['password'] = bcrypt($validated['password']);
 
-        return redirect()->back()->with('success', 'Data pembimbing berhasil ditambah!');
+            Pembimbing::create($validated);
+
+            return redirect()->back()->with('success', 'Data pembimbing berhasil ditambah!');
+        }catch(\Illuminate\Validation\ValidationException $e){
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->with('mode', 'Tambah')
+                ->with('modal-tambah', 'pembimbing-modal');
+        }
     }
 
     /**
@@ -76,9 +103,37 @@ class PembimbingController extends Controller
      */
     public function update(Request $request, Pembimbing $pembimbing)
     {
-        $pembimbing->update($request->all());
+        try{
+            $validated = $request->validate([
+                'nama' => 'required',
+                'password' => 'nullable',
+                'email' => 'required|email|unique:pembimbing,email',
+                'telepon' => [
+                    'required',
+                    'string',
+                    'regex:/^(?:\+62|62|08)[0-9]{7,12}$/',
+                ],
+                'nip' => [
+                    'required',
+                    'string',
+                    'unique:pembimbing,nip,' . $pembimbing->id,
+                    'regex:/^[0-9]{18}$/',
+                ],
+            ],
+            [
+                'telepon' => 'no telepon tidak valid',
+                'nip' => 'nip tidak valid, nip harus 18 angka',
+            ]);
 
-        return redirect()->back()->with('success', 'Data pembimbing berhasil diupdate!');
+            $pembimbing->update($validated);
+
+            return redirect()->back()->with('success', 'Data pembimbing berhasil diupdate!');
+        }catch(\Illuminate\Validation\ValidationException $e){
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->with('mode', 'Edit')
+                ->with('modal-edit', 'pembimbing-modal' . $pembimbing->id);
+        }
     }
 
     /**
