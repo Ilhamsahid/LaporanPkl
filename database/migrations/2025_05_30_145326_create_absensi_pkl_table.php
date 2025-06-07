@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnDelete();
             $table->date('tanggal');
             $table->enum('status', ['hadir', 'izin', 'sakit', 'alpha']);
+            $table->time('jam_masuk');
+            $table->time('jam_keluar');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
