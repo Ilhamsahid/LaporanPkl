@@ -482,3 +482,19 @@ function hideLoading() {
     const overlay = document.getElementById("loading-overlay");
     overlay.classList.remove("active");
 }
+const userProfile = document.getElementById("user-profile");
+const profileDropdown = document.getElementById("profile-dropdown");
+
+userProfile.addEventListener("click", (e) => {
+    e.stopPropagation();
+    profileDropdown.classList.toggle("show");
+});
+
+// Close dropdown when clicking outside
+document.addEventListener("click", () => {
+    profileDropdown.classList.remove("show");
+});
+
+profileDropdown.addEventListener("click", (e) => {
+    e.stopPropagation();
+});
