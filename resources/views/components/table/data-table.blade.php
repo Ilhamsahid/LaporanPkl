@@ -5,7 +5,7 @@
     'desktopColumns' => [],
     'desktopFields' => [],
     'desktopActions' => [],
-    'mobileAction' => null,
+    'mobileActions' => null,
 ])
 
 
@@ -13,7 +13,7 @@
 :rows="$rows"
 :headers="$mobileHeaders"
 :fields="$mobileFields"
-:mobileActions="$mobileAction"
+:mobileActions="$mobileActions"
 />
 
 <x-table.table
