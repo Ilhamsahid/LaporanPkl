@@ -32,4 +32,8 @@ class Pembimbing extends Authenticatable
     {
         return $this->hasMany(PenilaianPkl::class);
     }
+
+    public function getNamaFormattedAttribute()
+    {
+    }
 }

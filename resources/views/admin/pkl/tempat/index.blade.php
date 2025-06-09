@@ -53,7 +53,7 @@
     @include('components.modals.modal-trigger',[
         'varName' => 'tempatPkl',
         'items' => $tempatPkls,
-        'nama' => 'items',
+        'nama' => 'nama_tempat',
         'storeRoute' => 'admin.pkl.store',
         'updateRoute' => 'admin.pkl.update',
         'destroyRoute' => 'admin.pkl.destroy',

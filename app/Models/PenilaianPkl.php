@@ -19,4 +19,8 @@ class PenilaianPkl extends Model
     {
         return $this->belongsTo(Pembimbing::class);
     }
+
+    public function getRataRataAttribute(){
+        return ($this->nilai_etika + $this->nilai_kedisplinan + $this->nilai_keterampilan + $this->nilai_wawasan) / 4;
+    }
 }

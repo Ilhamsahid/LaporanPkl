@@ -50,7 +50,7 @@ class TempatPklController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Tambah')
-            ->with('modal-add', 'tempat-pkl-modal');
+            ->with('modal-add', 'tempatPkl-modal');
         }
     }
 
@@ -95,7 +95,7 @@ class TempatPklController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Edit')
-            ->with('modal-edit', 'tempat-pkl-modal' . $pkl->id);
+            ->with('modal-edit', 'tempatPkl-modal' . $pkl->id);
         }
     }
 

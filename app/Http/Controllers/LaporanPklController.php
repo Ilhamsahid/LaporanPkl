@@ -95,7 +95,7 @@ class LaporanPklController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Edit')
-            ->with('modal-edit', 'laporan-pkl-modal' . $laporan->id);
+            ->with('modal-edit', 'laporan-modal' . $laporan->id);
         }
     }
 

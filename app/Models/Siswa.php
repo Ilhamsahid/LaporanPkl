@@ -54,4 +54,8 @@ class Siswa extends Authenticatable
     public function kelas(){
         return $this->belongsTo(Kelas::class);
     }
+
+    public function getNamaFormattedAttribute()
+    {
+    }
 }

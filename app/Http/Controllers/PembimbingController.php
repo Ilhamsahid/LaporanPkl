@@ -107,7 +107,7 @@ class PembimbingController extends Controller
             $validated = $request->validate([
                 'nama' => 'required',
                 'password' => 'nullable',
-                'email' => 'required|email|unique:pembimbing,email',
+                'email' => 'required|email|unique:pembimbing,email,' . $pembimbing->id,
                 'telepon' => [
                     'required',
                     'string',

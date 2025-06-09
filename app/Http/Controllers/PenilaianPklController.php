@@ -24,18 +24,8 @@ class PenilaianPklController extends Controller
             ? Siswa::where('kelas_id', $kelasDipilih)->get()
             : Siswa::all(); // default (semua siswa)
 
-        $rataRata = $penilaians->mapWithKeys(function ($penilaian) {
-            $total = $penilaian->nilai_etika +
-                    $penilaian->nilai_kedisplinan +
-                    $penilaian->nilai_keterampilan +
-                    $penilaian->nilai_wawasan;
-            $rata = $total / 4;
-            return [$penilaian->id => $rata];
-        });
 
-        $color = $rataRata->map(fn($nilai) => $nilai < 85 ? 'warning' : 'success')->toArray();
-
-        return view('admin.penilaian.index', compact('penilaians', 'kelas', 'siswas', 'rataRata', 'color'));
+        return view('admin.penilaian.index', compact('penilaians', 'kelas', 'siswas'));
     }
 
     public function getSiswaByKelas($kelas_id)
@@ -43,6 +33,7 @@ class PenilaianPklController extends Controller
         $siswas = Siswa::where('kelas_id', $kelas_id)->get();
         return response()->json($siswas);
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -103,16 +94,22 @@ class PenilaianPklController extends Controller
                 'nilai_kedisplinan' => 'required|integer|max:100',
                 'nilai_keterampilan' => 'required|integer|max:100',
                 'nilai_wawasan' => 'required|integer|max:100',
+                'nilai_akhir' => 'nullable|integer|max:100'
             ]);
 
             $penilaian->update($validated);
+            $penilaian->refresh();
+            $penilaian->update([
+                'nilai_akhir' => $penilaian->rata_rata,
+            ]);
+
 
             return redirect()->back()->with('success', 'Data penilaian berhasil diupdate!');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()
                 ->withErrors($e->validator)
                 ->with('mode', 'Edit')
-                ->with('modal', 'penilaian-modal' . $penilaian->id); // 👈 penanda modal
+                ->with('modal-edit', 'penilaian-modal' . $penilaian->id); // 👈 penanda modal
         }
     }
     /**

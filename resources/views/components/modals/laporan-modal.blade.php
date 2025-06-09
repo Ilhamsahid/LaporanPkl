@@ -1,11 +1,11 @@
 @php
     $route = $route ?? null;
 @endphp
-<div id="laporan-pkl-modal{{ $id ?? '' }}" class="modal">
+<div id="laporan-modal{{ $id ?? '' }}" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">{{ $mode }} Data Laporan PKL</h3>
-            <button class="modal-close" onclick="closeModal('laporan-pkl-modal{{ $id ?? '' }}')">
+            <button class="modal-close" onclick="closeModal('laporan-modal{{ $id ?? '' }}')">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -89,7 +89,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary"
-                onclick="closeModal('laporan-pkl-modal{{ $id ?? '' }}')">Batal</button>
+                onclick="closeModal('laporan-modal{{ $id ?? '' }}')">Batal</button>
             <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i>
                 Simpan

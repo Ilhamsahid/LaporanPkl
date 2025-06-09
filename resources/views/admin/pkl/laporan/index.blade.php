@@ -52,6 +52,7 @@
     @include('components.modals.modal-trigger', [
         'varName' => 'laporan',
         'items' => $laporans,
+        'nama' => 'judul',
         'storeRoute' => 'admin.laporan.store',
         'updateRoute' => 'admin.laporan.update',
         'destroyRoute' => 'admin.laporan.destroy',
