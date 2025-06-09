@@ -8,23 +8,16 @@
     
     <div class="app-container">
         <!-- Sidebar -->
-        @include('components.sidebar')
+        @include('components.layouts.sidebar')
         
         <!-- Main Content -->
         <main class="main-content">
             <!-- Header -->
             <header class="header">
-                <div class="header-left">
-                    <button id="sidebar-toggle" class="sidebar-toggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <div class="header-title">
-                        <h1 id="page-title">Dashboard</h1>
-                        <p class="header-subtitle" id="page-subtitle">Sistem Manajemen PKL</p>
-                    </div>
-                </div>
-                
-                @include('components.navbar')
+                @include('components.layouts.navbar',[
+                    'judul' => 'Dashboard',
+                    'deskripsi' => 'Sistem Manajemen PKL',
+                ])
             </header>
             
             <!-- Content -->

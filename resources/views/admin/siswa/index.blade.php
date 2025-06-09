@@ -37,7 +37,7 @@
                         :rows="$siswas"
                         :mobileHeaders="$tableVars['mobileHeaders']"
                         :mobileFields="$tableVars['mobileFields']"
-                        :mobileAction="$tableVars['mobileActions']"
+                        :mobileActions="$tableVars['mobileActions']"
                         :desktopColumns="$tableVars['desktopColumns']"
                         :desktopFields="$tableVars['desktopFields']"
                         :desktopActions="$tableVars['desktopActions']" />
