@@ -1678,6 +1678,7 @@ body {
 
     .mobile-card-item {
         display: flex;
+        margin-bottom: 0.5rem; /* atau 16px / 24px */
         justify-content: space-between;
     }
 

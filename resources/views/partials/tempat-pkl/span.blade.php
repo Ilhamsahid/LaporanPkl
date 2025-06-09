@@ -1,0 +1,1 @@
+<span class="badge badge-primary">{{ $tempatPkl->siswa->count() }} siswa</span>
