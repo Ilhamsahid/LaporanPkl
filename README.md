@@ -108,8 +108,8 @@ http://localhost:8000
 
 Jika ada pertanyaan atau masalah, silakan hubungi:
 
-- Nama: Ilham Sahid  
-- Email: ilham@example.com  
+- Nama: Ilham Sahid Maulana
+- Email: ilhamsahit988@gmail.com  
 - GitHub: https://github.com/Ilhamsahid
 
 ---
