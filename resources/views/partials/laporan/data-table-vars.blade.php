@@ -19,7 +19,7 @@ return [
         fn($row) => view('partials.laporan.judul-laporan', ['laporan' => $row]),
         'siswa.nama',
         'tanggal',
-        fn($row) => view('partials.laporan.span', ['laporan' => $row]),
+        fn($row) => view('partials.laporan.jenis-laporan', ['laporan' => $row]),
         'siswa.pembimbing.nama'
     ],
 

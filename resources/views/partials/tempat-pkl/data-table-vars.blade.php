@@ -16,7 +16,7 @@ return [
 
     'desktopColumns' => ['Nama Perusahaan', 'Alamat', 'Telepon', 'Email', 'Siswa Pkl'],
 
-    'desktopFields' => [fn($row) => view('partials.tempat-pkl.nama', ['tempatPkl' => $row]), 'alamat', 'telepon', 'email', fn($row) => view('partials.tempat-pkl.span', ['tempatPkl' => $row])],
+    'desktopFields' => [fn($row) => view('partials.tempat-pkl.nama', ['tempatPkl' => $row]), 'alamat', 'telepon', 'email', fn($row) => view('partials.tempat-pkl.jumlah-siswa', ['tempatPkl' => $row])],
 
     'desktopActions' => fn($row) => view('components.buttons.actions', [
         'row' => $row,

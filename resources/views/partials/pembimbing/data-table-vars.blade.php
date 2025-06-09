@@ -20,7 +20,7 @@ return [
         'nip',
         'email',
         'telepon',
-        fn($row) => view('partials.pembimbing.span', ['pembimbing' => $row])
+        fn($row) => view('partials.pembimbing.jumlah-siswa', ['pembimbing' => $row])
     ],
 
     'desktopActions' => fn($row) => view('components.buttons.actions', [

@@ -24,7 +24,7 @@ return [
         'nilai_kedisplinan',
         'nilai_keterampilan',
         'nilai_wawasan',
-        fn($row) => view('partials.penilaian.span', ['penilaian' => $row]),
+        fn($row) => view('partials.penilaian.nilai-akhir', ['penilaian' => $row]),
         'siswa.pembimbing.nama'
     ],
 
