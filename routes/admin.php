@@ -18,7 +18,7 @@ Route::middleware('guest:admin')->group(function(){
 
 // Admin Role
 Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function(){
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
+    Route::get('/dashboard', fn() => view('admin.dashboard.index'))->name('dashboard');
     Route::resource('/siswa', SiswaController::class)->except(['show']);
     Route::resource('/pembimbing', PembimbingController::class)->except(['show']);
     Route::resource('/pkl', TempatPklController::class)->except(['show']);

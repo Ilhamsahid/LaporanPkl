@@ -50,8 +50,9 @@
             <div class="dropdown-item logout">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <i class="fas fa-sign-out-alt"></i>
-                    <button type="submit">
+                    <button type="submit"
+                        style="background: none; border: none; color: inherit; padding: 0; font: inherit; cursor: pointer; display: flex; align-items: center;">
+                        <i class="fas fa-sign-out-alt" style="color: red; margin-right: 11px;"></i>
                         <span>Logout</span>
                     </button>
                 </form>
