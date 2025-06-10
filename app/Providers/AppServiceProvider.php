@@ -22,5 +22,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
         ->group(base_path('routes/admin.php'));
+
+        Route::middleware('web')
+        ->group(base_path('routes/pembimbing.php'));
     }
 }
