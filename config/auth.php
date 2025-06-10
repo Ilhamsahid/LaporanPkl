@@ -42,7 +42,12 @@ return [
         ],
         'admin' => [
             'driver' => 'session',
-            'provider' => 'admins'
+            'provider' => 'admins',
+        ],
+
+        'pembimbing' => [
+            'driver' => 'session',
+            'provider' => 'pembimbings',
         ]
     ],
 
@@ -74,10 +79,10 @@ return [
             'model' => App\Models\Admin::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'pembimbings' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Pembimbing::class,
+        ],
     ],
 
     /*
