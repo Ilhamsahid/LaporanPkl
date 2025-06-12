@@ -2267,7 +2267,7 @@ namespace PHPSTORM_META {
 'admin.absensi.store','admin.absensi.edit','admin.absensi.update','admin.absensi.destroy','pembimbing.dashboard','logout',
 'storage.local',);
         registerArgumentsSet('views', 
-'admin.absensi.index','admin.dashboard','admin.pembimbing.index','admin.penilaian.index','admin.pkl.laporan.index',
+'admin.absensi.index','admin.dashboard.index','admin.pembimbing.index','admin.penilaian.index','admin.pkl.laporan.index',
 'admin.pkl.tempat.index','admin.siswa.index','auth.login','components.buttons.actions','components.layouts.navbar',
 'components.layouts.page-header','components.layouts.pagination','components.layouts.sidebar','components.mobile.actions-mobile','components.mobile.mobile-card',
 'components.modals.absensi-modal','components.modals.delete','components.modals.laporan-modal','components.modals.modal-trigger','components.modals.pembimbing-modal',
