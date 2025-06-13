@@ -16,23 +16,23 @@
         <div class="nav-section">
             <h3 class="nav-section-title">Menu Utama</h3>
             <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+                <li class="nav-item" >
+                    <a href="{{ route($role.'.dashboard') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is($role.'/dashboard') ? 'active' : '' }}">
                             <i class="fas fa-home nav-icon"></i>
                             <span>Dashboard</span>
                         </div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.siswa.index') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('admin/siswa') ? 'active' : '' }}">
+                    <a href="{{ route($role . '.siswa.index') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is($role . '/siswa') ? 'active' : '' }}">
                             <i class="fas fa-users nav-icon"></i>
                             <span>Data Siswa</span>
                         </div>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="display: {{ $role == 'pembimbing' ? 'none' : 'list-item'}}">
                     <a href="{{ route('admin.pembimbing.index') }}" style="text-decoration: none">
                         <div class="nav-link {{ request()->is('admin/pembimbing') ? 'active' : '' }}">
                             <i class="fas fa-user-check nav-icon"></i>
@@ -78,6 +78,14 @@
                         </div>
                     </a>
                 </li>
+
+                <div class="nav-section" style="display: {{ $role == 'pembimbing' ? 'list-item' : 'none'}} ">
+                    <h3 class="nav-section-title">Profil</h3>
+                    <div class="nav-link" data-page="profil">
+                        <i class="fas fa-user nav-icon"></i>
+                        <span>Profil Saya</span>
+                    </div>
+                </div>
             </ul>
         </div>
     </nav>
