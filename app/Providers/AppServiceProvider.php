@@ -29,15 +29,7 @@ class AppServiceProvider extends ServiceProvider
         ->group(base_path('routes/pembimbing.php'));
 
         View::composer('*', function ($view) {
-            $guards = ['admin', 'pembimbing']; // tambahkan guard yang kamu gunakan
-            $activeGuard = 'admin';
-
-            foreach ($guards as $guard) {
-                if (Auth::guard(name: $guard)->check()) {
-                    $activeGuard = $guard;
-                    break;
-                }
-            }
+            $activeGuard = getCurrentGuard();
 
             $view->with('role', $activeGuard);
         });

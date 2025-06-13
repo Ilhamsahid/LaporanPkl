@@ -7,6 +7,7 @@ use App\Models\Siswa;
 use App\Models\Pembimbing;
 use App\Models\TempatPkl;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class SiswaController extends Controller
@@ -16,6 +17,7 @@ class SiswaController extends Controller
      */
     public function index()
     {
+        $role = getCurrentGuard();
         $siswas = Siswa::with('kelas', 'pembimbing', 'tempatPkl')->orderBy('id', 'desc')->paginate(5);
         $kelas = Kelas::all();
         $pembimbing = Pembimbing::all();
@@ -33,7 +35,7 @@ class SiswaController extends Controller
             $kelas = Kelas::all();
         }
 
-        return view('admin.siswa.index', compact('kelas', 'pembimbing', 'tempat_pkl', 'siswas'));
+        return view($role . '.siswa.index', compact('kelas', 'pembimbing', 'tempat_pkl', 'siswas'));
     }
 
     /**

@@ -7,3 +7,16 @@ if(!function_exists('getTableVars')){
         return $tableVars;
     };
 }
+
+if(!function_exists('currentGuard')){
+    function getCurrentGuard(){
+        $guards = ['admin', 'pembimbing'];
+
+        foreach($guards as $guard){
+            if (Auth::guard($guard)->check()){
+                return $guard;
+            }
+        }
+        return null;
+    }
+}
