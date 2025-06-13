@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +27,19 @@ class AppServiceProvider extends ServiceProvider
 
         Route::middleware('web')
         ->group(base_path('routes/pembimbing.php'));
+
+        View::composer('*', function ($view) {
+            $guards = ['admin', 'pembimbing']; // tambahkan guard yang kamu gunakan
+            $activeGuard = 'admin';
+
+            foreach ($guards as $guard) {
+                if (Auth::guard(name: $guard)->check()) {
+                    $activeGuard = $guard;
+                    break;
+                }
+            }
+
+            $view->with('role', $activeGuard);
+        });
     }
 }
