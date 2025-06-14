@@ -29,7 +29,6 @@
     <div id="loading-overlay" class="loading-overlay">
         <div class="loading-spinner"></div>
     </div>
-
     @yield('content')
 
     @include('components.mobile.bottom-nav')

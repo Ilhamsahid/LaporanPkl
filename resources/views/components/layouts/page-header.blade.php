@@ -8,9 +8,11 @@
             <i class="fas fa-search search-icon"></i>
             <input type="text" class="form-input" placeholder="Cari {{ $nama }}..." style="width: 250px;">
         </div>
-        <button class="btn btn-primary" onclick="openModal('{{ $name_modal }}')">
-            <i class="fas fa-plus"></i>
-            <span>Tambah {{ $nama }}</span>
-        </button>
+        @if ($role == 'admin')
+            <button class="btn btn-primary" onclick="openModal('{{ $name_modal }}')">
+                <i class="fas fa-plus"></i>
+                <span>Tambah {{ $nama }}</span>
+            </button>
+        @endif
     </div>
 </div>

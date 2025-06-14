@@ -227,6 +227,4 @@
             </div>
         </main>
     </div>
-
-    <script src="{{ asset('assets/js/script.js') }}"></script>
 @endsection
