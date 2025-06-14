@@ -10,11 +10,10 @@ use App\Http\Controllers\AbsensiPklController;
 use App\Http\Controllers\LaporanPklController;
 use App\Http\Controllers\PembimbingController;
 use App\Http\Controllers\PenilaianPklController;
+use Illuminate\Support\Facades\Auth;
 
-Route::middleware('guest:admin')->group(function(){
-    Route::get('/login', fn() => view('auth.login'))->name('login');
-    Route::post('/login', [AdminController::class, 'login'])->name('login.proses');
-});
+Route::get('login', fn() => redirectWithAuth('auth.login'))->name('login');
+Route::post('/login', [AdminController::class, 'login'])->name('login.proses');
 
 // Admin Role
 Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function(){

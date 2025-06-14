@@ -20,3 +20,15 @@ if(!function_exists('currentGuard')){
         return null;
     }
 }
+
+if(!function_exists('redirectWithAuth')){
+    function redirectWithAuth($view){
+        $currentGuard = getCurrentGuard();
+
+        if($currentGuard != null && Auth::guard($currentGuard)->check()){
+            return redirect()->route( $currentGuard . '.dashboard');
+        }
+
+        return view($view);
+    }
+}
