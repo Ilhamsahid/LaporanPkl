@@ -31,7 +31,7 @@
                             'name_modal' => 'siswa-modal',
                         ])
 
-                        @php($tableVars = getTableVars('siswa.data-table-vars'))
+                        @php($tableVars = getTableVars('siswa.table-vars'))
 
                         <x-table.data-table
                         :rows="$siswas"

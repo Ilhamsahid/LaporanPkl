@@ -18,7 +18,9 @@ class SiswaController extends Controller
     public function index()
     {
         $role = getCurrentGuard();
-        $siswas = Siswa::with('kelas', 'pembimbing', 'tempatPkl')->orderBy('id', 'desc')->paginate(5);
+        $siswas = $role != 'pembimbing'
+        ? Siswa::with('kelas', 'pembimbing', 'tempatPkl')->orderBy('id', 'desc')->paginate(5)
+        : Siswa::with('pembimbing')->where('pembimbing_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(5);
         $kelas = Kelas::all();
         $pembimbing = Pembimbing::all();
         $tempat_pkl = TempatPkl::all();

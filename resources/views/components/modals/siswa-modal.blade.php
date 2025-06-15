@@ -55,7 +55,7 @@
                     @enderror
                 </div>
 
-                <div class="form-row">
+                <div class="{{ $role == 'pembimbing' ? '' : 'form-row'}}">
                     <div class="form-group">
                         <label class="form-label required">Kelas</label>
                         <select class="form-control" name="kelas_id" required>
@@ -74,9 +74,9 @@
                             @endif
                         @enderror
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: {{ $role == 'pembimbing' ? 'none' : ''}}">
                         <label class="form-label required">Pembimbing</label>
-                        <select class="form-control" name="pembimbing_id" required>
+                        <select class="form-control" name="pembimbing_id" required >
                             <option value="" hidden
                                 {{ old('pembimbing_id', $siswa->pembimbing_id ?? '') == '' ? 'selected' : '' }}>
                                 {{ $siswa->pembimbing->nama ?? 'Pilih Pembimbing' }}

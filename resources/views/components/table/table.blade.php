@@ -28,7 +28,7 @@
                                 $value = is_callable($field) ? $field($row) : data_get($row, $field, '-');
                             @endphp
 
-                            @if (is_string($field) && Str::endsWith($field, '_formatted'))
+                            @if (is_string($field))
                                 {!! $value !!}
                             @else
                                 {{ $value }}

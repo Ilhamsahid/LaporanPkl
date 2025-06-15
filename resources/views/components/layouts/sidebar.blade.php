@@ -28,7 +28,7 @@
                     <a href="{{ route($role . '.siswa.index') }}" style="text-decoration: none">
                         <div class="nav-link {{ request()->is($role . '/siswa') ? 'active' : '' }}">
                             <i class="fas fa-users nav-icon"></i>
-                            <span>Data Siswa</span>
+                            <span>{{ $role == 'pembimbing' ? 'Siswa Bimbingan' : 'Data Siswa'}}</span>
                         </div>
                     </a>
                 </li>
@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.pkl.index') }}" style="text-decoration: none">
+                    <a href="{{ route('admin.pkl.index') }}" style="text-decoration: none; display:{{ $role == 'pembimbing' ? 'none' : ''}}">
                         <div class="nav-link {{ request()->is('admin/pkl') ? 'active' : '' }}">
                             <i class="fas fa-map-marker-alt nav-icon"></i>
                             <span>Tempat PKL</span>

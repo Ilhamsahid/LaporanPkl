@@ -8,7 +8,6 @@
     'mobileActions' => null,
 ])
 
-
 <x-mobile.mobile-card
 :rows="$rows"
 :headers="$mobileHeaders"
