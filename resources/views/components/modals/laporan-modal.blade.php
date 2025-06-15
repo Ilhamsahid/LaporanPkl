@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label class="form-label required">Ringkasan Laporan</label>
                     <input type="text" class="form-control" name="isi_laporan" value="{{ $laporan->isi_laporan ?? '' }}"
-                        placeholder="Isi Laporan" required>
+                        placeholder="Ringkasan Laporan" required>
                     @error('isi_laporan')
                         @if (session('mode') == $mode)
                             <div class="form-error" id="nama-error">{{ $message }}</div>
