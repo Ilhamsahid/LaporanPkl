@@ -1,3 +1,4 @@
+@if ($tables->count() > 0)
 <div class="pagination-container">
     <div class="pagination-info">
         Menampilkan {{ $tables->firstItem() }}-{{ $tables->lastItem() }} dari
@@ -26,3 +27,4 @@
         </button>
     </div>
 </div>
+@endif
