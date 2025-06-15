@@ -46,7 +46,8 @@ class LaporanPklController extends Controller
                 'isi_laporan' => 'required',
                 'siswa_id' => 'required',
                 'tanggal' => 'required|date|before_or_equal:today',
-                'jenis_laporan' => 'required'
+                'jenis_laporan' => 'required',
+                'status' => 'required',
             ],[
                 'tanggal' => 'Tanggal harus diisi sebelum hari ini'
             ]);

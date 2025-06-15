@@ -86,6 +86,8 @@
                         @endif
                     @enderror
                 </div>
+
+                <input type="hidden" name="status" value="pending">
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary"
