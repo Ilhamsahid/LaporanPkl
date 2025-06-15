@@ -6,6 +6,7 @@ use App\Models\Pembimbing;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PembimbingController extends Controller
 {
@@ -69,7 +70,7 @@ class PembimbingController extends Controller
                 'nip' => 'nip tidak valid, nip harus 18 angka',
             ]);
 
-            $validated['password'] = bcrypt($validated['password']);
+            $validated['password'] = Hash::make('password');
 
             Pembimbing::create($validated);
 

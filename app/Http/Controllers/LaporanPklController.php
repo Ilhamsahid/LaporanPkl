@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Siswa;
 use App\Models\LaporanPkl;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanPklController extends Controller
 {
@@ -14,7 +15,11 @@ class LaporanPklController extends Controller
     public function index()
     {
         $role = getCurrentGuard();
-        $laporans = LaporanPkl::with('siswa')->orderBy('id', 'desc')->paginate(5);
+        $laporans = $role != 'pembimbing'
+            ? LaporanPkl::with('siswa')->orderBy('id', 'desc')->paginate(5)
+            : LaporanPkl::withWhereHas('siswa', function ($query) {
+                $query->where('pembimbing_id', Auth::user()->id);
+            })->paginate(5);
 
         $siswas = Siswa::all();
         $jeniss = ['mingguan', 'akhir'];
@@ -53,7 +58,7 @@ class LaporanPklController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Tambah')
-            ->with('modal-add', 'laporan-pkl-modal');
+            ->with('modal-add', 'laporan-modal');
         }
     }
 
