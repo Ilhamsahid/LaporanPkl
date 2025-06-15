@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('isi_laporan');
             $table->date('tanggal');
             $table->enum('jenis_laporan', ['mingguan', 'akhir']);
+            $table->enum('status', ['pending', 'selesai']);
             $table->timestamps();
         });
     }
