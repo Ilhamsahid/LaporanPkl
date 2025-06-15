@@ -55,8 +55,8 @@
             <h3 class="nav-section-title">Laporan & Penilaian</h3>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="{{ route('admin.laporan.index') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('admin/laporan') ? 'active' : '' }}">
+                    <a href="{{ route($role . '.laporan.index') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is( $role . '/laporan') ? 'active' : '' }}">
                             <i class="fas fa-file-alt nav-icon"></i>
                             <span>Laporan PKL</span>
                         </div>

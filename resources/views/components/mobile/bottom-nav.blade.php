@@ -13,13 +13,13 @@
                     <span>Siswa</span>
                 </a>
                 @if ($role=='admin')
-                    <a href="" class="bottom-nav-item {{ request()->is($role . '/laporan') ? 'active' : '' }}"
+                    <a href="{{ route('admin.pkl.index') }}" class="bottom-nav-item {{ request()->is($role . '/laporan') ? 'active' : '' }}"
                         style="text-decoration: none">
                         <i class="fas fa-map-marker-alt bottom-nav-icon"></i>
                         <span>Tempat</span>
                     </a>
                 @endif
-                <a href="" class="bottom-nav-item {{ request()->is($role . '/laporan') ? 'active' : '' }}"
+                <a href="{{ route( $role . '.laporan.index') }}" class="bottom-nav-item {{ request()->is($role . '/laporan') ? 'active' : '' }}"
                     style="text-decoration: none">
                     <i class="fas fa-file-alt bottom-nav-icon"></i>
                     <span>Laporan</span>

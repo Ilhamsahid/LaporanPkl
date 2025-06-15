@@ -13,12 +13,13 @@ class LaporanPklController extends Controller
      */
     public function index()
     {
+        $role = getCurrentGuard();
         $laporans = LaporanPkl::with('siswa')->orderBy('id', 'desc')->paginate(5);
 
         $siswas = Siswa::all();
         $jeniss = ['mingguan', 'akhir'];
 
-        return view('admin.pkl.laporan.index', compact('laporans', 'siswas', 'jeniss'));
+        return view( $role . '.pkl.laporan.index', compact('laporans', 'siswas', 'jeniss'));
     }
 
     /**
