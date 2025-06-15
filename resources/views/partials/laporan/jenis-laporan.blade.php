@@ -1,2 +1,1 @@
-
-<span class="badge badge-primary">{{ $laporan->jenis_laporan }}</span>
+<span class="badge badge-{{ $laporan->jenis_laporan == 'mingguan' ? 'primary' : 'warning'}}">{{ $laporan->jenis_laporan }}</span>

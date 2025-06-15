@@ -85,17 +85,21 @@ class LaporanPklController extends Controller
     public function update(Request $request, LaporanPkl $laporan)
     {
         try{
-            $validated = $request->validate([
-                'judul' => 'required',
-                'isi_laporan' => 'required',
-                'siswa_id' => 'required',
-                'tanggal' => 'required|date|before_or_equal:today',
-                'jenis_laporan' => 'required'
-            ],[
-                'tanggal' => 'Tanggal harus diisi sebelum hari ini'
-            ]);
+            $role = getCurrentGuard();
+            if($role != 'pembimbing')
+                $validated = $request->validate([
+                    'judul' => 'required',
+                    'isi_laporan' => 'required',
+                    'siswa_id' => 'required',
+                    'tanggal' => 'required|date|before_or_equal:today',
+                    'jenis_laporan' => 'required'
+                ],[
+                    'tanggal' => 'Tanggal harus diisi sebelum hari ini'
+                ]);
 
-            $laporan->update($validated);
+            $role != 'pembimbing'
+                ? $laporan->update($validated)
+                : $laporan->update(['status' => 'selesai']);
 
             return redirect()->back()->with('success', 'Laporan berhasil di update');
         }catch(\Illuminate\Validation\ValidationException $e){
