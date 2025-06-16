@@ -14,6 +14,7 @@ class PenilaianPklController extends Controller
      */
     public function index(Request $request)
     {
+        $role = getCurrentGuard();
         $penilaians = PenilaianPkl::with('siswa.kelas')->orderBy('id', 'desc')->paginate(5);
 
         $kelas = Kelas::all();
@@ -25,7 +26,7 @@ class PenilaianPklController extends Controller
             : Siswa::all(); // default (semua siswa)
 
 
-        return view('admin.penilaian.index', compact('penilaians', 'kelas', 'siswas'));
+        return view($role . '.penilaian.index', compact('penilaians', 'kelas', 'siswas'));
     }
 
     public function getSiswaByKelas($kelas_id)
@@ -54,9 +55,14 @@ class PenilaianPklController extends Controller
                 'nilai_kedisplinan' => 'required|integer|max:100',
                 'nilai_keterampilan' => 'required|integer|max:100',
                 'nilai_wawasan' => 'required|integer|max:100',
+                'nilai_akhir' => 'nullable|integer|max:100',
             ]);
 
-            PenilaianPkl::create($validated);
+            $penilaian = PenilaianPkl::create($validated);
+
+            $penilaian->update([
+                'nilai_akhir' => $penilaian->rata_rata,
+            ]);
 
             return redirect()->back()->with('success', 'Data penilaian berhasil ditambah!');
         }catch(\Illuminate\Validation\ValidationException $e){
