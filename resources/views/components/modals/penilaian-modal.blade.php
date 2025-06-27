@@ -20,11 +20,11 @@
 
                 @if ($mode == 'Edit')
                     <div class="form-group">
-                        <label for="siswa-select" class="form-label required">Siswa</label>
-                        <input type="text" class="form-control" value="{{ $penilaian->siswa->kelas->nama }}"
-                            readonly>
+                        <label for="siswa-select" class="form-label required">Kelas</label>
+                        <input type="text" class="form-control" value="{{ $penilaian->kelas->nama }}"
+                        readonly />
                     </div>
-                @else
+                @else 
                     <div class="form-group">
                         <label for="kelas-select" class="form-label required">Kelas</label>
                         <select id="kelas-select" class="form-control" required>
@@ -39,7 +39,8 @@
                 @if ($mode == 'Edit')
                     <div class="form-group">
                         <label for="siswa-select" class="form-label required">Siswa</label>
-                        <input type="text" class="form-control" value="{{ $penilaian->siswa->nama }}" readonly>
+                        <input type="hidden" class="form-control" name="siswa_id" value="{{ $id }}" readonly>
+                        <input type="text" class="form-control" value="{{ $penilaian->nama }}" readonly>
                     </div>
                 @else
                     <div class="form-group">
@@ -53,7 +54,7 @@
                 <div class="form-group">
                     <label class="form-label required">Nilai Etika</label>
                     <input type="text" class="form-control" name="nilai_etika"
-                        value="{{ $penilaian->nilai_etika ?? '' }}" placeholder="Nilai Etika" required>
+                        value="{{ $penilaian->penilaian->nilai_etika ?? '' }}" placeholder="Nilai Etika" required>
                     @error('nilai_etika')
                         @if (session('mode') == $mode)
                             <div class="form-error" id="nama-error">{{ $message }}</div>
@@ -64,7 +65,7 @@
                 <div class="form-group">
                     <label class="form-label required">Nilai Kedisplinan</label>
                     <input type="text" class="form-control" name="nilai_kedisplinan"
-                        value="{{ $penilaian->nilai_kedisplinan ?? '' }}" placeholder="Nilai Kedisplinan" required>
+                        value="{{ $penilaian->penilaian->nilai_kedisplinan ?? '' }}" placeholder="Nilai Kedisplinan" required>
                     @error('nilai_kedisplinan')
                         @if (session('mode') == $mode)
                             <div class="form-error" id="nama-error">{{ $message }}</div>
@@ -75,7 +76,7 @@
                 <div class="form-group">
                     <label class="form-label required">Nilai Keterampilan</label>
                     <input type="text" class="form-control" name="nilai_keterampilan"
-                        value="{{ $penilaian->nilai_keterampilan ?? '' }}" placeholder="Nilai Keterampilan" required>
+                        value="{{ $penilaian->penilaian->nilai_keterampilan ?? '' }}" placeholder="Nilai Keterampilan" required>
                     @error('nilai_keterampilan')
                         @if (session('mode') == $mode)
                             <div class="form-error" id="nama-error">{{ $message }}</div>
@@ -86,7 +87,7 @@
                 <div class="form-group">
                     <label class="form-label required">Nilai Wawasan</label>
                     <input type="text" class="form-control" name="nilai_wawasan"
-                        value="{{ $penilaian->nilai_wawasan ?? '' }}" placeholder="Nilai Wawasan" required>
+                        value="{{ $penilaian->penilaian->nilai_wawasan ?? '' }}" placeholder="Nilai Wawasan" required>
                     @error('nilai_wawasan')
                         @if (session('mode') == $mode)
                             <div class="form-error" id="nama-error">{{ $message }}</div>

@@ -48,7 +48,7 @@ class Siswa extends Authenticatable
 
     public function penilaian()
     {
-        return $this->hasMany(PenilaianPkl::class);
+        return $this->hasOne(PenilaianPkl::class, 'siswa_id')->ofMany('id', 'max');
     }
 
     public function kelas(){

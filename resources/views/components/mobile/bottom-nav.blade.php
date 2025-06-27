@@ -24,7 +24,7 @@
                     <i class="fas fa-file-alt bottom-nav-icon"></i>
                     <span>Laporan</span>
                 </a>
-                <a href="" class="bottom-nav-item {{ request()->is($role . '/penilaian') ? 'active' : '' }}"
+                <a href="{{ route($role . '.penilaian.index') }}" class="bottom-nav-item {{ request()->is($role . '/penilaian') ? 'active' : '' }}"
                     data-page="penilaian" style="text-decoration: none">
                     <i class="fas fa-star bottom-nav-icon"></i>
                     <span>Nilai</span>

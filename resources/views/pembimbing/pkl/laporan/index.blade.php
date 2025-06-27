@@ -44,4 +44,6 @@
             </div>
         </main>
     </div>
+
+    @include('js.modal-handler')
 @endsection

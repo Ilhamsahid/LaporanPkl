@@ -28,7 +28,7 @@ return [
     ]),
 
     'desktopActions' => fn($row) => view('components.buttons.actions', [
-        'row' => $row,
+        'row' => $row ?? '',
         'name_modal' => 'laporan-modal',
     ]),
 ];

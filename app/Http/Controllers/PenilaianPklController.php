@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\PenilaianPkl;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PenilaianPklController extends Controller
 {
@@ -15,7 +17,6 @@ class PenilaianPklController extends Controller
     public function index(Request $request)
     {
         $role = getCurrentGuard();
-        $penilaians = PenilaianPkl::with('siswa.kelas')->orderBy('id', 'desc')->paginate(5);
 
         $kelas = Kelas::all();
 
@@ -25,8 +26,26 @@ class PenilaianPklController extends Controller
             ? Siswa::where('kelas_id', $kelasDipilih)->get()
             : Siswa::all(); // default (semua siswa)
 
+        $penilaian = $role != 'pembimbing'
+            ? Siswa::with('penilaian')
+            ->whereHas('penilaian')
+            ->orderByDesc(
+            PenilaianPkl::select('id')
+                    ->whereColumn('siswa_id', 'siswa.id')
+                    ->orderByDesc('id')
+                    ->limit(1)
+            )->paginate(5)
+            : Siswa::with('penilaian')
+            ->where('pembimbing_id', Auth::user()->id)
+            ->orderByDesc(
+            PenilaianPkl::select('id')
+                        ->whereColumn('siswa_id', 'siswa.id')
+                        ->latest()
+                        ->take(1)
+            )
+            ->paginate(5);
 
-        return view($role . '.penilaian.index', compact('penilaians', 'kelas', 'siswas'));
+        return view($role . '.penilaian.index', compact('kelas', 'siswas', 'penilaian'));
     }
 
     public function getSiswaByKelas($kelas_id)
@@ -92,30 +111,40 @@ class PenilaianPklController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PenilaianPkl $penilaian)
+    public function update(Request $request, $id)
     {
-        try {
-            $validated = $request->validate([
-                'nilai_etika' => 'required|integer|max:100',
-                'nilai_kedisplinan' => 'required|integer|max:100',
-                'nilai_keterampilan' => 'required|integer|max:100',
-                'nilai_wawasan' => 'required|integer|max:100',
-                'nilai_akhir' => 'nullable|integer|max:100'
-            ]);
+        $penilaian = PenilaianPkl::find($id);
 
-            $penilaian->update($validated);
-            $penilaian->refresh();
-            $penilaian->update([
-                'nilai_akhir' => $penilaian->rata_rata,
-            ]);
+        if (!$penilaian) {
+            $this->store($request);
+
+            return redirect()->back();
+        }
+        else{
+            try {
+                $validated = $request->validate([
+                    'nilai_etika' => 'required|integer|max:100',
+                    'nilai_kedisplinan' => 'required|integer|max:100',
+                    'nilai_keterampilan' => 'required|integer|max:100',
+                    'nilai_wawasan' => 'required|integer|max:100',
+                    'nilai_akhir' => 'nullable|integer|max:100'
+                ]);
+
+                $penilaian->update($validated);
+                $penilaian->refresh();
+                $penilaian->update([
+                    'nilai_akhir' => $penilaian->rata_rata,
+                ]);
 
 
-            return redirect()->back()->with('success', 'Data penilaian berhasil diupdate!');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return redirect()->back()
-                ->withErrors($e->validator)
-                ->with('mode', 'Edit')
-                ->with('modal-edit', 'penilaian-modal' . $penilaian->id); // 👈 penanda modal
+                return redirect()->back()->with('success', 'Data penilaian berhasil diupdate!');
+            } 
+            catch (\Illuminate\Validation\ValidationException $e ) {
+                return redirect()->back()
+                    ->withErrors($e->validator)
+                    ->with('mode', 'Edit')
+                    ->with('modal-edit', 'penilaian-modal' . $penilaian->id); // 👈 penanda modal
+            }
         }
     }
     /**
@@ -124,7 +153,6 @@ class PenilaianPklController extends Controller
     public function destroy(PenilaianPkl $penilaian)
     {
         $penilaian->delete();
-
         return redirect()->back()->with('success', 'Data penilaian berhasil dihapus!');
     }
 }

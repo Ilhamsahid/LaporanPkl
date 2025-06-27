@@ -35,14 +35,14 @@
                         @php($tableVars = getTableVars('penilaian.data-table-vars'))
 
                         <x-table.data-table
-                        :rows="$penilaians"
+                        :rows="$penilaian"
                         :mobileHeaders="$tableVars['mobileHeaders']"
                         :mobileFields="$tableVars['mobileFields']"
                         :mobileActions="$tableVars['mobileActions']"
                         :desktopColumns="$tableVars['desktopColumns']"
                         :desktopFields="$tableVars['desktopFields']"
                         :desktopActions="$tableVars['desktopActions']" />
-                        @include('components.layouts.pagination', ['tables' => $penilaians])
+                        @include('components.layouts.pagination', ['tables' => $penilaian])
                     </div>
                 </div>
             </div>
@@ -51,8 +51,8 @@
 
     @include('components.modals.modal-trigger', [
         'varName' => 'penilaian',
-        'items' => $penilaians,
-        'nama' => 'siswa.nama',
+        'items' => $penilaian,
+        'nama' => 'nama',
         'storeRoute' => 'admin.penilaian.store',
         'updateRoute' => 'admin.penilaian.update',
         'destroyRoute' => 'admin.penilaian.destroy',

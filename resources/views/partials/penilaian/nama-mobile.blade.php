@@ -1,1 +1,1 @@
-<div class="mobile-card-title">{{ $penilaian->siswa->nama }}</div>
+<div class="mobile-card-title">{{ $penilaian->nama }}</div>
