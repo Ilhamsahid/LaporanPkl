@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TempatPkl;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -111,8 +112,12 @@ class TempatPklController extends Controller
      */
     public function destroy(TempatPkl $pkl)
     {
-        $pkl->delete();
+        try{
+            $pkl->delete();
 
-        return redirect()->back()->with('success', 'Data tempat pkl berhasil dihapus');
+            return redirect()->back()->with('success', 'Data tempat pkl berhasil dihapus');
+        }catch(Exception){
+            return redirect()->back()->with('warning', 'Harap hapus siswa dengan tempat pkl terkait');
+        }
     }
 }

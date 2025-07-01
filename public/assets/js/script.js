@@ -382,7 +382,7 @@ function showNotification(type, title, message) {
     // Auto remove after 5 seconds
     setTimeout(() => {
         removeNotification(notification.querySelector(".notification-close"));
-    }, 3000);
+    }, 4000);
 }
 
 function removeNotification(button) {

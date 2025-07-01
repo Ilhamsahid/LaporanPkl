@@ -12,6 +12,10 @@
             @if (session('success'))
                 showNotification("success", "Berhasil", "{{ session('success') }}");
             @endif
+
+            @if (session('warning'))
+                showNotification("warning", "Gagal", "{{ session('warning') }}");
+            @endif
         }
     </script>
 @endpush
