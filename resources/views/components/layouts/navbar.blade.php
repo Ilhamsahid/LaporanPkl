@@ -39,7 +39,7 @@
 
         <!-- Profile Dropdown -->
         <div class="profile-dropdown" id="profile-dropdown">
-            <a href="{{ route($role . '.profil') }}" style="text-decoration: none">
+            <a href="{{ $role == 'pembimbing' ? route($role . '.profil') : ''}}" style="text-decoration: none">
                 <div class="dropdown-item">
                     <i class="fas fa-user"></i>
                     <span>Profil Saya</span>

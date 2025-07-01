@@ -41,9 +41,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.pkl.index') }}"
-                        style="text-decoration: none; display:{{ $role == 'pembimbing' ? 'none' : '' }}">
-                        <div class="nav-link {{ request()->is('admin/pkl') ? 'active' : '' }}">
+                    <a href="{{ route($role . '.pkl.index') }}"
+                        style="text-decoration: none;">
+                        <div class="nav-link {{ request()->is($role . '/pkl') ? 'active' : '' }}">
                             <i class="fas fa-map-marker-alt nav-icon"></i>
                             <span>Tempat PKL</span>
                         </div>

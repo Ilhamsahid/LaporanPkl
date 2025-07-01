@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TempatPkl;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TempatPklController extends Controller
 {
@@ -12,9 +13,15 @@ class TempatPklController extends Controller
      */
     public function index()
     {
-        $tempatPkls = TempatPkl::orderBy('id', 'desc')->paginate(5);
+        $role = getCurrentGuard();
+        $tempatPkls = $role != 'pembimbing'
+            ? TempatPkl::with('siswa')->orderBy('id', 'desc')->paginate(5)
+            : TempatPkl::withWhereHas('siswa', function ($q) {
+                $q->where('pembimbing_id', Auth::user()->id);
+            })
+            ->orderBy('id', 'desc')->paginate(5);
 
-        return view('admin.pkl.tempat.index', compact('tempatPkls'));
+        return view($role . '.pkl.tempat.index', compact('tempatPkls'));
     }
 
     /**

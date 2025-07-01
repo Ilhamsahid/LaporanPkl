@@ -6,13 +6,13 @@
     </button>
 
     @if ($role == 'pembimbing')
-        <button style="display:{{ $role == 'pembimbing' && request()->is('pembimbing/laporan') ? 'none' : '' }}"
+        <button style="display:{{ $role == 'pembimbing' && request()->is('pembimbing/laporan') || request()->is('pembimbing/pkl') ? 'none' : '' }}"
             class="action-btn action-btn-edit" title="Edit"
             onclick="openModal('{{ $name_modal }}{{ $row->id }}', {{ $row->id }}, 'Edit')">
             <i class="fas fa-{{ isset($penilaian) ? 'edit' : (request()->is('pembimbing/penilaian') ? 'plus' : 'edit')}}"></i>
         </button>
     @else
-        <button style="display:{{ $role == 'pembimbing' && request()->is('pembimbing/laporan') ? 'none' : '' }}"
+        <button style="display:{{ $role == 'pembimbing' && request()->is('pembimbing/laporan') || request()->is('pembimbing/pkl') ? 'none' : '' }}"
             class="action-btn action-btn-edit" title="Edit"
             onclick="openModal('{{ $name_modal }}{{ $row->id }}', {{ $row->id }}, 'Edit')">
             <i class="fas fa-edit"></i>
