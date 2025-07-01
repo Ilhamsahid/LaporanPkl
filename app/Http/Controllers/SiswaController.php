@@ -82,6 +82,7 @@ class SiswaController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Tambah')
+            ->with('error', 'Gagal untuk menambah siswa')
             ->with('modal-add', 'siswa-modal');
         }
     }
@@ -134,6 +135,7 @@ class SiswaController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Edit')
+            ->with('error', 'Gagal untuk mengupdate siswa')
             ->with('modal-edit', 'siswa-modal' . $siswa->id);
         }
     }

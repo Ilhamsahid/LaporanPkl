@@ -61,6 +61,7 @@ class LaporanPklController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Tambah')
+            ->with('error', 'gagal untuk menambahkan laporan')
             ->with('modal-add', 'laporan-modal');
         }
     }
@@ -108,6 +109,7 @@ class LaporanPklController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Edit')
+            ->with('error', 'gagal untuk mengupdate laporan')
             ->with('modal-edit', 'laporan-modal' . $laporan->id);
         }
     }

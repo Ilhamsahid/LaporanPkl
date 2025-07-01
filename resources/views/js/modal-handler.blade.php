@@ -16,6 +16,10 @@
             @if (session('warning'))
                 showNotification("warning", "Gagal", "{{ session('warning') }}");
             @endif
+
+            @if (session('error'))
+                showNotification("error", "Error", "{{ session('error') }}");
+            @endif
         }
     </script>
 @endpush

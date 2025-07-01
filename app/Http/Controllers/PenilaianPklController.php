@@ -86,6 +86,7 @@ class PenilaianPklController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Tambah')
+            ->with('error', 'gagal untuk menginput nilai')
             ->with('modal-add', getCurrentGuard() != 'pembimbing'
                 ? 'penilaian-modal'
                 : 'penilaian-modal' . $request->id
@@ -143,6 +144,7 @@ class PenilaianPklController extends Controller
             return redirect()->back()
                 ->withErrors($e->validator)
                 ->with('mode', 'Edit')
+                ->with('error', 'gagal untuk mengupdate nilai')
                 ->with('modal-edit', 'penilaian-modal' . $id); // 👈 penanda modal
         }
     }

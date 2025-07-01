@@ -71,6 +71,7 @@ class AbsensiPklController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Tambah')
+            ->with('error', 'Gagal untuk menambahkan absensi')
             ->with('modal-add', 'absensi-modal');
         }
     }
@@ -127,6 +128,7 @@ class AbsensiPklController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Edit')
+            ->with('error', 'Gagal untuk mengupdate absensi')
             ->with('modal-edit', 'absensi-modal' . $absensi->id);
         }
     }
