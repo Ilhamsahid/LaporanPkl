@@ -20,6 +20,7 @@ class PenilaianPklController extends Controller
 
         $kelas = Kelas::all();
 
+        $arr = 0;
         $kelasDipilih = $request->kelas_id;
 
         $siswas = $kelasDipilih
@@ -28,22 +29,19 @@ class PenilaianPklController extends Controller
 
         $penilaian = $role != 'pembimbing'
             ? Siswa::with('penilaian')
-            ->whereHas('penilaian')
-            ->orderByDesc(
-            PenilaianPkl::select(columns: 'id')
-                    ->whereColumn('siswa_id', 'siswa.id')
-                    ->orderByDesc('id')
-                    ->limit(1)
-            )->paginate(5)
+                ->whereHas('penilaian')
+                ->orderByDesc(
+                    PenilaianPkl::select(columns: 'id')
+                        ->whereColumn('siswa_id', 'siswa.id')
+                        ->orderByDesc('id')
+                        ->limit(1)
+                )->paginate(5)
             : Siswa::with('penilaian')
             ->where('pembimbing_id', Auth::user()->id)
-            ->orderByDesc(
-            PenilaianPkl::select('id')
-                        ->whereColumn('siswa_id', 'siswa.id')
-                        ->latest()
-                        ->take(1)
-            )
-            ->paginate(5);
+            ->orderBy(
+                PenilaianPkl::select(columns: 'id')
+                    ->whereColumn('siswa_id', 'siswa.id')
+            , 'asc')->paginate(5);
 
         return view($role . '.penilaian.index', compact('kelas', 'siswas', 'penilaian'));
     }
