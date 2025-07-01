@@ -35,7 +35,7 @@
                     <i class="fas fa-calendar-alt bottom-nav-icon"></i>
                     <span>Absensi</span>
                 </a>
-                <a href=""
+                <a href="{{ route('pembimbing.profil') }}"
                     class="bottom-nav-item {{ request()->is($role . '/profil') ? 'active' : '' }} data-page="profil"
                     style="text-decoration: none; display: {{ $role == 'pembimbing' ? '' : 'none' }}">
                     <i class="fas fa-user bottom-nav-icon"></i>

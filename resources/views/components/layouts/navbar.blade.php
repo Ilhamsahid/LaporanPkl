@@ -39,10 +39,12 @@
 
         <!-- Profile Dropdown -->
         <div class="profile-dropdown" id="profile-dropdown">
-            <div class="dropdown-item" onclick="showPage('profil')">
-                <i class="fas fa-user"></i>
-                <span>Profil Saya</span>
-            </div>
+            <a href="{{ route($role . '.profil') }}" style="text-decoration: none">
+                <div class="dropdown-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profil Saya</span>
+                </div>
+            </a>
             <div class="dropdown-item">
                 <i class="fas fa-cog"></i>
                 <span>Pengaturan</span>

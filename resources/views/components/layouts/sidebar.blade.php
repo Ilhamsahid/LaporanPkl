@@ -16,9 +16,9 @@
         <div class="nav-section">
             <h3 class="nav-section-title">Menu Utama</h3>
             <ul class="nav-menu">
-                <li class="nav-item" >
-                    <a href="{{ route($role.'.dashboard') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is($role.'/dashboard') ? 'active' : '' }}">
+                <li class="nav-item">
+                    <a href="{{ route($role . '.dashboard') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is($role . '/dashboard') ? 'active' : '' }}">
                             <i class="fas fa-home nav-icon"></i>
                             <span>Dashboard</span>
                         </div>
@@ -28,11 +28,11 @@
                     <a href="{{ route($role . '.siswa.index') }}" style="text-decoration: none">
                         <div class="nav-link {{ request()->is($role . '/siswa') ? 'active' : '' }}">
                             <i class="fas fa-users nav-icon"></i>
-                            <span>{{ $role == 'pembimbing' ? 'Siswa Bimbingan' : 'Data Siswa'}}</span>
+                            <span>{{ $role == 'pembimbing' ? 'Siswa Bimbingan' : 'Data Siswa' }}</span>
                         </div>
                     </a>
                 </li>
-                <li class="nav-item" style="display: {{ $role == 'pembimbing' ? 'none' : 'list-item'}}">
+                <li class="nav-item" style="display: {{ $role == 'pembimbing' ? 'none' : 'list-item' }}">
                     <a href="{{ route('admin.pembimbing.index') }}" style="text-decoration: none">
                         <div class="nav-link {{ request()->is('admin/pembimbing') ? 'active' : '' }}">
                             <i class="fas fa-user-check nav-icon"></i>
@@ -41,7 +41,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.pkl.index') }}" style="text-decoration: none; display:{{ $role == 'pembimbing' ? 'none' : ''}}">
+                    <a href="{{ route('admin.pkl.index') }}"
+                        style="text-decoration: none; display:{{ $role == 'pembimbing' ? 'none' : '' }}">
                         <div class="nav-link {{ request()->is('admin/pkl') ? 'active' : '' }}">
                             <i class="fas fa-map-marker-alt nav-icon"></i>
                             <span>Tempat PKL</span>
@@ -56,7 +57,7 @@
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="{{ route($role . '.laporan.index') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is( $role . '/laporan') ? 'active' : '' }}">
+                        <div class="nav-link {{ request()->is($role . '/laporan') ? 'active' : '' }}">
                             <i class="fas fa-file-alt nav-icon"></i>
                             <span>Laporan PKL</span>
                         </div>
@@ -78,15 +79,17 @@
                         </div>
                     </a>
                 </li>
-
-                <div class="nav-section" style="display: {{ $role == 'pembimbing' ? 'list-item' : 'none'}} ">
-                    <h3 class="nav-section-title">Profil</h3>
-                    <div class="nav-link" data-page="profil">
-                        <i class="fas fa-user nav-icon"></i>
-                        <span>Profil Saya</span>
-                    </div>
-                </div>
             </ul>
+        </div>
+
+        <div class="nav-section" style="display: {{ $role == 'pembimbing' ? '' : 'none' }} ">
+            <h3 class="nav-section-title">Profil</h3>
+            <a href="{{ route('pembimbing.profil') }}" style="text-decoration: none">
+                <div class="nav-link {{ request()->is('pembimbing/profil') ? 'active' : '' }}" data-page="profil">
+                    <i class="fas fa-user nav-icon"></i>
+                    <span>Profil Saya</span>
+                </div>
+            </a>
         </div>
     </nav>
 </aside>
