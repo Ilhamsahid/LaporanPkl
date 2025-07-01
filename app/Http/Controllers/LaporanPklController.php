@@ -19,7 +19,9 @@ class LaporanPklController extends Controller
             ? LaporanPkl::with('siswa')->orderBy('id', 'desc')->paginate(5)
             : LaporanPkl::withWhereHas('siswa', function ($query) {
                 $query->where('pembimbing_id', Auth::user()->id);
-            })->paginate(5);
+            })
+            ->orderBy('status', 'asc')
+            ->paginate(5);
 
         $siswas = Siswa::all();
         $jeniss = ['mingguan', 'akhir'];

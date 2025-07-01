@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
+use App\Models\LaporanPkl;
 use App\Models\Pembimbing;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -149,4 +151,34 @@ class PembimbingController extends Controller
         return redirect()->back()->with('success', 'Data siswa berhasil dihapus!');
     }
 
+    public function profil(){
+        $pembimbing = Pembimbing::with('siswa')->where('id', Auth::user()->id)->first();
+        $laporan = LaporanPkl::withWhereHas('siswa', function ($q) {
+            $q->where('pembimbing_id', Auth::user()->id);
+        })->get();
+        $siswa = Siswa::with('tempatPkl', 'pembimbing')->where('pembimbing_id', Auth::user()->id)->get();
+        $tempatPkl = [];
+        $tempatPklCount = 0;
+        $laporanPending = 0;
+        $laporanSelesai = 0;
+
+        foreach($laporan as $l){
+            if ($l['status'] == 'selesai'){
+                $laporanSelesai++;
+            }else{
+                $laporanPending++;
+            }
+        }
+
+        foreach($siswa as $s){
+            if ($s['tempat_pkl_id']){
+                if ($s['tempat_pkl_id'] != $tempatPkl){
+                    $tempatPkl = $s['tempat_pkl_id'];
+                    $tempatPklCount++;
+                }
+            }
+        }
+
+        return view('pembimbing.profil.index', compact('pembimbing', 'laporan', 'laporanPending', 'laporanSelesai', 'tempatPklCount'));
+    }
 }
