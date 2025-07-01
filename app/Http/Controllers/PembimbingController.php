@@ -54,6 +54,7 @@ class PembimbingController extends Controller
                 'nama' => 'required',
                 'password' => 'nullable',
                 'email' => 'required|email',
+                'alamat' => 'required',
                 'telepon' => [
                     'required',
                     'string',
@@ -120,6 +121,7 @@ class PembimbingController extends Controller
                     'unique:pembimbing,nip,' . $pembimbing->id,
                     'regex:/^[0-9]{18}$/',
                 ],
+                'alamat' => 'required',
             ],
             [
                 'telepon' => 'no telepon tidak valid',

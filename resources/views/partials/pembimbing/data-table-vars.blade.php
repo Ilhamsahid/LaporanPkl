@@ -5,6 +5,7 @@ return [
     'mobileFields' => [
         'NIP:' => 'nip',
         'Email:' => 'email',
+        'Alamat:' => 'alamat',
         'Telepon:' => 'telepon',
         'Jumlah:' => fn($row) => count($row->siswa) . ' siswa',
     ],
@@ -14,11 +15,12 @@ return [
         'name_modal' => 'pembimbing-modal',
     ]),
 
-    'desktopColumns' => ['Nama', 'Nip', 'Email', 'Telepon', 'Jumlah Siswa'],
+    'desktopColumns' => ['Nama', 'Nip', 'Email', 'Alamat', 'Telepon', 'Jumlah Siswa'],
 
     'desktopFields' => [fn($row) => view('partials.pembimbing.nama', ['pembimbing' => $row]),
         'nip',
         'email',
+        'alamat',
         'telepon',
         fn($row) => view('partials.pembimbing.jumlah-siswa', ['pembimbing' => $row])
     ],

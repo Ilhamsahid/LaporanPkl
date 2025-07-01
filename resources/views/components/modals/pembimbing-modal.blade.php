@@ -39,6 +39,15 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label class="form-label">Alamat</label>
+                    <textarea class="form-control" name="alamat" rows="3" placeholder="Alamat lengkap">{{ $pembimbing->alamat ?? '' }}</textarea>
+                    @error('alamat')
+                        @if (session('mode') == $mode)
+                            <div class="form-error" id="nama-error">{{ $message }}</div>
+                        @endif
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label class="form-label required">Telepon</label>
                     <input type="tel" class="form-control" name="telepon" value="{{ $pembimbing->telepon ?? '' }}"
                         placeholder="Nomor Telepon" required>
@@ -51,7 +60,7 @@
                 <div class="form-group">
                     <label class="form-label required">NIP</label>
                     <input type="tel" class="form-control" name="nip" value="{{ $pembimbing->nip ?? '' }}"
-                        placeholder="No NIP" >
+                        placeholder="No NIP">
                     @error('nip')
                         @if (session('mode') == $mode)
                             <div class="form-error" id="nama-error">{{ $message }}</div>
