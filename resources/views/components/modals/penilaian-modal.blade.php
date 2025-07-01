@@ -21,33 +21,54 @@
                 @if ($mode == 'Edit')
                     <div class="form-group">
                         <label for="siswa-select" class="form-label required">Kelas</label>
-                        <input type="text" class="form-control" value="{{ $penilaian->kelas->nama }}"
-                        readonly />
+                        <input type="text" class="form-control" value="{{ $penilaian->kelas->nama }}" readonly />
                     </div>
-                @else 
+                @else
                     <div class="form-group">
-                        <label for="kelas-select" class="form-label required">Kelas</label>
-                        <select id="kelas-select" class="form-control" required>
-                            <option value="" hidden>Pilih Kelas</option>
-                            @foreach ($kelas as $kel)
-                                <option value="{{ $kel->id }}">{{ $kel->nama }}</option>
-                            @endforeach
-                        </select>
+                        @if ($role == 'pembimbing')
+                            <div class="form-group">
+                                <label for="siswa-select" class="form-label required">Kelas</label>
+                                <input type="text" class="form-control"
+                                    value="{{ isset($penilaian) ? $penilaian->kelas->nama : '' }}" readonly />
+                            </div>
+                        @else
+                            <label for="siswa-select" class="form-label required">Kelas</label>
+                            <select id="kelas-select" class="form-control" required>
+                                <option value="" hidden>Pilih Kelas</option>
+                                @foreach ($kelas as $kel)
+                                    <option value="{{ $kel->id }}">{{ $kel->nama }}</option>
+                                @endforeach
+                            </select>
+                        @endif
                     </div>
                 @endif
 
                 @if ($mode == 'Edit')
                     <div class="form-group">
                         <label for="siswa-select" class="form-label required">Siswa</label>
-                        <input type="hidden" class="form-control" name="siswa_id" value="{{ $id }}" readonly>
+                        <input type="hidden" class="form-control" name="id" value="{{ $penilaian->id }}"
+                            readonly>
+                        <input type="hidden" class="form-control" name="siswa_id" value="{{ $id }}"
+                            readonly>
                         <input type="text" class="form-control" value="{{ $penilaian->nama }}" readonly>
                     </div>
                 @else
                     <div class="form-group">
-                        <label for="siswa-select" class="form-label required">Siswa</label>
-                        <select id="siswa-select" name="siswa_id" class="form-control" required>
-                            <option value="" hidden>Pilih Siswa</option>
-                        </select>
+                        @if ($role == 'pembimbing')
+                            <div class="form-group">
+                                <label for="siswa-select" class="form-label required">Siswa</label>
+                                <input type="hidden" class="form-control" name="id" value="{{ isset($penilaian) ? $penilaian->id : '' }}"
+                                    readonly>
+                                <input type="hidden" class="form-control" name="siswa_id" value="{{ isset($id) ? $id : '' }}"
+                                    readonly>
+                                <input type="text" class="form-control" value="{{ isset($penilaian) ? $penilaian->nama : '' }}" readonly>
+                            </div>
+                        @else
+                            <label for="siswa-select" class="form-label required">Siswa</label>
+                            <select id="siswa-select" name="siswa_id" class="form-control" required>
+                                <option value="" hidden>Pilih Siswa</option>
+                            </select>
+                        @endif
                     </div>
                 @endif
 
@@ -65,7 +86,8 @@
                 <div class="form-group">
                     <label class="form-label required">Nilai Kedisplinan</label>
                     <input type="text" class="form-control" name="nilai_kedisplinan"
-                        value="{{ $penilaian->penilaian->nilai_kedisplinan ?? '' }}" placeholder="Nilai Kedisplinan" required>
+                        value="{{ $penilaian->penilaian->nilai_kedisplinan ?? '' }}" placeholder="Nilai Kedisplinan"
+                        required>
                     @error('nilai_kedisplinan')
                         @if (session('mode') == $mode)
                             <div class="form-error" id="nama-error">{{ $message }}</div>
@@ -76,7 +98,8 @@
                 <div class="form-group">
                     <label class="form-label required">Nilai Keterampilan</label>
                     <input type="text" class="form-control" name="nilai_keterampilan"
-                        value="{{ $penilaian->penilaian->nilai_keterampilan ?? '' }}" placeholder="Nilai Keterampilan" required>
+                        value="{{ $penilaian->penilaian->nilai_keterampilan ?? '' }}" placeholder="Nilai Keterampilan"
+                        required>
                     @error('nilai_keterampilan')
                         @if (session('mode') == $mode)
                             <div class="form-error" id="nama-error">{{ $message }}</div>

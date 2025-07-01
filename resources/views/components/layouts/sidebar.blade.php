@@ -71,8 +71,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.absensi.index') }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is('admin/absensi') ? 'active' : '' }}">
+                    <a href="{{ route($role . '.absensi.index') }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is($role . '/absensi') ? 'active' : '' }}">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             <span>Absensi</span>
                         </div>

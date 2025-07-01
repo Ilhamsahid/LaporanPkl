@@ -30,7 +30,7 @@ class PenilaianPklController extends Controller
             ? Siswa::with('penilaian')
             ->whereHas('penilaian')
             ->orderByDesc(
-            PenilaianPkl::select('id')
+            PenilaianPkl::select(columns: 'id')
                     ->whereColumn('siswa_id', 'siswa.id')
                     ->orderByDesc('id')
                     ->limit(1)
@@ -88,7 +88,10 @@ class PenilaianPklController extends Controller
             return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Tambah')
-            ->with('modal-add', 'penilaian-modal'); // 👈 penanda modal
+            ->with('modal-add', getCurrentGuard() != 'pembimbing'
+                ? 'penilaian-modal'
+                : 'penilaian-modal' . $request->id
+            ); // 👈 penanda moda
         }
     }
 
@@ -113,38 +116,36 @@ class PenilaianPklController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $penilaian = PenilaianPkl::find($id);
+        $penilaian = PenilaianPkl::where('siswa_id', $request->id)->first();
 
-        if (!$penilaian) {
+        if(!$penilaian){
             $this->store($request);
 
             return redirect()->back();
         }
-        else{
-            try {
-                $validated = $request->validate([
-                    'nilai_etika' => 'required|integer|max:100',
-                    'nilai_kedisplinan' => 'required|integer|max:100',
-                    'nilai_keterampilan' => 'required|integer|max:100',
-                    'nilai_wawasan' => 'required|integer|max:100',
-                    'nilai_akhir' => 'nullable|integer|max:100'
-                ]);
 
-                $penilaian->update($validated);
-                $penilaian->refresh();
-                $penilaian->update([
-                    'nilai_akhir' => $penilaian->rata_rata,
-                ]);
+        try {
+            $validated = $request->validate([
+                'nilai_etika' => 'required|integer|max:100',
+                'nilai_kedisplinan' => 'required|integer|max:100',
+                'nilai_keterampilan' => 'required|integer|max:100',
+                'nilai_wawasan' => 'required|integer|max:100',
+                'nilai_akhir' => 'nullable|integer|max:100'
+            ]);
 
+            $penilaian->update($validated);
+            $penilaian->refresh();
+            $penilaian->update([
+                'nilai_akhir' => $penilaian->rata_rata,
+            ]);
 
-                return redirect()->back()->with('success', 'Data penilaian berhasil diupdate!');
-            } 
-            catch (\Illuminate\Validation\ValidationException $e ) {
-                return redirect()->back()
-                    ->withErrors($e->validator)
-                    ->with('mode', 'Edit')
-                    ->with('modal-edit', 'penilaian-modal' . $penilaian->id); // 👈 penanda modal
-            }
+            return redirect()->back()->with('success', 'Data penilaian berhasil diupdate!');
+        } 
+        catch (\Illuminate\Validation\ValidationException $e ) {
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->with('mode', 'Edit')
+                ->with('modal-edit', 'penilaian-modal' . $id); // 👈 penanda modal
         }
     }
     /**

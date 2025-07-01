@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\AbsensiPkl;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AbsensiPklController extends Controller
 {
@@ -13,7 +14,14 @@ class AbsensiPklController extends Controller
      */
     public function index()
     {
-        $absensis = AbsensiPkl::with('siswa')->orderBy('id', 'desc')->paginate(5);
+        $role = GetCurrentGuard();
+        $absensis = $role != 'pembimbing'
+            ? AbsensiPkl::with('siswa')->orderBy('id', 'desc')->paginate(5)
+            : AbsensiPkl::withWhereHas('siswa', function ($query) {
+                $query->where('pembimbing_id', Auth::user()->id);
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(5);
 
         $kelas = Kelas::all();
         $status = [
@@ -24,7 +32,7 @@ class AbsensiPklController extends Controller
             'Terlambat',
         ];
 
-        return view('admin.absensi.index', compact('absensis', 'kelas', 'status'));
+        return view($role . '.absensi.index', compact('absensis', 'kelas', 'status'));
     }
 
     /**
@@ -50,7 +58,7 @@ class AbsensiPklController extends Controller
                 'keterangan' => 'nullable',
             ]);
 
-            if(strtotime($validated['jam_masuk']) > strtotime('08:20') && strtotime($validated['jam_masuk']) < strtotime('17:00')){
+            if(strtotime($validated['jam_masuk']) > strtotime('09:00') && strtotime($validated['jam_masuk']) < strtotime('17:00')){
                 $validated['status'] = 'terlambat';
             }else{
                 $validated['status'] = 'hadir';
@@ -100,10 +108,16 @@ class AbsensiPklController extends Controller
                 'jam_keluar' => 'absen keluar tidak boleh melewati absen masuk'
             ]);
 
-            if(strtotime($validated['jam_masuk']) > strtotime('08:20') && strtotime($validated['jam_masuk']) < strtotime('17:00')){
-                $validated['status'] = 'terlambat';
+
+            if(in_array($validated['status'], ['sakit', 'izin', 'alpha'])){
+                $validated['jam_masuk'] = null;
+                $validated['jam_keluar'] = null;
             }else{
-                $validated['status'] = 'hadir';
+                if(strtotime($validated['jam_masuk']) > strtotime('09:00') && strtotime($validated['jam_masuk']) < strtotime('17:00')){
+                    $validated['status'] = 'terlambat';
+                }else{
+                    $validated['status'] = 'hadir';
+                }
             }
 
             $absensi->update($validated);

@@ -24,6 +24,7 @@
                             'judul' => 'Penilaian PKL',
                             'deskripsi' => 'Kelola Penilaian PKL siswa yang anda bimbing',
                             'nama' => 'Penilaian',
+                            'name_modal' => 'penilaian-modal',
                         ])
 
                         @php($tableVars = getTableVars('penilaian.data-table-vars'))

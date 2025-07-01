@@ -60,7 +60,7 @@
                     <div class="form-group">
                         <label class="form-label required">Absen Masuk</label>
                         <input type="time" class="form-control" name="jam_masuk"
-                            value="{{ optional($absensi)->jam_masuk ? \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i') : now()->format('H:i') }}"
+                            value="{{ optional($absensi)->jam_masuk ? \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i') : \Carbon\Carbon::parse('08:00')->format('H:i') }}"
                             placeholder="Jam Absensi" required>
                         @error('jam_masuk')
                             @if (session('mode') == $mode)
@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label class="form-label required">Absen Keluar</label>
                         <input type="time" class="form-control" name="jam_keluar"
-                            value="{{ optional($absensi)->jam_keluar ? \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i') : now()->format('H:i') }}"
+                            value="{{ optional($absensi)->jam_keluar ? \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i') : \Carbon\Carbon::parse('17:00')->format('H:i') }}"
                             placeholder="Jam Absensi" required>
                         @error('jam_keluar')
                             @if (session('mode') == $mode)
@@ -86,7 +86,7 @@
                     <select id="status-select" class="form-control" name="status" required>
                         <option value="" hidden>Pilih Status</option>
                         @foreach ($status as $sta)
-                            <option value="{{ $sta }}"
+                            <option value="{{ strtolower($sta) }}"
                                 {{ strtolower(old('status', $absensi->status ?? '')) == strtolower($sta) ? 'selected' : '' }}>
                                 {{ $sta }}
                             </option>
@@ -99,7 +99,7 @@
                     @enderror
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="display:{{ $role == 'pembimbing' ? 'none' : ''}}">
                     <label class="form-label">Keterangan</label>
                     <textarea class="form-control" name="keterangan" rows="3" placeholder="Masukkan Keterangan(opsional)">{{ $absensi->keterangan ?? '' }}</textarea>
                     @error('keterangan')

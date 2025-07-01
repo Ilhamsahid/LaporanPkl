@@ -13,7 +13,7 @@
                     <span>Siswa</span>
                 </a>
                 @if ($role=='admin')
-                    <a href="{{ route('admin.pkl.index') }}" class="bottom-nav-item {{ request()->is($role . '/laporan') ? 'active' : '' }}"
+                    <a href="{{ route('admin.pkl.index') }}" class="bottom-nav-item {{ request()->is($role . '/pkl') ? 'active' : '' }}"
                         style="text-decoration: none">
                         <i class="fas fa-map-marker-alt bottom-nav-icon"></i>
                         <span>Tempat</span>
@@ -29,7 +29,7 @@
                     <i class="fas fa-star bottom-nav-icon"></i>
                     <span>Nilai</span>
                 </a>
-                <a href=""
+                <a href="{{ route($role. '.absensi.index') }}"
                     class="bottom-nav-item {{ request()->is($role . '/absensi') ? 'active' : '' }} data-page="absensi"
                     style="text-decoration: none">
                     <i class="fas fa-calendar-alt bottom-nav-icon"></i>
