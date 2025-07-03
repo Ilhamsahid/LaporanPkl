@@ -10,7 +10,7 @@ if(!function_exists('getTableVars')){
 
 if(!function_exists('currentGuard')){
     function getCurrentGuard(){
-        $guards = ['admin', 'pembimbing'];
+        $guards = ['admin', 'pembimbing', 'siswa'];
 
         foreach($guards as $guard){
             if (Auth::guard($guard)->check()){

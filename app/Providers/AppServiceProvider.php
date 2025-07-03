@@ -28,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
         Route::middleware('web')
         ->group(base_path('routes/pembimbing.php'));
 
+        Route::middleware('web')
+        ->group(base_path('routes/siswa.php'));
+
         View::composer('*', function ($view) {
             $activeGuard = getCurrentGuard();
 

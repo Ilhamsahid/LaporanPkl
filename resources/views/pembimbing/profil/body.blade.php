@@ -4,12 +4,12 @@
     <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">{{ Auth::user()->nama }}</h3>
     <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Guru Pembimbing PKL</p>
     <p style="font-size: 0.875rem; color: var(--primary-500); font-weight: 500;">
-        NIP: <i class="fas fa-building"></i> {{ Auth::user()->nip }}
+        NIP: {{ Auth::user()->nip }}
     </p>
 </div>
 <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
     <div>
-        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; ">
+        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap:0.5rem">
             <i class="fas fa-user" style="color: var(--primary-500);"></i>
             Informasi Pribadi
         </h4>
@@ -39,7 +39,7 @@
         </div>
 
         <h4
-            style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; margin-top: 2.5rem;display: flex; align-items: center; ">
+            style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; margin-top: 2.5rem;display: flex; align-items: center; gap:0.5rem">
             <i class="fas fa-user" style="color: var(--primary-500);"></i>
             Statistik Pembimbingan
         </h4>

@@ -37,11 +37,14 @@ class PenilaianPklController extends Controller
                         ->limit(1)
                 )->paginate(5)
             : Siswa::with('penilaian')
+            ->leftJoin('penilaian_pkl', 'siswa.id', '=', 'penilaian_pkl.siswa_id')
+            ->select('siswa.*') // ambil kolom siswa saja
             ->where('pembimbing_id', Auth::user()->id)
-            ->orderBy(
-                PenilaianPkl::select(columns: 'id')
-                    ->whereColumn('siswa_id', 'siswa.id')
-            , 'asc')->paginate(5);
+            ->selectRaw('MAX(penilaian_pkl.id) as latest_penilaian_id')
+            ->groupBy('siswa.id')
+            ->orderByRaw('ISNULL(latest_penilaian_id) DESC')  // siswa yg belum dinilai dulu
+            ->orderByDesc('latest_penilaian_id')             // baru urut dari yg terbaru
+            ->paginate(5);
 
         return view($role . '.penilaian.index', compact('kelas', 'siswas', 'penilaian'));
     }

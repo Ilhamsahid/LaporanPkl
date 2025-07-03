@@ -12,7 +12,7 @@
                     <i class="fas fa-users bottom-nav-icon"></i>
                     <span>Siswa</span>
                 </a>
-                <a href="{{ route('admin.pkl.index') }}" class="bottom-nav-item {{ request()->is($role . '/pkl') ? 'active' : '' }}"
+                <a href="{{ route($role . '.pkl.index') }}" class="bottom-nav-item {{ request()->is($role . '/pkl') ? 'active' : '' }}"
                     style="text-decoration: none">
                     <i class="fas fa-map-marker-alt bottom-nav-icon"></i>
                     <span>Tempat</span>

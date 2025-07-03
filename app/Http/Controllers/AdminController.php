@@ -16,8 +16,13 @@ class AdminController extends Controller
         if(Auth::guard('admin')->attempt($credentials)){
             return redirect()->route('admin.dashboard');
         }
+
         if(Auth::guard('pembimbing')->attempt($credentials)){
             return redirect()->route('pembimbing.dashboard');
+        }
+
+        if(Auth::guard('siswa')->attempt($credentials)){
+            return redirect()->route('siswa.dashboard');
         }
 
         return back()->withErrors([

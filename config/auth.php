@@ -48,7 +48,12 @@ return [
         'pembimbing' => [
             'driver' => 'session',
             'provider' => 'pembimbings',
-        ]
+        ],
+
+        'siswa' => [
+            'driver' => 'session',
+            'provider' => 'siswas',
+        ],
     ],
 
     /*
@@ -82,6 +87,11 @@ return [
         'pembimbings' => [
             'driver' => 'eloquent',
             'model' => App\Models\Pembimbing::class,
+        ],
+
+        'siswas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Siswa::class,
         ],
     ],
 

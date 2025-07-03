@@ -8,10 +8,15 @@ use App\Models\Pembimbing;
 use App\Models\TempatPkl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class SiswaController extends Controller
 {
+    public function dashboard(){
+        return view('siswa.dashboard.index');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -73,7 +78,7 @@ class SiswaController extends Controller
                 'email' => 'Email sudah dipakai',
             ]);
 
-            $validated['password'] = bcrypt($validated['password']);
+            $validated['password'] = Hash::make('password');
 
             Siswa::create($validated);
 
