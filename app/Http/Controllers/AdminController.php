@@ -39,6 +39,10 @@ class AdminController extends Controller
             Auth::guard('pembimbing')->logout();
         }
 
+        if(Auth::guard('siswa')->check()){
+            Auth::guard('siswa')->logout();
+        }
+
         return redirect()->route('login');
     }
 
