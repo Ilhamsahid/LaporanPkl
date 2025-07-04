@@ -52,7 +52,14 @@
                 </li>
 
             @if ($role == 'siswa')
-                
+                <li class="nav-item">
+                    <a href="{{ $role != 'siswa' ? route($role . '.pkl.index') : '' }}" style="text-decoration: none">
+                        <div class="nav-link {{ request()->is($role . '/absensi') ? 'active' : '' }}">
+                            <i class="fas fa-calendar-alt nav-icon"></i>
+                            <span>Absensi</span>
+                        </div>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{ $role != 'siswa' ? route($role . '.pkl.index') : '' }}" style="text-decoration: none">
                         <div class="nav-link {{ request()->is($role . '/laporan') ? 'active' : '' }}">
@@ -69,15 +76,6 @@
                         </div>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ $role != 'siswa' ? route($role . '.pkl.index') : '' }}" style="text-decoration: none">
-                        <div class="nav-link {{ request()->is($role . '/absensi') ? 'active' : '' }}">
-                            <i class="fas fa-calendar-alt nav-icon"></i>
-                            <span>Absensi</span>
-                        </div>
-                    </a>
-                </li>
-            
                 <li class="nav-item">
             <a href="{{ route('pembimbing.profil') }}" style="text-decoration: none">
                 <div class="nav-link {{ request()->is('pembimbing/profil') ? 'active' : '' }}" data-page="profil">

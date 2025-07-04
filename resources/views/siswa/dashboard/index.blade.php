@@ -19,7 +19,7 @@
             <div class="content">
                 <div id="dashboard" class="page-section active wrapper-page-section-siswa" style="margin-bottom: 80px">
                     <!-- Statistics Cards -->
-                    <div class="stats-grid">
+                    <div class="stats-grid" >
                         <div class="stat-card">
                             <div class="stat-header">
                                 <h3 class="stat-title">Total Absensi</h3>

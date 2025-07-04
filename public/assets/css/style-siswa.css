@@ -730,14 +730,16 @@ body {
 /* Stats Cards */
 .stats-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 @media (min-width: 640px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 2rem;
     }
 }
 
@@ -751,10 +753,21 @@ body {
     background: var(--bg-primary);
     border: 1px solid var(--border-primary);
     border-radius: 1rem;
-    padding: 1.5rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 1.25rem 1rem;
     position: relative;
     overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (min-width: 640px) {
+    .stat-card {
+        padding: 1.5rem;
+    }
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .stat-card::before {
@@ -765,17 +778,6 @@ body {
     right: 0;
     height: 4px;
     background: linear-gradient(90deg, var(--primary-500), var(--primary-600));
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.stat-card:hover::before {
-    transform: scaleX(1);
-}
-
-.stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-xl);
 }
 
 .stat-header {
@@ -789,30 +791,40 @@ body {
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--text-secondary);
-    margin: 0;
 }
 
 .stat-icon {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 1.25rem;
-    transition: all 0.3s ease;
+    font-size: 1.125rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.stat-card:hover .stat-icon {
-    transform: scale(1.1) rotate(5deg);
+@media (min-width: 640px) {
+    .stat-icon {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
 }
 
 .stat-value {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: var(--text-primary);
-    margin: 0 0 0.5rem 0;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+    .stat-value {
+        font-size: 2rem;
+    }
 }
 
 .stat-change {
@@ -821,18 +833,6 @@ body {
     gap: 0.25rem;
     font-size: 0.75rem;
     font-weight: 500;
-}
-
-.stat-change.positive {
-    color: var(--success-500);
-}
-
-.stat-change.negative {
-    color: var(--danger-500);
-}
-
-.stat-change.neutral {
-    color: var(--text-secondary);
 }
 
 /* Buttons */
