@@ -19,6 +19,7 @@
             </div>
         </div>
         <div class="modal-footer">
+            @if($role != 'siswa'){
             <button type="button" class="btn btn-secondary" onclick="closeModal('delete-modal{{ $id }}')">Batal</button>
             <form action="{{ $route ?? ''}}" method="POST">
                 @csrf
@@ -28,6 +29,15 @@
                     Hapus
                 </button>
             </form>
+
+            }
+            @else
+                <button type="button" class="btn btn-secondary" onclick="closeModal('delete-modal{{ $id }}')">Batal</button>
+                <button type="" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                    Hapus
+                </button>
+            @endif
         </div>
     </div>
 </div>

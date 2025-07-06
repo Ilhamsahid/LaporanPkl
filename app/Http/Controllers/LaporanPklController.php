@@ -23,10 +23,15 @@ class LaporanPklController extends Controller
             ->orderBy('status', 'asc')
             ->paginate(5);
 
+        $laporanS = LaporanPkl::with('siswa')
+        ->where('siswa_id', Auth::user()->id)
+        ->orderBy('id', 'desc')
+        ->paginate(5);
+
         $siswas = Siswa::all();
         $jeniss = ['mingguan', 'akhir'];
 
-        return view( $role . '.pkl.laporan.index', compact('laporans', 'siswas', 'jeniss'));
+        return view( $role . '.pkl.laporan.index', compact('laporans', 'laporanS', 'siswas', 'jeniss'));
     }
 
     /**
@@ -40,32 +45,54 @@ class LaporanPklController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        try{
-            $validated = $request->validate([
-                'judul' => 'required',
-                'isi_laporan' => 'required',
-                'siswa_id' => 'required',
-                'tanggal' => 'required|date|before_or_equal:today',
-                'jenis_laporan' => 'required',
-                'status' => 'required',
-            ],[
-                'tanggal' => 'Tanggal harus diisi sebelum hari ini'
+public function store(Request $request)
+{
+    try {
+        $role = getCurrentGuard();
+
+        $validated = $request->validate([
+            'judul' => 'required',
+            'isi_laporan' => 'required',
+            'siswa_id' => 'required',
+            'tanggal' => 'required|date|before_or_equal:today',
+            'jenis_laporan' => 'required',
+            'status' => 'required',
+        ], [
+            'tanggal.before_or_equal' => 'Tanggal harus diisi sebelum hari ini',
+        ]);
+
+        $laporan = LaporanPkl::create($validated);
+
+        // Cek apakah requestnya AJAX/fetch
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'laporan' => $laporan,
             ]);
+        }
 
-            LaporanPkl::create($validated);
+        return redirect()->back()->with('success', 'Laporan berhasil ditambah');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $e->errors(),
+            ], 422);
+        }
 
-            return redirect()->back()->with('success', 'Laporan berhasil di tambah');
-        }catch(\Illuminate\Validation\ValidationException $e){
-            return redirect()->back()
+        return redirect()->back()
             ->withErrors($e->validator)
             ->with('mode', 'Tambah')
-            ->with('error', 'gagal untuk menambahkan laporan')
+            ->with('error', 'Gagal untuk menambahkan laporan')
             ->with('modal-add', 'laporan-modal');
-        }
     }
+}
 
+    public function json()
+    {
+        $laporan = LaporanPkl::where('siswa_id', Auth::user()->id)->latest()->get();
+        return response()->json($laporan);
+    }
     /**
      * Display the specified resource.
      */
@@ -104,6 +131,13 @@ class LaporanPklController extends Controller
                 ? $laporan->update($validated)
                 : $laporan->update(['status' => 'selesai']);
 
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'laporan' => $laporan,
+                ]);
+            }
+
             return redirect()->back()->with('success', 'Laporan berhasil di update');
         }catch(\Illuminate\Validation\ValidationException $e){
             return redirect()->back()
@@ -117,9 +151,16 @@ class LaporanPklController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LaporanPkl $laporan)
+    public function destroy(Request $request, LaporanPkl $laporan)
     {
         $laporan->delete();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'laporan' => $laporan,
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Laporan berhasil di hapus');
     }
