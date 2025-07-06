@@ -90,7 +90,10 @@ public function store(Request $request)
 
     public function json()
     {
-        $laporan = LaporanPkl::where('siswa_id', Auth::user()->id)->latest()->get();
+        $laporan = LaporanPkl::where('siswa_id', Auth::user()->id)
+        ->orderByRaw("FIELD(status, 'selesai', 'pending')")
+        ->orderByDesc('id') // baru terbaru
+        ->get();
         return response()->json($laporan);
     }
     /**

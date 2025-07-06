@@ -1115,7 +1115,7 @@ function fetchReports() {
 
 function getStatusBadge(status) {
     switch (status) {
-        case "disetujui":
+        case "selesai":
             return '<span class="badge badge-success">Disetujui</span>';
         case "pending":
             return '<span class="badge badge-warning">Pending</span>';

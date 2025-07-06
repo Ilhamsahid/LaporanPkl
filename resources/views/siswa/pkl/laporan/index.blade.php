@@ -17,7 +17,7 @@
             </header>
 
             <div class="content">
-                <div id="laporan" class="page-section active wrapper-page-section-siswa">
+                <div id="laporan" class="page-section active wrapper-page-section-siswa" style="margin-bottom: 80px">
                     <div class="card">
                         <div class="card-header">
                             <div>
