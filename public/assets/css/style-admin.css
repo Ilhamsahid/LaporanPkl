@@ -308,6 +308,10 @@ body {
     height: 1.25rem;
     margin-right: 0.75rem;
     transition: transform 0.2s ease;
+    -webkit-transition: transform 0.2s ease;
+    -moz-transition: transform 0.2s ease;
+    -ms-transition: transform 0.2s ease;
+    -o-transition: transform 0.2s ease;
 }
 
 .nav-link:hover .nav-icon {
@@ -740,6 +744,10 @@ body {
     background: linear-gradient(90deg, var(--primary-500), var(--primary-600));
     transform: scaleX(0);
     transition: transform 0.3s ease;
+    -webkit-transition: transform 0.3s ease;
+    -moz-transition: transform 0.3s ease;
+    -ms-transition: transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
 }
 
 .stat-card:hover::before {
@@ -1243,6 +1251,10 @@ body {
     color: var(--text-primary);
     font-size: 0.875rem;
     transition: all 0.2s ease;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
 }
 
 .form-control:focus {
