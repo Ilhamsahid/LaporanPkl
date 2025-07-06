@@ -61,7 +61,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ $role != 'siswa' ? route($role . '.pkl.index') : '' }}" style="text-decoration: none">
+                    <a href="{{ route('siswa.laporan.index') }}" style="text-decoration: none">
                         <div class="nav-link {{ request()->is($role . '/laporan') ? 'active' : '' }}">
                             <i class="fas fa-file-alt nav-icon"></i>
                             <span>Laporan PKL</span>

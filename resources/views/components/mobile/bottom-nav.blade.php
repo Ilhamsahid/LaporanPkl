@@ -13,7 +13,7 @@
                     <i class="fas fa-calendar-alt bottom-nav-icon"></i>
                     <span>Absensi</span>
                 </a>
-                <a href="" class="bottom-nav-item {{ request()->is($role . '/laporan') ? 'active' : '' }}"
+                <a href="{{ route('siswa.laporan.index') }}" class="bottom-nav-item {{ request()->is($role . '/laporan') ? 'active' : '' }}"
                     style="text-decoration: none">
                     <i class="fas fa-file-alt bottom-nav-icon"></i>
                     <span>Laporan</span>
