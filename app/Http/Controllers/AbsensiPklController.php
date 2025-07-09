@@ -23,6 +23,12 @@ class AbsensiPklController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(5);
 
+        $absensiSiswa = AbsensiPkl::withWhereHas('siswa', function ($query) {
+            $query->where('id', Auth::user()->id);
+        })
+        ->orderBy('id', 'desc')
+        ->paginate(5);
+
         $kelas = Kelas::all();
         $status = [
             'Hadir',

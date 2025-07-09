@@ -7,7 +7,7 @@
                     <span>Home</span>
                 </a>
                 @if ($role == 'siswa')
-                <a href=""
+                <a href="{{ route('siswa.absensi.index') }}"
                     class="bottom-nav-item {{ request()->is($role . '/absensi') ? 'active' : '' }} data-page="absensi"
                     style="text-decoration: none">
                     <i class="fas fa-calendar-alt bottom-nav-icon"></i>

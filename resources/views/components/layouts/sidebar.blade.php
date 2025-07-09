@@ -53,7 +53,7 @@
 
             @if ($role == 'siswa')
                 <li class="nav-item">
-                    <a href="{{ $role != 'siswa' ? route($role . '.pkl.index') : '' }}" style="text-decoration: none">
+                    <a href="{{ route($role . '.absensi.index') }}" style="text-decoration: none">
                         <div class="nav-link {{ request()->is($role . '/absensi') ? 'active' : '' }}">
                             <i class="fas fa-calendar-alt nav-icon"></i>
                             <span>Absensi</span>
