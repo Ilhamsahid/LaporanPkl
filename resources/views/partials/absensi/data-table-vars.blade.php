@@ -19,8 +19,8 @@ return [
     'desktopFields' => [
         fn($row) => view('partials.absensi.nama', ['absensi' => $row]),
         'tanggal',
-        'jam_masuk',
-        'jam_keluar',
+        fn($row) => \Carbon\Carbon::parse($row->jam_masuk)->format('H:i'),
+        fn($row) => \Carbon\Carbon::parse($row->jam_keluar)->format('H:i'),
         fn($row) => view('partials.absensi.status', ['absensi' => $row]),
         'keterangan',
         'siswa.tempatPkl.nama_tempat',
