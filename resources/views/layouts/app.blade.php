@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/style-' . $role . '.css') }}">
     @stack('styles')
+    @livewireStyles
 
     <script>
         document.documentElement.setAttribute(
@@ -39,6 +40,7 @@
     @stack('modal')
 
     @stack('script')
+    @livewireScripts
 </body>
 
 </html>

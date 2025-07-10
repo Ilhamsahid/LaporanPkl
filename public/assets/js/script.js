@@ -1179,3 +1179,73 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     });
 });
+
+let currentAttendanceType = null;
+
+function openAttendanceModal() {
+    const modal = document.getElementById("attendance-modal");
+    modal.classList.add("active");
+
+    resetAttendanceForm();
+}
+
+function selectAttendanceType(type) {
+    currentAttendanceType = type;
+
+    // Update visual selection
+    document.querySelectorAll(".attendance-option").forEach((option) => {
+        option.classList.remove("selected");
+    });
+    event.target.closest(".attendance-option").classList.add("selected");
+}
+
+function closeAttendanceModal() {
+    const modal = document.getElementById("attendance-modal");
+    modal.classList.remove("active");
+    resetAttendanceForm();
+}
+
+function resetAttendanceForm() {
+    currentAttendanceType = null;
+    document.querySelectorAll(".attendance-option").forEach((option) => {
+        option.classList.remove("selected");
+    });
+    document.getElementById("permission-form").style.display = "none";
+    document.getElementById("permission-request-form").reset();
+}
+
+function confirmAttendance() {
+    if (!currentAttendanceType) {
+        alert("Pilih jenis absensi dulu!");
+        return;
+    }
+
+    // Kirim ke Livewire!
+    Livewire.dispatch("selected-attendance-js", [currentAttendanceType]);
+
+    // Livewire.find('nama-komponen').call('selectedAttendanceType', selectedType);
+
+    document.getElementById("confirm-text").style.display = "none";
+    document.getElementById("confirm-loading").style.display = "inline-flex";
+}
+
+function updateJam() {
+    const el = document.getElementById("jam");
+    setInterval(() => {
+        const sekarang = new Date();
+        const jam = sekarang.toLocaleTimeString("id-ID", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+        });
+        el.textContent = jam;
+    }, 1000);
+}
+
+document.addEventListener("DOMContentLoaded", updateJam);
+Livewire.on("absensiBerhasil", () => {
+    closeAttendanceModal();
+    document.getElementById("confirm-text").style.display = "inline";
+    document.getElementById("confirm-loading").style.display = "none";
+    selectedType = null;
+});
