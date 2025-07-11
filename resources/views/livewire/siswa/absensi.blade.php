@@ -26,11 +26,7 @@
                 </div>
 
                 <div>
-                    <div style="font-size: 1.75rem; color: var({{
-                    $props['keluar']['icon'] == '--success-500'
-                    ? '--text-secondary'
-                    : '--success-500'
-                    }}); margin-bottom: 0.5rem;">
+                    <div style="font-size: 1.75rem; color: var({{ $props['keluar']['icon'] }}); margin-bottom: 0.5rem;">
                         <i class="fas fa-sign-out-alt"></i>
                     </div>
                     <h5 style="font-weight: 600; margin-bottom: 0.25rem;">Jam Keluar</h5>
@@ -57,9 +53,19 @@
                         <span>Loading...</span>
                     </span>
                 </button>
-                <button class="{{ $props['keluar']['btn'] }}" {{ $props['keluar']['access'] == '' ? 'disabled' : '' }}>
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Absen Keluar</span>
+                <button class="{{ $props['keluar']['btn'] }}" wire:click='absenKeluar' {{ $props['keluar']['access'] == '' || $props['keluar']['access'] == 'disabled' ? 'disabled' : '' }}>
+                    {{-- Saat tidak loading --}}
+                    <span wire:loading.remove wire:target="absenKeluar"
+                        style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Absen Keluar</span>
+                    </span>
+
+                    {{-- Saat loading --}}
+                    <span wire:loading wire:target="absenKeluar" style="gap: 0.5rem;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Loading...</span>
+                    </span>
                 </button>
             </div>
         </div>
@@ -76,7 +82,7 @@
                     <div class="data-item">
                         <div class="data-item-header">
                             <div class="data-item-content">
-                                <h5>{{ \Carbon\Carbon::parse(now())->locale('id')->translatedFormat('l, d F Y') }}</h5>
+                                <h5>{{ \Carbon\Carbon::parse($absensi->tanggal)->locale('id')->translatedFormat('l, d F Y') }}</h5>
                                 <p>{{ $absensi->jam_masuk ? \Carbon\Carbon::parse($absensi->jam_masuk)->format('H:i') : $absensi->status }}
                                     {{ $absensi->jam_keluar ? ' - ' . \Carbon\Carbon::parse($absensi->jam_keluar)->format('H:i') : '' }}
                                 </p>

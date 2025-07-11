@@ -16,11 +16,11 @@
             </div>
 
             <!-- Time Alert -->
-            <div id="time-alert" class="time-alert time-alert-info" style="display: none;">
+            <div id="time-alert" class="time-alert time-alert-{{ $alert['type'] }} active" style="display: flex;">
                 <i class="fas fa-info-circle"></i>
                 <div>
                     <strong>Informasi:</strong>
-                    <p id="time-alert-message"></p>
+                    <p id="time-alert-message">{{ $alert['message'] }}</p>
                 </div>
             </div>
 
