@@ -46,7 +46,11 @@ class PenilaianPklController extends Controller
             ->orderByDesc('latest_penilaian_id')             // baru urut dari yg terbaru
             ->paginate(5);
 
-        return view($role . '.penilaian.index', compact('kelas', 'siswas', 'penilaian'));
+        $penilaianSiswa = PenilaianPkl::with('siswa')
+        ->where('siswa_id', Auth::user()->id)
+        ->first();
+
+        return view($role . '.penilaian.index', compact('kelas', 'siswas', 'penilaian', 'penilaianSiswa'));
     }
 
     public function getSiswaByKelas($kelas_id)

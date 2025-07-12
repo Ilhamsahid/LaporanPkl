@@ -9,7 +9,7 @@
     <div class="card-body">
         <!-- Absen Hari Ini -->
         <div
-            style="background: var(--bg-secondary); border-radius: 1rem; padding: 1.5rem; margin-bottom: 1.5rem; text-align: center;">
+            style="background: var(--bg-primary); border-radius: 1rem; border:1px solid var(--border-primary); padding: 1.5rem; margin-bottom: 1.5rem; text-align: center;">
             <h4 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Absensi Hari Ini
             </h4>
 

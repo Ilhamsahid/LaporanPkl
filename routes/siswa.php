@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AbsensiPklController;
 use App\Http\Controllers\LaporanPklController;
+use App\Http\Controllers\PenilaianPklController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiswaController;
 
@@ -15,5 +16,6 @@ Route::middleware('auth:siswa')->prefix('siswa')->name('siswa.')->group
     Route::post('/siswa/laporan', [LaporanPklController::class, 'store'])->name('siswa.laporan.store');
     Route::resource('/laporan', LaporanPklController::class)->except(['show']);
     Route::resource('/absensi', AbsensiPklController::class)->except(['show']);
+    Route::resource('/penilaian', PenilaianPklController::class)->except(['show']);
 }
 );

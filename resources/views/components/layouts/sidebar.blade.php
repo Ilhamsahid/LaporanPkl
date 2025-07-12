@@ -69,7 +69,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ $role != 'siswa' ? route($role . '.pkl.index') : '' }}" style="text-decoration: none">
+                    <a href="{{ route('siswa.penilaian.index') }}" style="text-decoration: none">
                         <div class="nav-link {{ request()->is($role . '/penilaian') ? 'active' : '' }}">
                             <i class="fas fa-chart-bar nav-icon"></i>
                             <span>Penilaian</span>

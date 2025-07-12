@@ -32,3 +32,28 @@ if(!function_exists('redirectWithAuth')){
         return view($view);
     }
 }
+
+if(!function_exists('getGrade')){
+    function getGrade($param){
+        $props = [
+            'span' => '',
+            'grade' => '',
+            'message' => '',
+        ];
+        if ($param > 90 && $param <= 100){
+            $props['message'] = 'Sangat Baik';
+            $props['span'] = 'success';
+            $props['grade'] = 'A';
+        }else if ($param > 80 && $param <= 90){
+            $props['message'] = 'Cukup Baik';
+            $props['span'] = 'warning';
+            $props['grade'] = 'B';
+        }else {
+            $props['message'] = 'Baik';
+            $props['span'] = 'danger';
+            $props['grade'] = 'C';
+        }
+
+        return $props;
+    }
+}
