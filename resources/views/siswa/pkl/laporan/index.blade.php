@@ -39,7 +39,7 @@
                                     </span>
                                 </h4>
                                 <div class="data-list" id="reports-list"></div>
-                                <div id="pagination-container" class="pagination-container"></div>
+                                <div id="pagination-container" class="pagination-container" style="display:none"></div>
                             </div>
                         </div>
                     </div>

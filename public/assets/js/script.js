@@ -1049,6 +1049,14 @@ function renderPagination() {
     if (!paginationContainer) return;
 
     const totalItems = reports.length;
+
+    if (totalItems === 0) {
+        paginationContainer.style.display = "none";
+        return;
+    } else {
+        paginationContainer.style.display = "flex"; 
+    }
+
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     const startItem = (currentPage - 1) * itemsPerPage + 1;
     const endItem = Math.min(startItem + itemsPerPage - 1, totalItems);
