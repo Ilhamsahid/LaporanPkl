@@ -32,72 +32,75 @@
                                     <h4 style="margin-bottom: 0.5rem;">Penilaian</h4>
                                     <p>Penilaian akan tersedia setelah PKL selesai</p>
                                 </div>
+                            @else
+                                <!-- Nilai Keseluruhan -->
+                                <div
+                                    style="background: var(--bg-primary); border-radius: 1rem; border:1px solid var(--border-primary);padding: 1.5rem; margin-bottom: 1.5rem; text-align: center;">
+                                    <h4 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Nilai
+                                        Keseluruhan
+                                    </h4>
+
+                                    <div
+                                        style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                                        <div>
+                                            <div
+                                                style="font-size: 2rem; font-weight: 800; color: var(--success-500); margin-bottom: 0.5rem;">
+                                                {{ $penilaianSiswa->nilai_akhir }}</div>
+                                            <p style="font-weight: 600;">Nilai Akhir</p>
+                                        </div>
+                                        <div>
+                                            <div
+                                                style="font-size: 2rem; font-weight: 800; color: var(--{{ getGrade($penilaianSiswa->nilai_akhir)['span'] }}-500); margin-bottom: 0.5rem;">
+                                                {{ getGrade($penilaianSiswa->nilai_akhir)['grade'] }}</div>
+                                            <p style="font-weight: 600;">Grade</p>
+                                        </div>
+                                    </div>
+
+                                    <span class="badge badge-success"
+                                        style="font-size: 0.875rem; padding: 0.5rem 1rem;">{{ getGrade($penilaianSiswa->nilai_akhir)['message'] }}</span>
+                                </div>
+
+                                <!-- Detail Penilaian -->
+                                <div>
+                                    <h4 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Detail Penilaian
+                                    </h4>
+
+                                    <div
+                                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                        <div>
+                                            <div class="form-group">
+                                                <label class="form-label">Nilai Keterampilan</label>
+                                                <input type="text" class="form-input"
+                                                    value="{{ $penilaianSiswa->nilai_keterampilan }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Nilai Kedisiplinan</label>
+                                                <input type="text" class="form-input"
+                                                    value="{{ $penilaianSiswa->nilai_kedisplinan }}" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="form-group">
+                                                <label class="form-label">Nilai Wawasan</label>
+                                                <input type="text" class="form-input"
+                                                    value="{{ $penilaianSiswa->nilai_wawasan }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Nilai Etika</label>
+                                                <input type="text" class="form-input"
+                                                    value="{{ $penilaianSiswa->nilai_etika }}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Penilaian</label>
+                                        <input type="text" class="form-input" value="15 november 2025" readonly>
+                                    </div>
+                                </div>
                             @endif
 
 
-                            <!-- Nilai Keseluruhan -->
-                            <div
-                                style="background: var(--bg-primary); border-radius: 1rem; border:1px solid var(--border-primary);padding: 1.5rem; margin-bottom: 1.5rem; text-align: center;">
-                                <h4 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Nilai Keseluruhan
-                                </h4>
-
-                                <div
-                                    style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-                                    <div>
-                                        <div
-                                            style="font-size: 2rem; font-weight: 800; color: var(--success-500); margin-bottom: 0.5rem;">
-                                            {{ $penilaianSiswa->nilai_akhir }}</div>
-                                        <p style="font-weight: 600;">Nilai Akhir</p>
-                                    </div>
-                                    <div>
-                                        <div
-                                            style="font-size: 2rem; font-weight: 800; color: var(--{{ getGrade($penilaianSiswa->nilai_akhir)['span'] }}-500); margin-bottom: 0.5rem;">
-                                            {{ getGrade($penilaianSiswa->nilai_akhir)['grade'] }}</div>
-                                        <p style="font-weight: 600;">Grade</p>
-                                    </div>
-                                </div>
-
-                                <span class="badge badge-success"
-                                    style="font-size: 0.875rem; padding: 0.5rem 1rem;">{{ getGrade($penilaianSiswa->nilai_akhir)['message'] }}</span>
-                            </div>
-
-                            <!-- Detail Penilaian -->
-                            <div>
-                                <h4 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem;">Detail Penilaian
-                                </h4>
-
-                                <div
-                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                                    <div>
-                                        <div class="form-group">
-                                            <label class="form-label">Nilai Keterampilan</label>
-                                            <input type="text" class="form-input"
-                                                value="{{ $penilaianSiswa->nilai_keterampilan }}" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Nilai Kedisiplinan</label>
-                                            <input type="text" class="form-input"
-                                                value="{{ $penilaianSiswa->nilai_kedisplinan }}" readonly>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div class="form-group">
-                                            <label class="form-label">Nilai Wawasan</label>
-                                            <input type="text" class="form-input"
-                                                value="{{ $penilaianSiswa->nilai_wawasan }}" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Nilai Etika</label>
-                                            <input type="text" class="form-input" value="{{ $penilaianSiswa->nilai_etika }}" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Penilaian</label>
-                                    <input type="text" class="form-input" value="15 november 2025" readonly>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
