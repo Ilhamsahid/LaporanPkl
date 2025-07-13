@@ -18,7 +18,9 @@ class SiswaController extends Controller
     }
 
     public function profil(){
-        return view('siswa.profil.index');
+        $siswa = Siswa::with('kelas')->where('id', Auth::user()->id)->first();
+
+        return view('siswa.profil.index', compact('siswa'));
     }
 
     /**
