@@ -23,7 +23,7 @@
                     <i class="fas fa-star bottom-nav-icon"></i>
                     <span>Nilai</span>
                 </a>
-                <a href="" class="bottom-nav-item {{ request()->is($role . '/profil') ? 'active' : '' }}"
+                <a href="{{ route('siswa.profil') }}" class="bottom-nav-item {{ request()->is($role . '/profil') ? 'active' : '' }}"
                     data-page="penilaian" style="text-decoration: none">
                     <i class="fas fa-user bottom-nav-icon"></i>
                     <span>Profil</span>

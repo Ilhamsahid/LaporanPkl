@@ -77,8 +77,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-            <a href="{{ route('pembimbing.profil') }}" style="text-decoration: none">
-                <div class="nav-link {{ request()->is('pembimbing/profil') ? 'active' : '' }}" data-page="profil">
+            <a href="{{ route('siswa.profil') }}" style="text-decoration: none">
+                <div class="nav-link {{ request()->is('siswa/profil') ? 'active' : '' }}" data-page="profil">
                     <i class="fas fa-user nav-icon"></i>
                     <span>Profil Saya</span>
                 </div>
