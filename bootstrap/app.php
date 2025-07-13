@@ -20,5 +20,6 @@ $app = Application::configure(basePath: dirname(__DIR__))
 
 // Tambahkan ini untuk load helper
 require_once app_path('Helpers\helpers.php');
+require_once app_path('Helpers\helpers_siswa.php');
 
 return $app->create();
