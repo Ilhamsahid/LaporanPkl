@@ -15,38 +15,23 @@ class Absensi extends Component
     protected $listeners = ['absenMasuk' => 'absenMasuk'];
 
     public function mount(){
+        $this->props = absenAutoIfExpired(now()->format('H:i:s'), AbsensiPkl::class, $this->props);
+
         $this->props = [
-            'masuk' => $this->defaultPropsHandleLogin([
+            'masuk' => defaultPropsHandleLogin([
                 'btn' => 'btn btn-primary',
                 'time' => '--:--',
                 'text' => '--text-secondary',
                 'icon' => '--text-secondary',
                 'access' => '',
-            ], 'masuk'),
-            'keluar' => $this->defaultPropsHandleLogin([
+            ], 'masuk', AbsensiPkl::class),
+            'keluar' => defaultPropsHandleLogin([
                 'btn' => 'btn btn-secondary',
                 'time' => '--:--',
                 'text' => '--text-secondary',
                 'icon' => '--text-secondary',
                 'access' => '',
-            ], 'keluar'),
-        ];
-    }
-
-    public function defaultPropsHandleLogin($props, $type){
-        $login = AbsensiPkl::with('siswa')
-            ->where('siswa_id', Auth::user()->id)
-            ->latest('tanggal')
-            ->first();
-        $islogin = $login->tanggal >= now()->format('Y-m-d');
-        $islogout = $login->jam_keluar;
-
-        return [
-            'btn' => !$islogin ? $props['btn'] : ($type == 'masuk' || $islogout ? 'btn btn-secondary' : 'btn btn-primary'),
-            'time' => !$islogin ? $props['time'] : ($type == 'masuk' || $islogout ? $login['jam_'.$type] : '--:--'),
-            'text' => !$islogin ? $props['text'] : ($type == 'masuk' || $islogout ? '--success-500' : '--text-secondary'),
-            'icon' => !$islogin ? $props['icon'] : ($type == 'masuk' || $islogout ? '--success-500' : '--text-secondary'),
-            'access' => !$islogin ? $props['access'] : ($type == 'masuk' || $islogout ? 'disabled' : 'active'),
+            ], 'keluar', AbsensiPkl::class),
         ];
     }
 
@@ -65,34 +50,21 @@ class Absensi extends Component
     }
 
     public function absenKeluar(){
-        $login = AbsensiPkl::with('siswa')
-            ->where('siswa_id', Auth::user()->id)
-            ->whereDate('tanggal', now())
-            ->first();
+        $login = getAbsensiBySiswaId(AbsensiPkl::class);
         $login->jam_keluar = now()->format('H:i:s');
         $login->save();
 
         $this->handleKeluar($login, 'keluar');
         $this->dispatch('post', type: 'success', message: 'Absen keluar sukses!');
     }
-    public function handleUI($btn, $type, $absensi){
-        $this->props[$btn] = [
-            'btn' => 'btn btn-secondary',
-            'time' => $type == 'hadir' || $type == 'keluar' ? $absensi : '--:--',
-            'text' => $type == 'hadir' || $type == 'keluar' ? '--success-500' : '--text-secondary',
-            'icon' => $type == 'hadir' || $type == 'keluar' ? '--success-500' : '--text-secondary',
-        ];
-
-        $this->props[$btn]['access'] = $type == 'keluar' ? '' : 'disabled';
-    }
 
     public function handleMasuk($absensi, $type){
-        $this->handleUI('masuk', $type, $absensi->jam_masuk);
+        $this->props = handleUI($this->props, 'masuk', $type, $absensi->jam_masuk);
         if($type == 'hadir'){
             $this->props['keluar']['btn'] = 'btn btn-primary';
             $this->props['keluar']['access'] = 'active';
 
-            if($this->isTerlambat($absensi->jam_masuk)){ 
+            if(isTerlambat($absensi->jam_masuk)){ 
                 $absensi->status = 'terlambat';
                 $absensi->save();
             }
@@ -104,11 +76,7 @@ class Absensi extends Component
     }
 
     public function handleKeluar($absensi, $type){
-        $this->handleUI('keluar', $type, $absensi->jam_keluar);
-    }
-
-    public function isTerlambat($jam){
-        return strtotime($jam) > strtotime('09:00') && strtotime($jam) < strtotime('17:00');
+        $this->props = handleUI($this->props, 'keluar', $type, $absensi->jam_keluar);
     }
 
     public function render()
