@@ -17,6 +17,10 @@ class SiswaController extends Controller
         return view('siswa.dashboard.index');
     }
 
+    public function profil(){
+        return view('siswa.profil.index');
+    }
+
     /**
      * Display a listing of the resource.
      */

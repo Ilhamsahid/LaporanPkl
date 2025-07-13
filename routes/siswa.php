@@ -17,5 +17,6 @@ Route::middleware('auth:siswa')->prefix('siswa')->name('siswa.')->group
     Route::resource('/laporan', LaporanPklController::class)->except(['show']);
     Route::resource('/absensi', AbsensiPklController::class)->except(['show']);
     Route::resource('/penilaian', PenilaianPklController::class)->except(['show']);
+    Route::get('/profil', [SiswaController::class, 'profil'])->name('profil');
 }
 );
